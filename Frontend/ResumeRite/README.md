@@ -1,4 +1,4 @@
-# ResumeXpress: Resume Builder Application 📑
+# ResumeRite: Resume Builder Application 📑
 
 This is a Resume Builder application built with React.js, Redux Toolkit, Material-UI (MUI), react-hook-form, and jsPDF. The application allows users to create their resumes through a multi-step form and preview them before downloading the final resume in PDF format.
 
@@ -12,12 +12,7 @@ This is a Resume Builder application built with React.js, Redux Toolkit, Materia
 - Form validation using react-hook-form.
 - PDF generation using jsPDF.
 
-## Installation 🚀
 
-1. Clone the repository: `https://github.com/Nitinpr1/ResumeXpress.git`
-2. Navigate into the project directory.
-3. Install dependencies: `npm install`
-4. Start the application: `npm run start`
 
 
 ## Usage 🚀
@@ -36,8 +31,6 @@ This is a Resume Builder application built with React.js, Redux Toolkit, Materia
 - react-hook-form
 - jsPDF
 
-![screenshot](https://github.com/Nitinpr1/ResumeXpress/blob/main/public/hero.png)
-![screenshot](https://github.com/Nitinpr1/ResumeXpress/blob/main/public/preview.png)
 
 
 
