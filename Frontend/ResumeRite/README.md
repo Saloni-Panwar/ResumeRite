@@ -13,11 +13,8 @@ This is a Resume Builder application built with React.js, Redux Toolkit, Materia
 - PDF generation using jsPDF.
 
 
-
-
 ## Usage 🚀
 
-1. Access the application through your browser at `http://localhost:3000`.
 2. Fill in the multi-step form with your resume details.
 3. Preview your resume.
 4. Download the resume in PDF format.

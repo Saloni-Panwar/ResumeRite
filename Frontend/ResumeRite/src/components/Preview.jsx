@@ -4,6 +4,7 @@ import Template2 from "../ResumeTemplates/Template2";
 import Template3 from "../ResumeTemplates/Template3";
 import Template4 from "../ResumeTemplates/Template4";
 import Template5 from "../ResumeTemplates/Template5";
+import Template6 from "../ResumeTemplates/Template6";
 import { TextField, Button } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import { useSelector } from "react-redux";
@@ -21,6 +22,8 @@ const Preview = ({ setOnFormSubmit }) => {
   const template3 = useSelector((state) => state.template3);
   const template4 = useSelector((state) => state.template4);
   const template5 = useSelector((state) => state.template5);
+  const template6 = useSelector((state) => state.template6);
+
 
   const [isDownloading, setDownloading] = useState(false);
 
@@ -75,6 +78,8 @@ const Preview = ({ setOnFormSubmit }) => {
         return <Template4 />;
         case template5:
           return <Template5 />;
+          case template6:
+            return <Template6 />;
       default:
         return "You have not selected any template !";
     }

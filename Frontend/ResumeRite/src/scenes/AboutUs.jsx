@@ -1,5 +1,5 @@
 import { Box, Link, Typography, useTheme, useMediaQuery } from "@mui/material";
-import aboutus from "../assets/aboutus.png";
+import aboutus from "../assets/aboutus.jpg";
 
 import { LinkedIn } from "@mui/icons-material";
 // import { ContactMail } from "@mui/icons-material";
