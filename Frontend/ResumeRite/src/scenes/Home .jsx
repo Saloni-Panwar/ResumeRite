@@ -229,7 +229,7 @@ const Home = () => {
         >
           <img
             src={theme.palette.mode === "light" ? image1 : image2}
-            width="100%"
+            width="70%"
             height="auto"
             alt="resume preview"
           />        </Box>
