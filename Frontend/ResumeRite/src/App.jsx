@@ -4,6 +4,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React from 'react';
 import Home from "./scenes/Home ";
 import MyResume from "./scenes/MyResume";
 import AboutUs from "./scenes/AboutUs";

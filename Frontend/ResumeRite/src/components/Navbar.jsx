@@ -12,6 +12,8 @@ import { Close, Menu, DarkMode, LightMode } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { setMode } from "../store";
 import { useDispatch } from "react-redux";
+import logo from "../assets/LOGO.png"
+
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -35,7 +37,17 @@ const Navbar = () => {
       p="1rem"
       backgroundColor={alt}
     >
-      <Box width="100%">
+       <Box   width={"100%"} onClick={() => navigate("/")}>
+        <img src={logo} alt="ResumeRite Logo" width="170" height="40" />
+        <Typography
+          color={primaryDark}
+          fontWeight="bold"
+          fontSize="clamp(1rem, 2rem, 1.5rem)"
+          sx={{ cursor: "pointer" }}
+        >
+        </Typography>
+      </Box>
+      {/* <Box width="100%">
         <Typography
           onClick={() => navigate("/")}
           color={primaryDark}
@@ -47,7 +59,7 @@ const Navbar = () => {
         >
           ResumeRite
         </Typography>
-      </Box>
+      </Box> */}
 
       {/* DESKTOP MENU */}
       {isNonMobileScreens ? (
