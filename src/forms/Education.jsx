@@ -23,6 +23,7 @@ const Education = ({ onNext, onPrevious }) => {
   // getting the data if there are data for education in the global state
   const education = useSelector((state) => state.education);
 
+  
   const { control, handleSubmit, getValues } = useForm({
     defaultValues: {
       // this data is from the global state

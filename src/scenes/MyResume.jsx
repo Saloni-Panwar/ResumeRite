@@ -16,7 +16,6 @@ const MyResume = () => {
   const istemplate5Selected = useSelector((state) => state.template5);
   const istemplate6Selected = useSelector((state) => state.template6);
 
-
   const navigate = useNavigate();
 
   // useState for final form submission
@@ -31,7 +30,7 @@ const MyResume = () => {
       istemplate4Selected ||
       istemplate5Selected ||
       istemplate6Selected
-
+ 
     ) {
       return false;
     }

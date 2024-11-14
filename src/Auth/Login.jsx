@@ -24,7 +24,7 @@ const LoginPage = () => {
       p="2rem"
     >
       <Typography variant="h4" color="primary" mb="2rem">
-        Login to ResumeRite
+        LOGIN
       </Typography>
       <Box component="form" onSubmit={handleLogin} maxWidth="400px" width="100%">
         {/* Email/Username Field */}

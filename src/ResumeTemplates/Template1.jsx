@@ -216,7 +216,7 @@ const Template1 = (props) => {
       {/* OBJECTIVE */}
       <Box m="1rem 0">
         <Typography
-          backgroundColor={light}
+          backgroundColor ={light}
           color={dark}
           fontSize="1.5rem"
           lineHeight="1.75rem"

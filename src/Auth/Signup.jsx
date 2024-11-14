@@ -21,7 +21,7 @@ const SignUpPage = () => {
       p="2rem"
     >
       <Typography variant="h4" color="primary" mb="2rem">
-        Sign Up for ResumeRite
+        SIGN UP
       </Typography>
       <Box component="form" onSubmit={handleSignUp} maxWidth="400px" width="100%">
         {/* Name Field */}
