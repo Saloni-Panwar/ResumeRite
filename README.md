@@ -1,3 +1,4 @@
+
 # ResumeRite: Resume Builder Application 📑
 
 This is a Resume Builder application built with React.js, Redux Toolkit, Material-UI (MUI), react-hook-form, and jsPDF. The application allows users to create their resumes through a multi-step form and preview them before downloading the final resume in PDF format.
@@ -27,7 +28,6 @@ This is a Resume Builder application built with React.js, Redux Toolkit, Materia
 - Material-UI (MUI)
 - react-hook-form
 - jsPDF
-
 
 
 
