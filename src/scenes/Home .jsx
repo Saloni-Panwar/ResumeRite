@@ -7,9 +7,8 @@ import {
   Divider,
 } from "@mui/material";
 
-// import hero from "../assets/hero.svg";
-import image1 from "../assets/resume.png";
-import image2 from "../assets/resume1.png";
+import image1 from "../assets/resume2.png";
+// import image2 from "../assets/resume1.png";
 
 
 import { template1, template2, template3, template4 ,template5,template6} from "../assets";
@@ -228,7 +227,7 @@ const Home = () => {
           alignItems="center"
         >
           <img
-            src={theme.palette.mode === "light" ? image1 : image2}
+            src={ image1}
             width="70%"
             height="auto"
             alt="resume preview"

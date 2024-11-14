@@ -30,7 +30,7 @@ const MyResume = () => {
       istemplate4Selected ||
       istemplate5Selected ||
       istemplate6Selected
-
+ 
     ) {
       return false;
     }

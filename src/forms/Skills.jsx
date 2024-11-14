@@ -71,4 +71,4 @@ const Skills = ({ onPrevious, setOnFormSubmit }) => {
   );
 };
 
-export default Skills;
+export default Skills; 
