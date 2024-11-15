@@ -24,7 +24,7 @@ const LoginPage = () => {
       p="2rem"
     >
       <Typography variant="h4" color="primary" mb="2rem">
-        Login to ResumeRite
+        LOGIN
       </Typography>
       <Box component="form" onSubmit={handleLogin} maxWidth="400px" width="100%">
         {/* Email/Username Field */}
@@ -35,6 +35,11 @@ const LoginPage = () => {
           type="text"
           margin="normal"
           required
+          InputLabelProps={{
+            required: true,
+            sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
+          }}
+        
         />
 
         {/* Password Field */}
@@ -45,6 +50,10 @@ const LoginPage = () => {
           type="password"
           margin="normal"
           required
+          InputLabelProps={{
+            required: true,
+            sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
+          }}
         />
 
         {/* Remember Me Checkbox */}
@@ -79,7 +88,7 @@ const LoginPage = () => {
           variant="body2"
           color="primary"
           sx={{ cursor: "pointer", mt: "1rem" }}
-          onClick={() => navigate("/signup")} // Navigate to the SignUpPage
+          onClick={() => navigate("/signup")}  // Navigate to the SignUpPage
         >
           Don't have an account? Sign up here.
         </Typography>

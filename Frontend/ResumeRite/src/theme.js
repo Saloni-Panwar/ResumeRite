@@ -3,7 +3,7 @@ import { template5 } from "./assets";
 // color design tokens export
 export const colorTokens = {
   grey: {
-    0: "#FFFFFF",
+    0: "#F5F5F5",
     10: "#F6F6F6",
     50: "#F0F0F0",
     100: "#E0E0E0",
@@ -24,7 +24,7 @@ export const colorTokens = {
     300: "#66E6FC",
     400: "#33DDEB",
     500: "#00D5DA",
-    600: "#ADD8E6", // Changed to soft blue
+    600: "#608BC1", // Changed to soft blue
     700: "#00D5BA",
     800: "#00D5AB",
     900: "#6A8EAE", // Soft blue dark

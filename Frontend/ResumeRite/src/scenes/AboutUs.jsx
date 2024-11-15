@@ -1,5 +1,5 @@
 import { Box, Link, Typography, useTheme, useMediaQuery } from "@mui/material";
-import aboutus from "../assets/aboutus.jpg";
+import aboutus from "../assets/aboutus.png";
 
 import { LinkedIn } from "@mui/icons-material";
 // import { ContactMail } from "@mui/icons-material";
@@ -56,7 +56,7 @@ const AboutUs = () => {
             maxWidth="200px"
           >
             <Link
-              href="https://www.linkedin.com/in/nitin-prajapati1/"
+              // href="https://www.linkedin.com/in//"
               sx={{ cursor: "pointer" }}
             >
               <LinkedIn />
