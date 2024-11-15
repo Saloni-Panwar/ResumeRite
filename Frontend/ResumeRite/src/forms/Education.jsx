@@ -23,7 +23,6 @@ const Education = ({ onNext, onPrevious }) => {
   // getting the data if there are data for education in the global state
   const education = useSelector((state) => state.education);
 
-  
   const { control, handleSubmit, getValues } = useForm({
     defaultValues: {
       // this data is from the global state
@@ -56,7 +55,16 @@ const Education = ({ onNext, onPrevious }) => {
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl fullWidth>
-          <InputLabel id="educationType">Education Type</InputLabel>
+          <InputLabel
+            id="educationType"
+            sx={{
+              "&.MuiInputLabel-root.Mui-required": {
+                color: "red", // Red color for required asterisk
+              },
+            }}
+          >
+            Education Type
+          </InputLabel>
           <Controller
             name="educationType"
             control={control}
@@ -66,16 +74,14 @@ const Education = ({ onNext, onPrevious }) => {
             render={({ field, fieldState }) => (
               <Select
                 id="educationType"
-                label="educationType"
+                label="Education Type"
                 {...field}
                 error={!!fieldState.error}
               >
                 <MenuItem value="Post Graduate">Post Graduate</MenuItem>
                 <MenuItem value="Graduate">Graduate</MenuItem>
                 <MenuItem value="Under Graduate">Under Graduate</MenuItem>
-                <MenuItem value="Higher Secondary-12th">
-                  Higher Secondary-12th
-                </MenuItem>
+                <MenuItem value="Higher Secondary-12th">Higher Secondary-12th</MenuItem>
                 <MenuItem value="Secondary School Certificate -10th">
                   Secondary School Certificate -10th
                 </MenuItem>
@@ -83,6 +89,7 @@ const Education = ({ onNext, onPrevious }) => {
             )}
           />
         </FormControl>
+        
         <Box
           display="flex"
           flexWrap="wrap"
@@ -93,24 +100,25 @@ const Education = ({ onNext, onPrevious }) => {
             name="university"
             control={control}
             rules={{
-              required: "required",
+              required: "Required",
               minLength: {
                 value: 4,
-                message: "should be at least 4 characters",
+                message: "Should be at least 4 characters",
               },
               maxLength: {
                 value: 50,
-                message: "should not be more than 50 characters",
+                message: "Should not be more than 50 characters",
               },
             }}
             render={({ field, fieldState }) => (
               <TextField
-                label="University"
-                {...field}
+              label={<span>University <span style={{ color: 'red' }}>*</span></span>}
+              {...field}
                 margin="normal"
                 fullWidth={isMobileScreen ? true : false}
                 error={!!fieldState.error}
                 helperText={fieldState.error?.message || ""}
+                
               />
             )}
           />
@@ -118,28 +126,30 @@ const Education = ({ onNext, onPrevious }) => {
             name="college"
             control={control}
             rules={{
-              required: "required",
+              required: "Required",
               minLength: {
                 value: 4,
-                message: "should be at least 4 characters",
+                message: "Should be at least 4 characters",
               },
               maxLength: {
                 value: 50,
-                message: "should not be more than 50 characters",
+                message: "Should not be more than 50 characters",
               },
             }}
             render={({ field, fieldState }) => (
               <TextField
-                label="College"
-                {...field}
+              label={<span>College <span style={{ color: 'red' }}>*</span></span>}
+              {...field}
                 margin="normal"
                 fullWidth={isMobileScreen ? true : false}
                 error={!!fieldState.error}
                 helperText={fieldState.error?.message || ""}
+                
               />
             )}
           />
         </Box>
+        
         <Box
           display="flex"
           flexWrap={isMobileScreen ? "wrap" : "nowrap"}
@@ -148,7 +158,16 @@ const Education = ({ onNext, onPrevious }) => {
           m="1rem 0"
         >
           <FormControl fullWidth>
-            <InputLabel id="startYear">Start Year</InputLabel>
+            <InputLabel
+              id="startYear"
+              sx={{
+                "&.MuiInputLabel-root.Mui-required": {
+                  color: "red", // Red color for required asterisk
+                },
+              }}
+            >
+              Start Year
+            </InputLabel>
             <Controller
               name="startYear"
               control={control}
@@ -158,7 +177,7 @@ const Education = ({ onNext, onPrevious }) => {
               render={({ field, fieldState }) => (
                 <Select
                   id="startYear"
-                  label="startYear"
+                  label="Start Year"
                   {...field}
                   error={!!fieldState.error}
                 >
@@ -176,8 +195,18 @@ const Education = ({ onNext, onPrevious }) => {
               )}
             />
           </FormControl>
+          
           <FormControl fullWidth>
-            <InputLabel id="endYear">End year</InputLabel>
+            <InputLabel
+              id="endYear"
+              sx={{
+                "&.MuiInputLabel-root.Mui-required": {
+                  color: "red", // Red color for required asterisk
+                },
+              }}
+            >
+              End Year
+            </InputLabel>
             <Controller
               name="endYear"
               control={control}
@@ -193,7 +222,7 @@ const Education = ({ onNext, onPrevious }) => {
               render={({ field, fieldState }) => (
                 <Select
                   id="endYear"
-                  label="endYear"
+                  label="End Year"
                   {...field}
                   error={!!fieldState.error}
                 >
@@ -212,20 +241,21 @@ const Education = ({ onNext, onPrevious }) => {
             />
           </FormControl>
         </Box>
+
         <Controller
           name="description"
           control={control}
           rules={{
-            required: "required",
+            required: "Required",
             minLength: {
               value: 50,
-              message: "should be at least 50 characters",
+              message: "Should be at least 50 characters",
             },
           }}
           render={({ field, fieldState }) => (
             <TextField
-              label="Description"
-              {...field}
+            label={<span>Description <span style={{ color: 'red' }}>*</span></span>}
+            {...field}
               margin="normal"
               fullWidth
               multiline
@@ -236,6 +266,7 @@ const Education = ({ onNext, onPrevious }) => {
             />
           )}
         />
+
         <Box display="flex" mt="1rem" gap="1rem" justifyContent="end">
           <Button size="large" variant="outlined" onClick={onPrevious}>
             Previous

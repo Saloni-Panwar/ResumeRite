@@ -32,6 +32,10 @@ const SignUpPage = () => {
           type="text"
           margin="normal"
           required
+          InputLabelProps={{
+            required: true,
+            sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
+          }}
         />
 
         {/* Email Field */}
@@ -42,6 +46,10 @@ const SignUpPage = () => {
           type="email"
           margin="normal"
           required
+          InputLabelProps={{
+            required: true,
+            sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
+          }}
         />
 
         {/* Password Field */}
@@ -52,6 +60,10 @@ const SignUpPage = () => {
           type="password"
           margin="normal"
           required
+          InputLabelProps={{
+            required: true,
+            sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
+          }}
         />
 
         {/* Confirm Password Field */}
@@ -62,6 +74,10 @@ const SignUpPage = () => {
           type="password"
           margin="normal"
           required
+          InputLabelProps={{
+            required: true,
+            sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
+          }}
         />
 
         {/* Sign Up Button */}

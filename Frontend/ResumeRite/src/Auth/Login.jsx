@@ -35,6 +35,10 @@ const LoginPage = () => {
           type="text"
           margin="normal"
           required
+          InputLabelProps={{
+            required: true,
+            sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
+          }}
         />
 
         {/* Password Field */}
@@ -45,6 +49,10 @@ const LoginPage = () => {
           type="password"
           margin="normal"
           required
+          InputLabelProps={{
+            required: true,
+            sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
+          }}
         />
 
         {/* Remember Me Checkbox */}

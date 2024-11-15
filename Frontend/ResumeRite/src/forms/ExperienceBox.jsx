@@ -48,8 +48,8 @@ const ExperienceBox = ({ control, index, getValues }) => {
           }}
           render={({ field, fieldState }) => (
             <TextField
-              label="Job Title"
-              {...field}
+            label={<span>Job Title<span style={{ color: 'red' }}>*</span></span>}
+            {...field}
               margin="normal"
               fullWidth={isMobileScreen ? true : false}
               error={!!fieldState.error}
@@ -74,8 +74,8 @@ const ExperienceBox = ({ control, index, getValues }) => {
           }}
           render={({ field, fieldState }) => (
             <TextField
-              label="Organization Name"
-              {...field}
+            label={<span>Organization Name<span style={{ color: 'red' }}>*</span></span>}
+            {...field}
               margin="normal"
               fullWidth={isMobileScreen ? true : false}
               error={!!fieldState.error}
@@ -173,8 +173,8 @@ const ExperienceBox = ({ control, index, getValues }) => {
           }}
           render={({ field, fieldState }) => (
             <TextField
-              label="Description"
-              {...field}
+            label={<span>Description <span style={{ color: 'red' }}>*</span></span>}
+            {...field}
               margin="normal"
               fullWidth
               multiline

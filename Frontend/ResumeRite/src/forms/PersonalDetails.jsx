@@ -80,8 +80,8 @@ const PersonalDetails = ({ onNext }) => {
             }}
             render={({ field, fieldState }) => (
               <TextField
-                label="First Name"
-                {...field}
+              label={<span>First Name <span style={{ color: 'red' }}>*</span></span>}
+              {...field}
                 margin="normal"
                 fullWidth={isMobileScreen ? true : false}
                 error={!!fieldState.error}
@@ -109,8 +109,8 @@ const PersonalDetails = ({ onNext }) => {
             }}
             render={({ field, fieldState }) => (
               <TextField
-                label="Last Name"
-                {...field}
+              label={<span>Last Name <span style={{ color: 'red' }}>*</span></span>}
+              {...field}
                 margin="normal"
                 fullWidth={isMobileScreen ? true : false}
                 error={!!fieldState.error}
@@ -137,8 +137,8 @@ const PersonalDetails = ({ onNext }) => {
             }}
             render={({ field, fieldState }) => (
               <TextField
-                label="Email"
-                {...field}
+              label={<span>Email <span style={{ color: 'red' }}>*</span></span>}
+              {...field}
                 margin="normal"
                 fullWidth={isMobileScreen ? true : false}
                 error={!!fieldState.error}
@@ -158,8 +158,8 @@ const PersonalDetails = ({ onNext }) => {
             }}
             render={({ field, fieldState }) => (
               <TextField
-                label="Contact No"
-                {...field}
+              label={<span>Contact No <span style={{ color: 'red' }}>*</span></span>}
+              {...field}
                 margin="normal"
                 fullWidth={isMobileScreen ? true : false}
                 error={!!fieldState.error}
@@ -184,7 +184,8 @@ const PersonalDetails = ({ onNext }) => {
           }}
           render={({ field, fieldState }) => (
             <TextField
-              label="Address"
+            label={<span>Address <span style={{ color: 'red' }}>*</span></span>}
+
               {...field}
               margin="normal"
               fullWidth
@@ -216,7 +217,8 @@ const PersonalDetails = ({ onNext }) => {
             }}
             render={({ field, fieldState }) => (
               <TextField
-                label="City"
+              label={<span>City <span style={{ color: 'red' }}>*</span></span>}
+
                 {...field}
                 margin="normal"
                 fullWidth={isMobileScreen ? true : false}
@@ -237,8 +239,8 @@ const PersonalDetails = ({ onNext }) => {
             }}
             render={({ field, fieldState }) => (
               <TextField
-                label="PinCode"
-                {...field}
+              label={<span>Pin code <span style={{ color: 'red' }}>*</span></span>}
+              {...field}
                 margin="normal"
                 fullWidth={isMobileScreen ? true : false}
                 error={!!fieldState.error}
@@ -263,8 +265,8 @@ const PersonalDetails = ({ onNext }) => {
           }}
           render={({ field, fieldState }) => (
             <TextField
-              label="Specialization"
-              {...field}
+            label={<span>Specialization<span style={{ color: 'red' }}>*</span></span>}
+            {...field}
               margin="normal"
               fullWidth
               placeholder="eg. 'Designer', 'Developer', 'Data Analyst'"
@@ -291,8 +293,8 @@ const PersonalDetails = ({ onNext }) => {
             }}
             render={({ field, fieldState }) => (
               <TextField
-                label="Objective"
-                {...field}
+              label={<span>Objective <span style={{ color: 'red' }}>*</span></span>}
+              {...field}
                 multiline
                 margin="normal"
                 placeholder="Write something about yourself..."

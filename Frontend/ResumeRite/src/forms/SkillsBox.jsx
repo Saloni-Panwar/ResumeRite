@@ -17,8 +17,8 @@ const SkillsBox = ({ control, index }) => {
       }}
       render={({ field, fieldState }) => (
         <TextField
-          label="Skill"
-          {...field}
+        label={<span>Skill <span style={{ color: 'red' }}>*</span></span>}
+        {...field}
           margin="normal"
           sx={{ marginRight: "1rem" }}
           fullWidth={isMobileScreen ? true : false}
