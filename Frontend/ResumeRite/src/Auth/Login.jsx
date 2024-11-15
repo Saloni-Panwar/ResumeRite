@@ -35,11 +35,6 @@ const LoginPage = () => {
           type="text"
           margin="normal"
           required
-          InputLabelProps={{
-            required: true,
-            sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
-          }}
-        
         />
 
         {/* Password Field */}
@@ -50,10 +45,6 @@ const LoginPage = () => {
           type="password"
           margin="normal"
           required
-          InputLabelProps={{
-            required: true,
-            sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
-          }}
         />
 
         {/* Remember Me Checkbox */}
@@ -88,7 +79,7 @@ const LoginPage = () => {
           variant="body2"
           color="primary"
           sx={{ cursor: "pointer", mt: "1rem" }}
-          onClick={() => navigate("/signup")}  // Navigate to the SignUpPage
+          onClick={() => navigate("/signup")} // Navigate to the SignUpPage
         >
           Don't have an account? Sign up here.
         </Typography>
