@@ -5,7 +5,7 @@ import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import React from 'react';
- import Home from "./scenes/Home ";
+import Home from "./scenes/Home ";
 import MyResume from "./scenes/MyResume";
 import AboutUs from "./scenes/AboutUs";
 import Navbar from "./components/Navbar";

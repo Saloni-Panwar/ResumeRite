@@ -96,4 +96,134 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default LoginPage; 
+
+
+
+// import { useState } from "react";
+// import { Box, Button, Checkbox, FormControlLabel, TextField, Typography } from "@mui/material";
+// import { useNavigate } from "react-router-dom";
+
+// const LoginPage = () => {
+//   const navigate = useNavigate();
+//   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
+
+//   const handleLogin = (event) => {
+//     event.preventDefault();
+//     // Simulate successful login logic
+//     const isValidUser = true; // Replace with real authentication logic
+
+//     if (isValidUser) {
+//       console.log("Login successful");
+//       setIsLoggedIn(true); // Set user as logged in
+//       navigate("/"); // Navigate to the home page
+//     } else {
+//       console.error("Login failed");
+//     }
+//   };
+
+//   const handleLogout = () => {
+//     setIsLoggedIn(false); // Set user as logged out
+//     navigate("/login"); // Navigate back to the login page
+//   };
+
+//   return (
+//     <Box
+//       display="flex"
+//       flexDirection="column"
+//       alignItems="center"
+//       justifyContent="center"
+//       height="100vh"
+//       p="2rem"
+//     >
+//       {isLoggedIn ? (
+//         <>
+//           <Typography variant="h4" color="primary" mb="2rem">
+//             Welcome Home!
+//           </Typography>
+//           <Button
+//             variant="contained"
+//             color="secondary"
+//             onClick={handleLogout} // Logout button
+//           >
+//             Logout
+//           </Button>
+//         </>
+//       ) : (
+//         <>
+//           <Typography variant="h4" color="primary" mb="2rem">
+//             LOGIN
+//           </Typography>
+//           <Box component="form" onSubmit={handleLogin} maxWidth="400px" width="100%">
+//             {/* Email/Username Field */}
+//             <TextField
+//               fullWidth
+//               variant="outlined"
+//               label="Email or Username"
+//               type="text"
+//               margin="normal"
+//               required
+//               InputLabelProps={{
+//                 required: true,
+//                 sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
+//               }}
+//             />
+
+//             {/* Password Field */}
+//             <TextField
+//               fullWidth
+//               variant="outlined"
+//               label="Password"
+//               type="password"
+//               margin="normal"
+//               required
+//               InputLabelProps={{
+//                 required: true,
+//                 sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
+//               }}
+//             />
+
+//             {/* Remember Me Checkbox */}
+//             <FormControlLabel
+//               control={<Checkbox color="primary" />}
+//               label="Remember me"
+//             />
+
+//             {/* Forgot Password Link */}
+//             <Typography
+//               variant="body2"
+//               color="primary"
+//               onClick={() => console.log("Navigate to forgot password page")}
+//               sx={{ cursor: "pointer", mt: "1rem" }}
+//             >
+//               Forgot Password?
+//             </Typography>
+
+//             {/* Login Button */}
+//             <Button
+//               type="submit"
+//               variant="contained"
+//               color="primary"
+//               fullWidth
+//               sx={{ marginTop: "1rem" }}
+//             >
+//               Login
+//             </Button>
+
+//             {/* Sign Up Link */}
+//             <Typography
+//               variant="body2"
+//               color="primary"
+//               sx={{ cursor: "pointer", mt: "1rem" }}
+//               onClick={() => navigate("/signup")} // Navigate to the SignUpPage
+//             >
+//               Don't have an account? Sign up here.
+//             </Typography>
+//           </Box>
+//         </>
+//       )}
+//     </Box>
+//   );
+// };
+
+// export default LoginPage;
