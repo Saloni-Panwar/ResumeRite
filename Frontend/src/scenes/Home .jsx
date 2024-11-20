@@ -10,8 +10,14 @@ import {
 import image1 from "../assets/resume2.png";
 // import image2 from "../assets/resume1.png";
 
-
-import { template1, template2, template3, template4 ,template5,template6} from "../assets";
+import {
+  template1,
+  template2,
+  template3,
+  template4,
+  template5,
+  template6,
+} from "../assets";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setTemplate1,
@@ -39,8 +45,6 @@ const Home = () => {
   const istemplate5Selected = useSelector((state) => state.template5);
   const istemplate6Selected = useSelector((state) => state.template6);
 
-
-
   //handling the onclick event for ever template
 
   const handleTemplate1 = () => {
@@ -54,9 +58,11 @@ const Home = () => {
     }
     if (istemplate4Selected) {
       dispatch(setTemplate4());
-    }if (istemplate5Selected) {
+    }
+    if (istemplate5Selected) {
       dispatch(setTemplate5());
-    }if (istemplate6Selected) {
+    }
+    if (istemplate6Selected) {
       dispatch(setTemplate6());
     }
 
@@ -75,16 +81,17 @@ const Home = () => {
     }
     if (istemplate4Selected) {
       dispatch(setTemplate4());
-    }if (istemplate5Selected) {
+    }
+    if (istemplate5Selected) {
       dispatch(setTemplate5());
-    }if (istemplate6Selected) {
+    }
+    if (istemplate6Selected) {
       dispatch(setTemplate6());
     }
 
     dispatch(setTemplate2());
     navigate("/myResume");
   };
-
 
   const handleTemplate3 = () => {
     //here we have to make sure that no template is selected other than template 3
@@ -98,16 +105,17 @@ const Home = () => {
 
     if (istemplate4Selected) {
       dispatch(setTemplate4());
-    }if (istemplate5Selected) {
+    }
+    if (istemplate5Selected) {
       dispatch(setTemplate5());
-    }if (istemplate6Selected) {
+    }
+    if (istemplate6Selected) {
       dispatch(setTemplate6());
     }
 
     dispatch(setTemplate3());
     navigate("/myResume");
   };
-
 
   const handleTemplate4 = () => {
     //here we have to make sure that no template is selected other than template 4
@@ -120,17 +128,17 @@ const Home = () => {
     }
     if (istemplate3Selected) {
       dispatch(setTemplate3());
-    }if (istemplate5Selected) {
+    }
+    if (istemplate5Selected) {
       dispatch(setTemplate5());
-    }if (istemplate6Selected) {
+    }
+    if (istemplate6Selected) {
       dispatch(setTemplate6());
     }
 
     dispatch(setTemplate4());
     navigate("/myResume");
   };
-
-
 
   const handleTemplate5 = () => {
     //here we have to make sure that no template is selected other than template 1
@@ -145,7 +153,8 @@ const Home = () => {
     }
     if (istemplate4Selected) {
       dispatch(setTemplate4());
-    } if (istemplate6Selected) {
+    }
+    if (istemplate6Selected) {
       dispatch(setTemplate6());
     }
 
@@ -166,14 +175,15 @@ const Home = () => {
     }
     if (istemplate4Selected) {
       dispatch(setTemplate4());
-    }if (istemplate5Selected) {
+    }
+    if (istemplate5Selected) {
       dispatch(setTemplate5());
     }
 
     dispatch(setTemplate6());
     navigate("/myResume");
   };
-  
+
   return (
     <Box
       sx={{
@@ -214,7 +224,9 @@ const Home = () => {
             </Typography>
 
             <Typography variant={isMobileScreen ? "p" : "h6"}>
-              Craft your future with tailor-made resumes that elevate your job search and transform your career journey
+              "Empowering professionals with sleek, customizable resumes that
+              stand out. Simplify your job search with ResumeRite – where
+              impactful design meets ease, helping you land your dream job."
             </Typography>
           </Box>
         </Box>
@@ -226,12 +238,8 @@ const Home = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <img
-            src={ image1}
-            width="70%"
-            height="auto"
-            alt="resume preview"
-          />        </Box>
+          <img src={image1} width="70%" height="auto" alt="resume preview" />{" "}
+        </Box>
       </Box>
       <Divider />
       {/* TEMPLATE SECTION */}
