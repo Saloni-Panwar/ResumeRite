@@ -1,24 +1,26 @@
-
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "@mui/material/styles";
 
 const SignUpPage = () => {
   const navigate = useNavigate(); // Initialize useNavigate
+  const theme = useTheme(); // Access the current theme
 
   const handleSignUp = (event) => {
     event.preventDefault();
     console.log("Sign-up form submitted");
-    // After successful sign-up, navigate to the home page
-    navigate("/");
+    navigate("/"); // Navigate to the home page after sign-up
   };
 
   return (
     <Box
       display="flex"
       height="100vh"
-      sx={{ backgroundColor: "#f5f5f5" }} // Light grey background
+      sx={{
+        backgroundColor: theme.palette.background.default, // Dynamic background
+        color: theme.palette.text.primary, // Dynamic text color
+      }}
     >
-<<<<<<< HEAD:Frontend/ResumeRite/src/Auth/Signup.jsx
       {/* Left Section */}
       <Box
         flex={1}
@@ -26,83 +28,22 @@ const SignUpPage = () => {
         flexDirection="column"
         alignItems="center"
         justifyContent="center"
-        sx={{ backgroundColor: "#608BC1", color: "#ffffff" }} // Blue background
+        sx={{
+          backgroundColor: theme.palette.primary.main, // Dynamic primary color
+          color: theme.palette.primary.contrastText, // Adjust text for contrast
+        }}
       >
-        <Typography variant="h4" fontWeight="bold" mb="1rem">
+        <Typography variant="h3" fontWeight="bold" mb="1rem">
           Welcome Back
         </Typography>
-=======
-      <Typography variant="h4" color="primary" mb="2rem">
-        SIGN UP
-      </Typography>
-      <Box component="form" onSubmit={handleSignUp} maxWidth="400px" width="100%">
-        {/* Name Field */}
-        <TextField
-          fullWidth
-          variant="outlined"
-          label="Full Name"
-          type="text"
-          margin="normal"
-          required
-          InputLabelProps={{
-            required: true,
-            sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
-          }}
-        />
-
-        {/* Email Field */}
-        <TextField
-          fullWidth
-          variant="outlined"
-          label="Email"
-          type="email"
-          margin="normal"
-          required
-          InputLabelProps={{
-            required: true,
-            sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
-          }}
-        />
-
-        {/* Password Field */}
-        <TextField
-          fullWidth
-          variant="outlined"
-          label="Password"
-          type="password"
-          margin="normal"
-          required
-          InputLabelProps={{
-            required: true,
-            sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
-          }}
-        />
-
-        {/* Confirm Password Field */}
-        <TextField
-          fullWidth
-          variant="outlined"
-          label="Confirm Password"
-          type="password"
-          margin="normal"
-          required
-          InputLabelProps={{
-            required: true,
-            sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
-          }}
-        />
-
-        {/* Sign Up Button */}
->>>>>>> origin/main:Frontend/src/Auth/Signup.jsx
         <Button
           variant="contained"
-          color="secondary"
           sx={{
-            backgroundColor: "#608BC1",
-            color: "#ffffff",
+            backgroundColor: theme.palette.primary.contrastText,
+            color: theme.palette.primary.main,
             fontWeight: "bold",
             "&:hover": {
-              backgroundColor: "#608BC1",
+              backgroundColor: theme.palette.background.alt,
             },
           }}
           onClick={() => navigate("/login")}
@@ -113,12 +54,16 @@ const SignUpPage = () => {
 
       {/* Right Section */}
       <Box
-        flex={3}
+        flex={2}
         display="flex"
         flexDirection="column"
         alignItems="center"
         justifyContent="center"
-        sx={{ backgroundColor: "#ffffff", padding: "2rem" }}
+        sx={{
+          backgroundColor: theme.palette.background.alt, // Dynamic alt background
+          padding: "2rem",
+          color: theme.palette.text.primary,
+        }}
       >
         <Typography variant="h4" color="primary" fontWeight="bold" mb="2rem">
           Create Account
@@ -133,8 +78,17 @@ const SignUpPage = () => {
             margin="normal"
             required
             InputLabelProps={{
-              required: true,
-              sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
+              style: { color: theme.palette.text.secondary },
+            }}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: theme.palette.neutral.medium,
+                },
+                "&:hover fieldset": {
+                  borderColor: theme.palette.primary.main,
+                },
+              },
             }}
           />
           {/* Last Name Field */}
@@ -146,8 +100,17 @@ const SignUpPage = () => {
             margin="normal"
             required
             InputLabelProps={{
-              required: true,
-              sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
+              style: { color: theme.palette.text.secondary },
+            }}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: theme.palette.neutral.medium,
+                },
+                "&:hover fieldset": {
+                  borderColor: theme.palette.primary.main,
+                },
+              },
             }}
           />
           {/* Email Field */}
@@ -159,8 +122,17 @@ const SignUpPage = () => {
             margin="normal"
             required
             InputLabelProps={{
-              required: true,
-              sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
+              style: { color: theme.palette.text.secondary },
+            }}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: theme.palette.neutral.medium,
+                },
+                "&:hover fieldset": {
+                  borderColor: theme.palette.primary.main,
+                },
+              },
             }}
           />
           {/* Password Field */}
@@ -172,8 +144,17 @@ const SignUpPage = () => {
             margin="normal"
             required
             InputLabelProps={{
-              required: true,
-              sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
+              style: { color: theme.palette.text.secondary },
+            }}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: theme.palette.neutral.medium,
+                },
+                "&:hover fieldset": {
+                  borderColor: theme.palette.primary.main,
+                },
+              },
             }}
           />
           {/* Sign Up Button */}
@@ -182,7 +163,7 @@ const SignUpPage = () => {
             variant="contained"
             color="primary"
             fullWidth
-            sx={{ marginTop: "1rem", backgroundColor: "#608BC1" }}
+            sx={{ marginTop: "1rem" }}
           >
             Sign Up
           </Button>
