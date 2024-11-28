@@ -1,8 +1,11 @@
+
 // import { Box, Button, Checkbox, FormControlLabel, TextField, Typography } from "@mui/material";
 // import { useNavigate } from "react-router-dom";
+// import { useTheme } from "@mui/material/styles";
 
 // const LoginPage = () => {
 //   const navigate = useNavigate();
+//   const theme = useTheme(); // Access the theme
 
 //   const handleLogin = (event) => {
 //     event.preventDefault();
@@ -16,7 +19,10 @@
 //       justifyContent="center"
 //       alignItems="center"
 //       height="100vh"
-//       sx={{ backgroundColor: "#f5f5f5" }} // Light grey background
+//       sx={{
+//         backgroundColor: theme.palette.background.default,
+//         color: theme.palette.neutral.main,
+//       }}
 //     >
 //       <Box
 //         display="flex"
@@ -25,6 +31,7 @@
 //         boxShadow="0 4px 10px rgba(0, 0, 0, 0.1)"
 //         borderRadius="8px"
 //         overflow="hidden"
+//         border={`3px solid ${theme.palette.neutral.light}`} // Added blue-gray border
 //       >
 //         {/* Login Section */}
 //         <Box
@@ -34,9 +41,14 @@
 //           flexDirection="column"
 //           justifyContent="center"
 //           alignItems="center"
-//           sx={{ backgroundColor: "#ffffff" }}
+//           sx={{ backgroundColor: theme.palette.background.alt }}
 //         >
-//           <Typography variant="h4" color="primary" fontWeight="bold" mb="2rem">
+//           <Typography
+//             variant="h4"
+//             fontWeight="bold"
+//             mb="2rem"
+//             sx={{ color: theme.palette.primary.main }}
+//           >
 //             Login to Your Account
 //           </Typography>
 //           <Box component="form" onSubmit={handleLogin} width="100%" maxWidth="400px">
@@ -48,6 +60,21 @@
 //               type="email"
 //               margin="normal"
 //               required
+              
+//               InputLabelProps={{
+//                 required: true,
+//                 sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
+//               }}
+//               sx={{
+//                 "& .MuiOutlinedInput-root": {
+//                   "& fieldset": {
+//                     borderColor: theme.palette.neutral.main,
+//                   },
+//                   "&:hover fieldset": {
+//                     borderColor: theme.palette.primary.main,
+//                   },
+//                 },
+//               }}
 //             />
 //             {/* Password Field */}
 //             <TextField
@@ -57,18 +84,35 @@
 //               type="password"
 //               margin="normal"
 //               required
+//               InputLabelProps={{
+//                 required: true,
+//                 sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
+//               }}
+//               sx={{
+//                 "& .MuiOutlinedInput-root": {
+//                   "& fieldset": {
+//                     borderColor: theme.palette.neutral.main,
+//                   },
+//                   "&:hover fieldset": {
+//                     borderColor: theme.palette.primary.main,
+//                   },
+//                 },
+//               }}
 //             />
 //             {/* Remember Me */}
 //             <FormControlLabel
-//               control={<Checkbox color="primary" />}
+//               control={<Checkbox sx={{ color: theme.palette.primary.main }} />}
 //               label="Remember me"
 //             />
 //             {/* Forgot Password */}
 //             <Typography
 //               variant="body2"
-//               color="primary"
 //               align="right"
-//               sx={{ cursor: "pointer", mt: "0.5rem" }}
+//               sx={{
+//                 cursor: "pointer",
+//                 mt: "0.5rem",
+//                 color: theme.palette.primary.main,
+//               }}
 //               onClick={() => console.log("Forgot Password")}
 //             >
 //               Forgot Password?
@@ -77,9 +121,15 @@
 //             <Button
 //               type="submit"
 //               variant="contained"
-//               color="primary"
 //               fullWidth
-//               sx={{ mt: "1rem" }}
+//               sx={{
+//                 mt: "1rem",
+//                 backgroundColor: theme.palette.primary.main,
+//                 color: theme.palette.background.default,
+//                 "&:hover": {
+//                   backgroundColor: theme.palette.primary.dark,
+//                 },
+//               }}
 //             >
 //               Sign In
 //             </Button>
@@ -94,21 +144,20 @@
 //           flexDirection="column"
 //           justifyContent="center"
 //           alignItems="center"
-//           sx={{ backgroundColor: "#e3f2fd" }} // Light blue background
+//           sx={{ backgroundColor: theme.palette.primary.light }}
 //         >
 //           <Typography variant="h5" color="textSecondary" mb="1rem">
 //             New Here?
 //           </Typography>
 //           <Button
 //             variant="outlined"
-//             color="primary"
 //             onClick={() => navigate("/signup")}
 //             sx={{
-//               borderColor: "#1976d2",
-//               color: "#1976d2",
+//               borderColor: theme.palette.primary.main,
+//               color: theme.palette.primary.main,
 //               ":hover": {
-//                 backgroundColor: "#1976d2",
-//                 color: "#ffffff",
+//                 backgroundColor: theme.palette.primary.main,
+//                 color: theme.palette.background.default,
 //               },
 //             }}
 //           >
@@ -125,15 +174,37 @@
 import { Box, Button, Checkbox, FormControlLabel, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
+import { useState } from "react";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const theme = useTheme(); // Access the theme
+  const theme = useTheme();
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  const handlePasswordChange = (event) => {
+    const value = event.target.value;
+    setPassword(value);
+
+    // Regex for password validation
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=!]).{8,}$/;
+    if (!passwordRegex.test(value)) {
+      setPasswordError(
+        "Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character."
+      );
+    } else {
+      setPasswordError(""); // Clear error if valid
+    }
+  };
 
   const handleLogin = (event) => {
     event.preventDefault();
-    console.log("Login form submitted");
-    navigate("/");
+    if (!passwordError) {
+      console.log("Login form submitted");
+      navigate("/");
+    } else {
+      console.log("Please correct the errors before submitting.");
+    }
   };
 
   return (
@@ -154,7 +225,7 @@ const LoginPage = () => {
         boxShadow="0 4px 10px rgba(0, 0, 0, 0.1)"
         borderRadius="8px"
         overflow="hidden"
-        border={`3px solid ${theme.palette.neutral.light}`} // Added blue-gray border
+        border={`3px solid ${theme.palette.neutral.light}`}
       >
         {/* Login Section */}
         <Box
@@ -184,7 +255,8 @@ const LoginPage = () => {
               margin="normal"
               required
               InputLabelProps={{
-                style: { color: theme.palette.neutral.main },
+                required: true,
+                sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
               }}
               sx={{
                 "& .MuiOutlinedInput-root": {
@@ -205,8 +277,13 @@ const LoginPage = () => {
               type="password"
               margin="normal"
               required
+              value={password}
+              onChange={handlePasswordChange}
+              error={Boolean(passwordError)}
+              helperText={passwordError}
               InputLabelProps={{
-                style: { color: theme.palette.neutral.main },
+                required: true,
+                sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
               }}
               sx={{
                 "& .MuiOutlinedInput-root": {

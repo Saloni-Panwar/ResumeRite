@@ -11,7 +11,7 @@ import image1 from "../assets/resume2.png";
 // import image2 from "../assets/resume1.png";
 
 
-import { template1, template2, template3, template4 ,template5,template6} from "../assets";
+import { template1, template2, template3, template4 ,template5,template6,template7,template8} from "../assets";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setTemplate1,
@@ -20,6 +20,8 @@ import {
   setTemplate4,
   setTemplate5,
   setTemplate6,
+  setTemplate7,
+  setTemplate8
 } from "../store";
 import { useNavigate } from "react-router-dom";
 
@@ -38,6 +40,8 @@ const Home = () => {
   const istemplate4Selected = useSelector((state) => state.template4);
   const istemplate5Selected = useSelector((state) => state.template5);
   const istemplate6Selected = useSelector((state) => state.template6);
+  const istemplate7Selected = useSelector((state) => state.template7);
+  const istemplate8Selected = useSelector((state) => state.template8);
 
 
 
@@ -58,6 +62,10 @@ const Home = () => {
       dispatch(setTemplate5());
     }if (istemplate6Selected) {
       dispatch(setTemplate6());
+    }if (istemplate7Selected) {
+      dispatch(setTemplate7());
+    }if (istemplate8Selected) {
+      dispatch(setTemplate8());
     }
 
     dispatch(setTemplate1());
@@ -79,6 +87,10 @@ const Home = () => {
       dispatch(setTemplate5());
     }if (istemplate6Selected) {
       dispatch(setTemplate6());
+    }if (istemplate7Selected) {
+      dispatch(setTemplate7());
+    }if (istemplate8Selected) {
+      dispatch(setTemplate8());
     }
 
     dispatch(setTemplate2());
@@ -102,6 +114,10 @@ const Home = () => {
       dispatch(setTemplate5());
     }if (istemplate6Selected) {
       dispatch(setTemplate6());
+    }if (istemplate7Selected) {
+      dispatch(setTemplate7());
+    }if (istemplate8Selected) {
+      dispatch(setTemplate8());
     }
 
     dispatch(setTemplate3());
@@ -124,6 +140,10 @@ const Home = () => {
       dispatch(setTemplate5());
     }if (istemplate6Selected) {
       dispatch(setTemplate6());
+    }if (istemplate7Selected) {
+      dispatch(setTemplate7());
+    }if (istemplate8Selected) {
+      dispatch(setTemplate8());
     }
 
     dispatch(setTemplate4());
@@ -147,6 +167,10 @@ const Home = () => {
       dispatch(setTemplate4());
     } if (istemplate6Selected) {
       dispatch(setTemplate6());
+    }if (istemplate7Selected) {
+      dispatch(setTemplate7());
+    }if (istemplate8Selected) {
+      dispatch(setTemplate8());
     }
 
     dispatch(setTemplate5());
@@ -168,12 +192,69 @@ const Home = () => {
       dispatch(setTemplate4());
     }if (istemplate5Selected) {
       dispatch(setTemplate5());
+    }if (istemplate7Selected) {
+      dispatch(setTemplate7());
+    }if (istemplate8Selected) {
+      dispatch(setTemplate8());
     }
 
     dispatch(setTemplate6());
     navigate("/myResume");
   };
   
+
+  const handleTemplate7 = () => {
+    //here we have to make sure that no template is selected other than template 1
+    if (istemplate1Selected) {
+      dispatch(setTemplate1());
+    }
+    if (istemplate2Selected) {
+      dispatch(setTemplate2());
+    }
+    if (istemplate3Selected) {
+      dispatch(setTemplate3());
+    }
+    if (istemplate4Selected) {
+      dispatch(setTemplate4());
+    }if (istemplate5Selected) {
+      dispatch(setTemplate5());
+    }if (istemplate6Selected) {
+      dispatch(setTemplate6());
+    }if (istemplate8Selected) {
+      dispatch(setTemplate8());
+    }
+
+    dispatch(setTemplate7());
+    navigate("/myResume");
+  };
+
+  
+  const handleTemplate8 = () => {
+    //here we have to make sure that no template is selected other than template 1
+    if (istemplate1Selected) {
+      dispatch(setTemplate1());
+    }
+    if (istemplate2Selected) {
+      dispatch(setTemplate2());
+    }
+    if (istemplate3Selected) {
+      dispatch(setTemplate3());
+    }
+    if (istemplate4Selected) {
+      dispatch(setTemplate4());
+    }if (istemplate5Selected) {
+      dispatch(setTemplate5());
+    }if (istemplate6Selected) {
+      dispatch(setTemplate6());
+    }if (istemplate7Selected) {
+      dispatch(setTemplate7());
+    }
+
+    dispatch(setTemplate8());
+    navigate("/myResume");
+  };
+
+
   return (
     <Box
       sx={{
@@ -214,8 +295,7 @@ const Home = () => {
             </Typography>
 
             <Typography variant={isMobileScreen ? "p" : "h6"}>
-              Craft your future with tailor-made resumes that elevate your job search and transform your career journey
-            </Typography>
+             Crafting professional resumes effortlessly, empowering your career journey with customizable templates and seamless user experience                       </Typography>
           </Box>
         </Box>
 
@@ -225,7 +305,7 @@ const Home = () => {
           display="flex"
           justifyContent="center"
           alignItems="center"
-        >
+          >
           <img
             src={ image1}
             width="70%"
@@ -331,6 +411,36 @@ const Home = () => {
                 variant="contained"
                 color="primary"
                 onClick={handleTemplate6}
+              >
+                Use Template
+              </Button>
+            </Box>
+          </Box>
+
+          <Box className="template">
+            <img width="100%" src={template7} alt="img" />
+            {/* <Template1 /> */}
+            <Box className="overlayStyles">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleTemplate7}
+              >
+                Use Template
+              </Button>
+            </Box>
+
+            
+
+          </Box>
+          <Box className="template">
+            <img width="100%" src={template8} alt="img" />
+            {/* <Template1 /> */}
+            <Box className="overlayStyles">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleTemplate8}
               >
                 Use Template
               </Button>

@@ -13,12 +13,9 @@ import Footer from "./components/Footer";
 import Login from "./Auth/Login";
 import SignUpPage from "./Auth/Signup";
 
-// Create a wrapper component for the Footer
 const FooterWrapper = () => {
   const location = useLocation();
-  const hideFooterPaths = ['/Login', '/signup'];
-  
-  
+  const hideFooterPaths = ['/login', '/signup'];
   return !hideFooterPaths.includes(location.pathname) ? <Footer /> : null;
 };
 
