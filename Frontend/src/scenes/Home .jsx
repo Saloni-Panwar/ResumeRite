@@ -7,17 +7,12 @@ import {
   Divider,
 } from "@mui/material";
 
-import image1 from "../assets/resume2.png";
-// import image2 from "../assets/resume1.png";
+// import hero from "../assets/hero.svg";
+import image1 from "../assets/resume.png";
+import image2 from "../assets/resume1.png";
 
-import {
-  template1,
-  template2,
-  template3,
-  template4,
-  template5,
-  template6,
-} from "../assets";
+
+import { template1, template2, template3, template4 ,template5} from "../assets";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setTemplate1,
@@ -25,7 +20,6 @@ import {
   setTemplate3,
   setTemplate4,
   setTemplate5,
-  setTemplate6,
 } from "../store";
 import { useNavigate } from "react-router-dom";
 
@@ -43,7 +37,7 @@ const Home = () => {
   const istemplate3Selected = useSelector((state) => state.template3);
   const istemplate4Selected = useSelector((state) => state.template4);
   const istemplate5Selected = useSelector((state) => state.template5);
-  const istemplate6Selected = useSelector((state) => state.template6);
+
 
   //handling the onclick event for ever template
 
@@ -61,6 +55,12 @@ const Home = () => {
     }
     if (istemplate5Selected) {
       dispatch(setTemplate5());
+    }if (istemplate6Selected) {
+      dispatch(setTemplate6());
+    }if (istemplate7Selected) {
+      dispatch(setTemplate7());
+    }if (istemplate8Selected) {
+      dispatch(setTemplate8());
     }
     if (istemplate6Selected) {
       dispatch(setTemplate6());
@@ -84,6 +84,12 @@ const Home = () => {
     }
     if (istemplate5Selected) {
       dispatch(setTemplate5());
+    }if (istemplate6Selected) {
+      dispatch(setTemplate6());
+    }if (istemplate7Selected) {
+      dispatch(setTemplate7());
+    }if (istemplate8Selected) {
+      dispatch(setTemplate8());
     }
     if (istemplate6Selected) {
       dispatch(setTemplate6());
@@ -108,6 +114,12 @@ const Home = () => {
     }
     if (istemplate5Selected) {
       dispatch(setTemplate5());
+    }if (istemplate6Selected) {
+      dispatch(setTemplate6());
+    }if (istemplate7Selected) {
+      dispatch(setTemplate7());
+    }if (istemplate8Selected) {
+      dispatch(setTemplate8());
     }
     if (istemplate6Selected) {
       dispatch(setTemplate6());
@@ -131,6 +143,12 @@ const Home = () => {
     }
     if (istemplate5Selected) {
       dispatch(setTemplate5());
+    }if (istemplate6Selected) {
+      dispatch(setTemplate6());
+    }if (istemplate7Selected) {
+      dispatch(setTemplate7());
+    }if (istemplate8Selected) {
+      dispatch(setTemplate8());
     }
     if (istemplate6Selected) {
       dispatch(setTemplate6());
@@ -153,6 +171,12 @@ const Home = () => {
     }
     if (istemplate4Selected) {
       dispatch(setTemplate4());
+    } if (istemplate6Selected) {
+      dispatch(setTemplate6());
+    }if (istemplate7Selected) {
+      dispatch(setTemplate7());
+    }if (istemplate8Selected) {
+      dispatch(setTemplate8());
     }
     if (istemplate6Selected) {
       dispatch(setTemplate6());
@@ -161,29 +185,7 @@ const Home = () => {
     dispatch(setTemplate5());
     navigate("/myResume");
   };
-
-  const handleTemplate6 = () => {
-    //here we have to make sure that no template is selected other than template 1
-    if (istemplate1Selected) {
-      dispatch(setTemplate1());
-    }
-    if (istemplate2Selected) {
-      dispatch(setTemplate2());
-    }
-    if (istemplate3Selected) {
-      dispatch(setTemplate3());
-    }
-    if (istemplate4Selected) {
-      dispatch(setTemplate4());
-    }
-    if (istemplate5Selected) {
-      dispatch(setTemplate5());
-    }
-
-    dispatch(setTemplate6());
-    navigate("/myResume");
-  };
-
+  
   return (
     <Box
       sx={{
@@ -224,9 +226,7 @@ const Home = () => {
             </Typography>
 
             <Typography variant={isMobileScreen ? "p" : "h6"}>
-              "Empowering professionals with sleek, customizable resumes that
-              stand out. Simplify your job search with ResumeRite – where
-              impactful design meets ease, helping you land your dream job."
+              Craft your future with tailor-made resumes that elevate your job search and transform your career journey
             </Typography>
           </Box>
         </Box>
@@ -238,8 +238,12 @@ const Home = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <img src={image1} width="70%" height="auto" alt="resume preview" />{" "}
-        </Box>
+          <img
+            src={theme.palette.mode === "light" ? image1 : image2}
+            width="100%"
+            height="auto"
+            alt="resume preview"
+          />        </Box>
       </Box>
       <Divider />
       {/* TEMPLATE SECTION */}
@@ -325,20 +329,6 @@ const Home = () => {
                 variant="contained"
                 color="primary"
                 onClick={handleTemplate5}
-              >
-                Use Template
-              </Button>
-            </Box>
-          </Box>
-
-          <Box className="template">
-            <img width="100%" src={template6} alt="img" />
-            {/* <Template5 /> */}
-            <Box className="overlayStyles">
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleTemplate6}
               >
                 Use Template
               </Button>

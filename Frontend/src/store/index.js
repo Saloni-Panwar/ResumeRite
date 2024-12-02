@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Template7 from "../ResumeTemplates/Template7";
 
 // defining the initial states
 const initialState = {
@@ -7,6 +8,10 @@ const initialState = {
   template2: false,
   template3: false,
   template4: false,
+  template5: false,
+  template6: false,
+  template7: false, 
+  template8:false,  
   personalInfo: {},
   workExperiences: {},
   education: {},
@@ -36,9 +41,6 @@ export const stateSlice = createSlice({
     setTemplate5: (state) => {
       state.template5 = !state.template5;
     },
-    setTemplate6: (state) => {
-      state.template6 = !state.template6;
-    },
     setPersonalInfo: (state, action) => {
       state.personalInfo = action.payload;
     },
@@ -61,7 +63,6 @@ export const {
   setTemplate3,
   setTemplate4,
   setTemplate5,
-  setTemplate6,
   setPersonalInfo,
   setEducation,
   setKeySkills,

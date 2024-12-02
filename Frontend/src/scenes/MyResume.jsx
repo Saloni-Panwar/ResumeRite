@@ -14,7 +14,6 @@ const MyResume = () => {
   const istemplate3Selected = useSelector((state) => state.template3);
   const istemplate4Selected = useSelector((state) => state.template4);
   const istemplate5Selected = useSelector((state) => state.template5);
-  const istemplate6Selected = useSelector((state) => state.template6);
 
   const navigate = useNavigate();
 
@@ -28,9 +27,7 @@ const MyResume = () => {
       istemplate2Selected ||
       istemplate3Selected ||
       istemplate4Selected ||
-      istemplate5Selected ||
-      istemplate6Selected
- 
+      istemplate5Selected
     ) {
       return false;
     }
