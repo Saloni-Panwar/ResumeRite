@@ -12,10 +12,11 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Login from "./Auth/Login";
 import SignUpPage from "./Auth/Signup";
+import EmailVerified from "./components/Emailverification";
 
 const FooterWrapper = () => {
   const location = useLocation();
-  const hideFooterPaths = ['/login', '/signup'];
+  const hideFooterPaths = ['/Login', '/signup'];
   return !hideFooterPaths.includes(location.pathname) ? <Footer /> : null;
 };
 
@@ -35,6 +36,7 @@ function App() {
             <Route path="/aboutUs" element={<AboutUs />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/email-verified" element={<EmailVerified />} />
           </Routes>
           <FooterWrapper />
         </ThemeProvider>
