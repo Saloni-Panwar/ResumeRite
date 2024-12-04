@@ -8,8 +8,6 @@ import {
 } from "@mui/material";
 
 import image1 from "../assets/resume2.png";
-// import image2 from "../assets/resume1.png";
-
 import {
   template1,
   template2,
@@ -17,10 +15,9 @@ import {
   template4,
   template5,
   template6,
+  template7,
+  template8,
 } from "../assets";
-
-import { template1, template2, template3, template4 ,template5,template6,template7,template8} from "../assets";
-
 import { useDispatch, useSelector } from "react-redux";
 import {
   setTemplate1,
@@ -30,7 +27,7 @@ import {
   setTemplate5,
   setTemplate6,
   setTemplate7,
-  setTemplate8
+  setTemplate8,
 } from "../store";
 import { useNavigate } from "react-router-dom";
 
@@ -41,235 +38,37 @@ const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  //getting the templates status form state
+  const templateActions = [
+    { isSelected: useSelector((state) => state.template1), setAction: setTemplate1 },
+    { isSelected: useSelector((state) => state.template2), setAction: setTemplate2 },
+    { isSelected: useSelector((state) => state.template3), setAction: setTemplate3 },
+    { isSelected: useSelector((state) => state.template4), setAction: setTemplate4 },
+    { isSelected: useSelector((state) => state.template5), setAction: setTemplate5 },
+    { isSelected: useSelector((state) => state.template6), setAction: setTemplate6 },
+    { isSelected: useSelector((state) => state.template7), setAction: setTemplate7 },
+    { isSelected: useSelector((state) => state.template8), setAction: setTemplate8 },
+  ];
 
-  const istemplate1Selected = useSelector((state) => state.template1);
-  const istemplate2Selected = useSelector((state) => state.template2);
-  const istemplate3Selected = useSelector((state) => state.template3);
-  const istemplate4Selected = useSelector((state) => state.template4);
-  const istemplate5Selected = useSelector((state) => state.template5);
-  const istemplate6Selected = useSelector((state) => state.template6);
-  const istemplate7Selected = useSelector((state) => state.template7);
-  const istemplate8Selected = useSelector((state) => state.template8);
-
-  //handling the onclick event for ever template
-
-  const handleTemplate1 = () => {
-    //here we have to make sure that no template is selected other than template 1
-
-    if (istemplate2Selected) {
-      dispatch(setTemplate2());
-    }
-    if (istemplate3Selected) {
-      dispatch(setTemplate3());
-    }
-    if (istemplate4Selected) {
-      dispatch(setTemplate4());
-    }
-    if (istemplate5Selected) {
-      dispatch(setTemplate5());
-    }
-    if (istemplate6Selected) {
-      dispatch(setTemplate6());
-    }if (istemplate7Selected) {
-      dispatch(setTemplate7());
-    }if (istemplate8Selected) {
-      dispatch(setTemplate8());
-    }
-
-    dispatch(setTemplate1());
+  const handleTemplateSelect = (index) => {
+    templateActions.forEach((action, i) => {
+      if (i !== index && action.isSelected) {
+        dispatch(action.setAction());
+      }
+    });
+    dispatch(templateActions[index].setAction());
     navigate("/myResume");
   };
 
-  const handleTemplate2 = () => {
-    //here we have to make sure that no template is selected other than template 2
-
-    if (istemplate1Selected) {
-      dispatch(setTemplate1());
-    }
-    if (istemplate3Selected) {
-      dispatch(setTemplate3());
-    }
-    if (istemplate4Selected) {
-      dispatch(setTemplate4());
-    }
-    if (istemplate5Selected) {
-      dispatch(setTemplate5());
-    }
-    if (istemplate6Selected) {
-      dispatch(setTemplate6());
-    }if (istemplate7Selected) {
-      dispatch(setTemplate7());
-    }if (istemplate8Selected) {
-      dispatch(setTemplate8());
-    }
-
-    dispatch(setTemplate2());
-    navigate("/myResume");
-  };
-
-  const handleTemplate3 = () => {
-    //here we have to make sure that no template is selected other than template 3
-
-    if (istemplate1Selected) {
-      dispatch(setTemplate1());
-    }
-    if (istemplate2Selected) {
-      dispatch(setTemplate2());
-    }
-
-    if (istemplate4Selected) {
-      dispatch(setTemplate4());
-    }
-    if (istemplate5Selected) {
-      dispatch(setTemplate5());
-    }
-    if (istemplate6Selected) {
-      dispatch(setTemplate6());
-    }if (istemplate7Selected) {
-      dispatch(setTemplate7());
-    }if (istemplate8Selected) {
-      dispatch(setTemplate8());
-    }
-
-    dispatch(setTemplate3());
-    navigate("/myResume");
-  };
-
-  const handleTemplate4 = () => {
-    //here we have to make sure that no template is selected other than template 4
-
-    if (istemplate1Selected) {
-      dispatch(setTemplate1());
-    }
-    if (istemplate2Selected) {
-      dispatch(setTemplate2());
-    }
-    if (istemplate3Selected) {
-      dispatch(setTemplate3());
-    }
-    if (istemplate5Selected) {
-      dispatch(setTemplate5());
-    }
-    if (istemplate6Selected) {
-      dispatch(setTemplate6());
-    }if (istemplate7Selected) {
-      dispatch(setTemplate7());
-    }if (istemplate8Selected) {
-      dispatch(setTemplate8());
-    }
-
-    dispatch(setTemplate4());
-    navigate("/myResume");
-  };
-
-  const handleTemplate5 = () => {
-    //here we have to make sure that no template is selected other than template 1
-    if (istemplate1Selected) {
-      dispatch(setTemplate1());
-    }
-    if (istemplate2Selected) {
-      dispatch(setTemplate2());
-    }
-    if (istemplate3Selected) {
-      dispatch(setTemplate3());
-    }
-    if (istemplate4Selected) {
-      dispatch(setTemplate4());
-    }
-    if (istemplate6Selected) {
-      dispatch(setTemplate6());
-    }if (istemplate7Selected) {
-      dispatch(setTemplate7());
-    }if (istemplate8Selected) {
-      dispatch(setTemplate8());
-    }
-
-    dispatch(setTemplate5());
-    navigate("/myResume");
-  };
-
-  const handleTemplate6 = () => {
-    //here we have to make sure that no template is selected other than template 1
-    if (istemplate1Selected) {
-      dispatch(setTemplate1());
-    }
-    if (istemplate2Selected) {
-      dispatch(setTemplate2());
-    }
-    if (istemplate3Selected) {
-      dispatch(setTemplate3());
-    }
-    if (istemplate4Selected) {
-      dispatch(setTemplate4());
-    }
-    if (istemplate5Selected) {
-      dispatch(setTemplate5());
-    }if (istemplate7Selected) {
-      dispatch(setTemplate7());
-    }if (istemplate8Selected) {
-      dispatch(setTemplate8());
-    }
-
-    dispatch(setTemplate6());
-    navigate("/myResume");
-  };
-
-
-  
-
-  const handleTemplate7 = () => {
-    //here we have to make sure that no template is selected other than template 1
-    if (istemplate1Selected) {
-      dispatch(setTemplate1());
-    }
-    if (istemplate2Selected) {
-      dispatch(setTemplate2());
-    }
-    if (istemplate3Selected) {
-      dispatch(setTemplate3());
-    }
-    if (istemplate4Selected) {
-      dispatch(setTemplate4());
-    }if (istemplate5Selected) {
-      dispatch(setTemplate5());
-    }if (istemplate6Selected) {
-      dispatch(setTemplate6());
-    }if (istemplate8Selected) {
-      dispatch(setTemplate8());
-    }
-
-    dispatch(setTemplate7());
-    navigate("/myResume");
-  };
-
-  
-  const handleTemplate8 = () => {
-    //here we have to make sure that no template is selected other than template 1
-    if (istemplate1Selected) {
-      dispatch(setTemplate1());
-    }
-    if (istemplate2Selected) {
-      dispatch(setTemplate2());
-    }
-    if (istemplate3Selected) {
-      dispatch(setTemplate3());
-    }
-    if (istemplate4Selected) {
-      dispatch(setTemplate4());
-    }if (istemplate5Selected) {
-      dispatch(setTemplate5());
-    }if (istemplate6Selected) {
-      dispatch(setTemplate6());
-    }if (istemplate7Selected) {
-      dispatch(setTemplate7());
-    }
-
-    dispatch(setTemplate8());
-    navigate("/myResume");
-  };
-
-
+  const templates = [
+    template1,
+    template2,
+    template3,
+    template4,
+    template5,
+    template6,
+    template7,
+    template8,
+  ];
   return (
     <Box
       sx={{
@@ -297,7 +96,6 @@ const Home = () => {
             mb="0.5rem"
             variant={isMobileScreen ? "h4" : "h3"}
           >
-            {/* Crafting Careers, */}
             Stand Out, Get Hired
           </Typography>
           <Box p="0 0.5rem">
@@ -308,15 +106,9 @@ const Home = () => {
             >
               Craft Your Future, One Resume at a Time
             </Typography>
-
             <Typography variant={isMobileScreen ? "p" : "h6"}>
-
-              "Empowering professionals with sleek, customizable resumes that
-              stand out. Simplify your job search with ResumeRite – where
-              impactful design meets ease, helping you land your dream job."
+              Crafting professional resumes effortlessly, empowering your career journey with customizable templates and seamless user experience.
             </Typography>
-
-
           </Box>
         </Box>
 
@@ -326,19 +118,9 @@ const Home = () => {
           display="flex"
           justifyContent="center"
           alignItems="center"
-
         >
-          <img src={image1} width="70%" height="auto" alt="resume preview" />{" "}
+          <img src={image1} width="70%" height="auto" alt="resume preview" />
         </Box>
-
-          >
-          <img
-            src={ image1}
-            width="70%"
-            height="auto"
-            alt="resume preview"
-          />        </Box>
-
       </Box>
       <Divider />
       {/* TEMPLATE SECTION */}
@@ -349,130 +131,58 @@ const Home = () => {
           mb="2rem"
           textAlign="center"
         >
-          Select one of the Template and Build your Resume !
+          Select one of the Templates and Build your Resume!
         </Typography>
         <Box
           display="grid"
           gridTemplateColumns="repeat(auto-fit, minmax(280px, 1fr))"
           gap="1rem"
           width="100%"
-          maxWidth={{
-            xs: "100%",
-            sm: "fit-content",
-            md: "fit-content",
-            lg: "fit-content",
+        >
+          {templates.map((template, index) => (
+          <Box
+          key={index}
+          className="template"
+          sx={{
+            position: "relative",
+            width: "100%",
+            height: "300px", // Set consistent height for all templates
+            border: "1px solid #ddd",
+            borderRadius: "8px",
+            overflow: "hidden",
+            "& img": {
+              width: "110%",
+              height: "100%",
+              objectFit:"fill",
+            },
           }}
         >
-          <Box className="template">
-            <img width="100%" src={template1} alt="img" />
-            {/* <Template1 /> */}
-            <Box className="overlayStyles">
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleTemplate1}
-              >
-                Use Template
-              </Button>
-            </Box>
+          <img src={template} alt={`template ${index + 1}`} />
+          <Box
+            className="overlayStyles"
+            sx={{
+              display: "flex", // Always display the overlay
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent background
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+           <Button
+          variant="contained"
+          color="primary"
+          onClick={() => handleTemplateSelect(index)}
+        
+        >
+          Use Template
+        </Button>
           </Box>
-          <Box className="template">
-            <img width="100%" src={template2} alt="img" />
-            {/* <Template2 /> */}
-            <Box className="overlayStyles">
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleTemplate2}
-              >
-                Use Template
-              </Button>
-            </Box>
-          </Box>
-          <Box className="template">
-            <img width="100%" src={template3} alt="img" />
-            {/* <Template3 /> */}
-            <Box className="overlayStyles">
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleTemplate3}
-              >
-                Use Template
-              </Button>
-            </Box>
-          </Box>
-          <Box className="template">
-            <img width="100%" src={template4} alt="img" />
-            {/* <Template4 /> */}
-            <Box className="overlayStyles">
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleTemplate4}
-              >
-                Use Template
-              </Button>
-            </Box>
-          </Box>
-
-          <Box className="template">
-            <img width="100%" src={template5} alt="img" />
-            {/* <Template5 /> */}
-            <Box className="overlayStyles">
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleTemplate5}
-              >
-                Use Template
-              </Button>
-            </Box>
-          </Box>
-
-          <Box className="template">
-            <img width="100%" src={template6} alt="img" />
-            {/* <Template5 /> */}
-            <Box className="overlayStyles">
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleTemplate6}
-              >
-                Use Template
-              </Button>
-            </Box>
-          </Box>
-
-          <Box className="template">
-            <img width="100%" src={template7} alt="img" />
-            {/* <Template1 /> */}
-            <Box className="overlayStyles">
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleTemplate7}
-              >
-                Use Template
-              </Button>
-            </Box>
-
-            
-
-          </Box>
-          <Box className="template">
-            <img width="100%" src={template8} alt="img" />
-            {/* <Template1 /> */}
-            <Box className="overlayStyles">
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleTemplate8}
-              >
-                Use Template
-              </Button>
-            </Box>
-          </Box>
+        </Box>
+          ))}
         </Box>
       </Box>
     </Box>
