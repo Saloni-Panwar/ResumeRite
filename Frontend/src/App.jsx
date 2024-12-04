@@ -13,6 +13,11 @@ import Footer from "./components/Footer";
 import Login from "./Auth/Login";
 import SignUpPage from "./Auth/Signup";
 
+const FooterWrapper = () => {
+  const location = useLocation();
+  const hideFooterPaths = ['/login', '/signup'];
+  return !hideFooterPaths.includes(location.pathname) ? <Footer /> : null;
+};
 
 function App() {
   const mode = useSelector((state) => state.mode);

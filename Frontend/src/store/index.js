@@ -41,6 +41,15 @@ export const stateSlice = createSlice({
     setTemplate5: (state) => {
       state.template5 = !state.template5;
     },
+    setTemplate6: (state) => {
+      state.template6 = !state.template6;
+    },
+    setTemplate7: (state) => {
+      state.template7 = !state.template7;
+    },
+    setTemplate8: (state) => {
+      state.template8 = !state.template8;
+    },
     setPersonalInfo: (state, action) => {
       state.personalInfo = action.payload;
     },
@@ -63,6 +72,9 @@ export const {
   setTemplate3,
   setTemplate4,
   setTemplate5,
+  setTemplate6,
+  setTemplate7,
+  setTemplate8,
   setPersonalInfo,
   setEducation,
   setKeySkills,

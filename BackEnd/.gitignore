@@ -1,1 +1,18 @@
+<<<<<<< HEAD
 node_modules/
+=======
+# Node.js
+node_modules/
+.env
+
+# Logs
+*.log
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# IDE configurations
+.vscode/
+.idea/
+>>>>>>> 27a722b1c3699eec6b2a721711e7eb887d104b94

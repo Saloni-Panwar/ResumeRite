@@ -1,3 +1,4 @@
+
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Tabbar from "../components/Tabbar";
 import { useSelector } from "react-redux";
@@ -14,6 +15,10 @@ const MyResume = () => {
   const istemplate3Selected = useSelector((state) => state.template3);
   const istemplate4Selected = useSelector((state) => state.template4);
   const istemplate5Selected = useSelector((state) => state.template5);
+  const istemplate6Selected = useSelector((state) => state.template6);
+  const istemplate7Selected = useSelector((state) => state.template7);
+  const istemplate8Selected = useSelector((state) => state.template8);
+
 
   const navigate = useNavigate();
 
@@ -27,7 +32,11 @@ const MyResume = () => {
       istemplate2Selected ||
       istemplate3Selected ||
       istemplate4Selected ||
-      istemplate5Selected
+      istemplate5Selected ||
+      istemplate6Selected ||
+      istemplate7Selected ||
+      istemplate8Selected
+ 
     ) {
       return false;
     }
