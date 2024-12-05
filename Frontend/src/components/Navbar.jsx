@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {
   Box,
-  Typography,
+  // Typography,
   useMediaQuery,
   MenuItem,
   IconButton,
@@ -20,7 +20,7 @@ const Navbar = () => {
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const dispatch = useDispatch();
   const theme = useTheme();
-  const dark = theme.palette.neutral.dark;
+  // const dark = theme.palette.neutral.dark;
   const background = theme.palette.background.default;
   const primaryMain = theme.palette.primary.main;
 
@@ -52,14 +52,26 @@ const Navbar = () => {
           <MenuItem onClick={() => navigate("/aboutUs")} sx={{ color: primaryMain }}>
             About Us
           </MenuItem>
-          <Button variant="outlined" color="primary" onClick={() => navigate("/Login")}>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => navigate("/Login")}
+            sx={{
+              borderColor: 'white',
+              // color: 'white',        
+              '&:hover': {
+                // borderColor: 'white',  
+                // backgroundColor: 'rgba(255, 255, 255, 0.1)', 
+              }
+            }}
+          >
             Login
           </Button>
           <IconButton onClick={() => dispatch(setMode())}>
             {theme.palette.mode === "dark" ? (
               <DarkMode sx={{ fontSize: "25px", color: "#fff" }} />
             ) : (
-              <LightMode sx={{ fontSize: "25px", color: dark }} />
+              <LightMode sx={{ fontSize: "25px", color: "white" }} /> // Set color to white for light mode
             )}
           </IconButton>
         </Box>
@@ -107,7 +119,7 @@ const Navbar = () => {
             {theme.palette.mode === "dark" ? (
               <DarkMode sx={{ fontSize: "25px" }} />
             ) : (
-              <LightMode sx={{ fontSize: "25px", color: dark }} />
+              <LightMode sx={{ fontSize: "25px", color: "white" }} />
             )}
           </IconButton>
         </Box>
