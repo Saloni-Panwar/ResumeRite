@@ -1,6 +1,3 @@
-
-
-
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -8,35 +5,56 @@ const passport = require("passport");
 const User = require("../models/User");
 const dotenv = require("dotenv");
 const router = express.Router();
-
+const sendEmail = require('../utils/sendEmail');  
+const nodemailer = require("nodemailer");
+const crypto = require("crypto");
 dotenv.config();
+
 
 // JWT Secret
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret_key";
 
-// ====================================
-// User Sign Up
-// ====================================
-router.post("/signup", async (req, res) => {
-  const { fullName, email, password } = req.body;
+
+router.post('/signup', async (req, res) => {
+  const { firstName, lastName, email, password } = req.body;
 
   try {
     // Check if the user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: "User already exists" });
+      return res.status(400).json({ message: 'User already exists' });
     }
 
-    // Hash the password
+    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create and save the new user
-    const newUser = new User({ fullName, email, password: hashedPassword });
+    // Create new user with hashed password
+    const newUser = new User({
+      firstName,
+      lastName,
+      email,
+      password: hashedPassword,
+    });
+
+    // Save the new user to the database
     await newUser.save();
 
-    res.status(201).json({ message: "User created successfully" });
+    // Generate JWT token for email confirmation
+    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    // Create confirmation URL
+    const url = `http://localhost:5000/api/auth/confirm/${token}`;
+
+    // Send confirmation email to user
+    await sendEmail(newUser.email, 'Confirm your registration', `Click on the link to confirm your registration: ${url}`);
+
+    // Respond to the client
+    res.status(201).json({
+      message: 'User registered successfully. Please check your email to confirm.',
+    });
   } catch (err) {
-    res.status(500).json({ message: "Server error", error: err.message });
+    console.log(err);
+    res.status(500).json({ message: 'Error creating user', error: err });
   }
 });
 
@@ -70,52 +88,41 @@ router.post("/jwt-login", async (req, res) => {
 
 
 
-// ====================================
-// Login with Passport.js
-// ====================================
-// router.post("/login", (req, res, next) => {
-//   passport.authenticate("local", (err, user, info) => {
-//     if (err) return next(err);
-//     if (!user) return res.status(400).json({ message: info.message });
 
-//     req.logIn(user, (err) => {
-//       if (err) return next(err);
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
 
-//       // Optionally, generate a JWT token here
-//       const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "24h" });
+  try {
+    // Check if user exists
+    const user = await User.findOne({ email });
+    console.log(user); // Log the user object to see if it's retrieved properly.
 
-//       res.json({ message: "Logged in successfully", user, token });
-//     });
-//   })(req, res, next);
-// });
-
-
-
-// Login Route
-router.post("/login", (req, res, next) => {
-  console.log("Login Request Body:", req.body);
-  passport.authenticate("local", (err, user, info) => {
-    if (err) {
-      console.error("Passport Error:", err);
-      return res.status(500).json({ message: "An error occurred during login" });
-    }
     if (!user) {
-      console.warn("Authentication Failed:", info.message);
-      return res.status(400).json({ message: info.message });
+      return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    req.logIn(user, (err) => {
-      if (err) {
-        console.error("Login Error:", err);
-        return res.status(500).json({ message: "Failed to log in" });
-      }
-      res.status(200).json({
-        message: "Login successful",
-        user: { id: user._id, email: user.email, fullName: user.fullName },
-      });
+    // Compare the provided password with the hashed password in the database
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    
+    if (!isMatch) {
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    // Send response with the JWT token
+    res.json({
+      message: 'Login successful',
+      token, // Send the token to the client
     });
-  })(req, res, next);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
 });
+
 
 
 
@@ -143,5 +150,67 @@ router.get("/protected", (req, res) => {
     res.status(403).json({ message: "Invalid or expired token" });
   }
 });
+
+
+
+let verificationCodes = {}; // Temporary store for verification codes (use Redis/DB for production)
+
+// Send Verification Code
+router.post("/forgot-password", async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    const verificationCode = crypto.randomInt(100000, 999999).toString();
+    verificationCodes[email] = verificationCode;
+
+    // Send email with nodemailer
+    const transporter = nodemailer.createTransport({
+      service: "Gmail",
+      auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
+    });
+
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "Password Reset Verification Code",
+      text: `Your verification code is ${verificationCode}`,
+    });
+
+    res.status(200).json({ message: "Verification code sent" });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+});
+
+// Verify Code
+router.post("/verify-code", (req, res) => {
+  const { email, code } = req.body;
+
+  if (verificationCodes[email] === code) {
+    return res.status(200).json({ message: "Code verified" });
+  } else {
+    return res.status(400).json({ message: "Invalid code" });
+  }
+});
+
+// Reset Password
+router.post("/reset-password", async (req, res) => {
+  const { email, newPassword } = req.body;
+
+  try {
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await User.updateOne({ email }, { password: hashedPassword });
+
+    delete verificationCodes[email]; // Remove the code after reset
+    res.status(200).json({ message: "Password updated successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+});
+
+
 
 module.exports = router;

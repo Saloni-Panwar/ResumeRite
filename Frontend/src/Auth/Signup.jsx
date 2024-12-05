@@ -1,15 +1,19 @@
-// export default SignUpPage;
+// SIGNUP
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import { useState } from "react";
+import axios from "axios";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
   const theme = useTheme();
 
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
   const handlePasswordChange = (event) => {
     const value = event.target.value;
@@ -26,11 +30,21 @@ const SignUpPage = () => {
     }
   };
 
-  const handleSignUp = (event) => {
+  const handleSignUp = async (event) => {
     event.preventDefault();
-    if (!passwordError) {
-      console.log("Sign-up form submitted");
-      navigate("/");
+    if (!passwordError && firstName && lastName && email && password) {
+      try {
+        const response = await axios.post("/api/signup", { firstName, lastName, email, password });
+        if (response.data.success) {
+          console.log("Sign-up successful");
+          navigate("/login"); // Redirect to login after successful sign-up
+        } else {
+          alert("Error creating account");
+        }
+      } catch (error) {
+        console.error("Sign-up failed", error);
+        alert("Error during sign-up. Please try again.");
+      }
     } else {
       console.log("Please fix errors before submitting.");
     }
@@ -85,117 +99,76 @@ const SignUpPage = () => {
         justifyContent="center"
         sx={{
           backgroundColor: theme.palette.background.alt,
+          backgroundColor: theme.palette.primary.light,
           padding: "2rem",
-          color: theme.palette.text.primary,
         }}
       >
-        <Typography variant="h4" color="primary" fontWeight="bold" mb="2rem">
-          Create Account
+        <Typography variant="h4" mb="1rem" color="textPrimary">
+          Create Your Account
         </Typography>
-        <Box component="form" onSubmit={handleSignUp} maxWidth="400px" width="100%">
-          {/* First Name Field */}
+        <Box
+          component="form"
+          onSubmit={handleSignUp}
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          width="100%"
+          maxWidth="400px"
+        >
           <TextField
             fullWidth
-            variant="outlined"
             label="First Name"
-            type="text"
             margin="normal"
+            variant="outlined"
             required
-            InputLabelProps={{
-              required: true,
-              sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
-            }}
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: theme.palette.neutral.medium,
-                },
-                "&:hover fieldset": {
-                  borderColor: theme.palette.primary.main,
-                },
-              },
-            }}
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            sx={{ "& .MuiOutlinedInput-root": { borderColor: theme.palette.primary.main } }}
           />
-          {/* Last Name Field */}
           <TextField
             fullWidth
-            variant="outlined"
             label="Last Name"
-            type="text"
             margin="normal"
+            variant="outlined"
             required
-            InputLabelProps={{
-              required: true,
-              sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
-            }}
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: theme.palette.neutral.medium,
-                },
-                "&:hover fieldset": {
-                  borderColor: theme.palette.primary.main,
-                },
-              },
-            }}
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            sx={{ "& .MuiOutlinedInput-root": { borderColor: theme.palette.primary.main } }}
           />
-          {/* Email Field */}
           <TextField
             fullWidth
-            variant="outlined"
             label="Email"
-            type="email"
             margin="normal"
+            variant="outlined"
+            type="email"
             required
-            InputLabelProps={{
-              required: true,
-              sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
-            }}
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: theme.palette.neutral.medium,
-                },
-                "&:hover fieldset": {
-                  borderColor: theme.palette.primary.main,
-                },
-              },
-            }}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            sx={{ "& .MuiOutlinedInput-root": { borderColor: theme.palette.primary.main } }}
           />
-          {/* Password Field */}
           <TextField
             fullWidth
-            variant="outlined"
             label="Password"
-            type="password"
             margin="normal"
+            variant="outlined"
+            type="password"
             required
             value={password}
             onChange={handlePasswordChange}
             error={Boolean(passwordError)}
             helperText={passwordError}
-            InputLabelProps={{
-              required: true,
-              sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
-            }}
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: theme.palette.neutral.medium,
-                },
-                "&:hover fieldset": {
-                  borderColor: theme.palette.primary.main,
-                },
-              },
-            }}
+            sx={{ "& .MuiOutlinedInput-root": { borderColor: theme.palette.primary.main } }}
           />
-          {/* Sign Up Button */}
           <Button
             type="submit"
             variant="contained"
             color="primary"
             fullWidth
-            sx={{ marginTop: "1rem" }}
+            sx={{
+              marginTop: "1rem",
+              backgroundColor: theme.palette.primary.main,
+              ":hover": { backgroundColor: theme.palette.primary.dark },
+            }}
           >
             Sign Up
           </Button>

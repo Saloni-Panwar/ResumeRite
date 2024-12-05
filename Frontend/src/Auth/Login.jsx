@@ -1,13 +1,21 @@
+//LOGIN
 import { Box, Button, Checkbox, FormControlLabel, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import { useState } from "react";
+import axios from "axios";
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const theme = useTheme();
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [emailError, setEmailError] = useState("");
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
 
   const handlePasswordChange = (event) => {
     const value = event.target.value;
@@ -24,11 +32,22 @@ const LoginPage = () => {
     }
   };
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
-    if (!passwordError) {
-      console.log("Login form submitted");
-      navigate("/");
+    if (!passwordError && email && password) {
+      try {
+        const response = await axios.post("/api/login", { email, password });
+        if (response.data.success) {
+          // Store the token or any necessary info
+          localStorage.setItem("token", response.data.token);
+          navigate("/dashboard"); // Redirect to the dashboard or home page
+        } else {
+          alert("Invalid credentials");
+        }
+      } catch (error) {
+        console.error("Login failed", error);
+        alert("Error during login. Please try again.");
+      }
     } else {
       console.log("Please correct the errors before submitting.");
     }
@@ -81,6 +100,10 @@ const LoginPage = () => {
               type="email"
               margin="normal"
               required
+              value={email}
+              onChange={handleEmailChange}
+              error={Boolean(emailError)}
+              helperText={emailError}
               InputLabelProps={{
                 required: true,
                 sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
@@ -147,7 +170,7 @@ const LoginPage = () => {
               variant="contained"
               fullWidth
               sx={{
-                mt: "1rem",
+                me: "1rem",
                 backgroundColor: theme.palette.primary.main,
                 color: theme.palette.background.default,
                 "&:hover": {
@@ -177,6 +200,7 @@ const LoginPage = () => {
             variant="outlined"
             onClick={() => navigate("/signup")}
             sx={{
+            
               borderColor: theme.palette.primary.main,
               color: theme.palette.primary.main,
               ":hover": {
