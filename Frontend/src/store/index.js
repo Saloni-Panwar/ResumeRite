@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Template7 from "../ResumeTemplates/Template7";
 
 // defining the initial states
 const initialState = {

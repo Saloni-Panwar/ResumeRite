@@ -1,4 +1,3 @@
-import { template5 } from "./assets";
 
 // color design tokens export
 export const colorTokens = {

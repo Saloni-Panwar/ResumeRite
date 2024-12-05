@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {
   Box,
-  Typography,
+  // Typography,
   useMediaQuery,
   MenuItem,
   IconButton,
@@ -20,7 +20,7 @@ const Navbar = () => {
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const dispatch = useDispatch();
   const theme = useTheme();
-  const dark = theme.palette.neutral.dark;
+  // const dark = theme.palette.neutral.dark;
   const background = theme.palette.background.default;
   const primaryMain = theme.palette.primary.main;
 

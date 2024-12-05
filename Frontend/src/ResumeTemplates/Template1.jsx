@@ -7,9 +7,9 @@ import {
   useTheme,
   List,
   ListItem,
-  useMediaQuery,
+  // useMediaQuery,
 } from "@mui/material";
-import UserData from "../dummydata";
+// import UserData from "../dummydata";
 import { useSelector } from "react-redux";
 
 
@@ -19,7 +19,7 @@ const Template1 = (props) => {
   const main = theme.palette.template1.main;
   const dark = theme.palette.template1.dark;
   const light = theme.palette.template1.light;
-  const isMobileScreen = useMediaQuery("(max-width:600px)");
+  // const isMobileScreen = useMediaQuery("(max-width:600px)");
   const personalDetails = useSelector((state) => state.personalInfo);
   const workExperiences = useSelector((state) => state.workExperiences);
   const education = useSelector((state) => state.education);
