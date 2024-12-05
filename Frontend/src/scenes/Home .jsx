@@ -8,16 +8,7 @@ import {
 } from "@mui/material";
 
 import image1 from "../assets/resume2.png";
-import {
-  template1,
-  template2,
-  template3,
-  template4,
-  template5,
-  template6,
-  template7,
-  template8,
-} from "../assets";
+import {template1, template2,template3,template4,template5,template6,template7,template8,} from "../assets";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setTemplate1,
@@ -69,6 +60,7 @@ const Home = () => {
     template7,
     template8,
   ];
+
   return (
     <Box
       sx={{
@@ -95,6 +87,7 @@ const Home = () => {
             color={primaryMain}
             mb="0.5rem"
             variant={isMobileScreen ? "h4" : "h3"}
+            fontWeight="bold"
           >
             Stand Out, Get Hired
           </Typography>
@@ -140,48 +133,61 @@ const Home = () => {
           width="100%"
         >
           {templates.map((template, index) => (
-          <Box
-          key={index}
-          className="template"
-          sx={{
-            position: "relative",
-            width: "100%",
-            height: "300px", // Set consistent height for all templates
-            border: "1px solid #ddd",
-            borderRadius: "8px",
-            overflow: "hidden",
-            "& img": {
-              width: "110%",
-              height: "100%",
-              objectFit:"fill",
-            },
-          }}
-        >
-          <img src={template} alt={`template ${index + 1}`} />
-          <Box
-            className="overlayStyles"
-            sx={{
-              display: "flex", // Always display the overlay
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent background
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-           <Button
-          variant="contained"
-          color="primary"
-          onClick={() => handleTemplateSelect(index)}
-        
-        >
-          Use Template
-        </Button>
-          </Box>
-        </Box>
+            <Box
+              key={index}
+              className="template"
+              sx={{
+                position: "relative",
+                width: "100%",
+                height: "300px",
+                border: "1px solid #ddd",
+                borderRadius: "8px",
+                overflow: "hidden",
+                boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)", // Add shadow to cards
+                transition: "transform 0.3s ease", // Smooth transition
+                "&:hover": {
+                  transform: "scale(1.05)", // Slightly zoom in on hover
+                },
+                "& img": {
+                  width: "120%",
+                  height: "100%",
+                  objectFit: "fill", // To maintain the aspect ratio properly
+                },
+              }}
+            >
+              <img src={template} alt={`template ${index + 1}`} />
+              <Box
+                className="overlayStyles"
+                sx={{
+                  display: "flex",
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  backgroundColor: "rgba(0, 0, 0, 0.5)",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => handleTemplateSelect(index)}
+                  sx={{
+                    fontSize: "0.8rem",
+                    padding: "0.8rem 2rem",
+                    borderRadius: "5px",
+                    transition: "background-color 0.3s",
+                    "&:hover": {
+                      backgroundColor: "#2f70a5 ", // Darker shade on hover
+                    },
+                  }}
+                >
+                  Use Template
+                </Button>
+              </Box>
+            </Box>
           ))}
         </Box>
       </Box>

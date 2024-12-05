@@ -26,7 +26,7 @@ export const colorTokens = {
     600: "#608BC1", // Changed to soft blue
     700: "#00D5BA",
     800: "#C9E6F0",
-    900: "#6A8EAE", // Soft blue dark
+    900: "#D3D3D3", // Soft blue dark
   },
   template1: {
     50: "#A1CAF1",
