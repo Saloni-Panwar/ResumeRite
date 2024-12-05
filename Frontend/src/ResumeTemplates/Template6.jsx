@@ -2,14 +2,14 @@ import {
     Box,
     Typography,
     Divider,
-    useTheme,
+    // useTheme,
     Grid,
   } from "@mui/material";
   import { useSelector } from "react-redux";
   import { useRef } from "react";
   
   export const Template6 = () => {
-    const theme = useTheme();
+    // const theme = useTheme();
     const primaryColor = "#87CEEB";  // Sky blue for primary elements
     const secondaryColor = "#00BFFF"; // Deep sky blue for secondary elements
     const ref = useRef(null);
