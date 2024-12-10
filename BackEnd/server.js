@@ -16,8 +16,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
 // Middleware
-app.use(cors());
-app.use(bodyParser.json());
+app.use(cors({
+    origin: 'http://localhost:3001', // Frontend URL
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  }));app.use(bodyParser.json());
 
 // Session configuration
 app.use(
