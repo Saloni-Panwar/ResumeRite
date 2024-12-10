@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setWorkExperiences } from "../store";
 import { useSelector } from "react-redux";
-
+import '../index.css';
 import { Box, Typography, useTheme, Button } from "@mui/material";
 
 const Experience = ({ onNext, onPrevious }) => {
@@ -74,7 +74,9 @@ const Experience = ({ onNext, onPrevious }) => {
             <Button size="large" variant="outlined" onClick={onPrevious}>
               Previous
             </Button>
-            <Button size="large" variant="contained" type="submit">
+
+            <Button className="back-button" size="large" variant="contained" type="submit"
+            >
               Next
             </Button>
           </Box>
