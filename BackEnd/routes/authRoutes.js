@@ -10,53 +10,42 @@ const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 dotenv.config();
 
-
 // JWT Secret
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret_key";
-
-
 router.post('/signup', async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
 
   try {
-    // Check if the user already exists
+    console.log("Checking if user exists...");
     const existingUser = await User.findOne({ email });
     if (existingUser) {
+      console.log("User already exists:", email);
       return res.status(400).json({ message: 'User already exists' });
     }
 
-    // Hash password
+    console.log("Hashing password...");
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create new user with hashed password
-    const newUser = new User({
-      firstName,
-      lastName,
-      email,
-      password: hashedPassword,
-    });
-
-    // Save the new user to the database
+    console.log("Creating new user...");
+    const newUser = new User({ firstName, lastName, email, password: hashedPassword });
     await newUser.save();
 
-    // Generate JWT token for email confirmation
+    console.log("Generating JWT token...");
     const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    // Create confirmation URL
-    const url = `http://localhost:5000/api/auth/confirm/${token}`;
-
-    // Send confirmation email to user
+    const url = `http://localhost:3000/api/auth/confirm/${token}`;
+    console.log("Sending email confirmation...");
     await sendEmail(newUser.email, 'Confirm your registration', `Click on the link to confirm your registration: ${url}`);
 
-    // Respond to the client
     res.status(201).json({
       message: 'User registered successfully. Please check your email to confirm.',
     });
   } catch (err) {
-    console.log(err);
+    console.error("Error during signup:", err);
     res.status(500).json({ message: 'Error creating user', error: err });
   }
 });
+
 
 // ====================================
 // Login with JWT (Without Passport)
@@ -67,14 +56,13 @@ router.post("/jwt-login", async (req, res) => {
   if (!email || !password) {
     console.log("Missing fields:", { email, password });
     return res.status(400).json({ message: "Email and password are required" });
-  }
-  
+  }  
 
   try {
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ message: "User not found" });
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = (await bcrypt.hash(password, user.password)).toString;
     if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
 
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
@@ -85,26 +73,20 @@ router.post("/jwt-login", async (req, res) => {
   
 });
 
-
-
-
-
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
     // Check if user exists
     const user = await User.findOne({ email });
-    console.log(user); // Log the user object to see if it's retrieved properly.
 
     if (!user) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
     // Compare the provided password with the hashed password in the database
+    const isMatch = await bcrypt.compare(password, user.password).toString();
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
@@ -114,15 +96,15 @@ router.post('/login', async (req, res) => {
 
     // Send response with the JWT token
     res.json({
+      success: true, // Add this field
       message: 'Login successful',
-      token, // Send the token to the client
+      token: token
     });
   } catch (error) {
-    console.error(error);
+    console.error('Login error:', error); // Log the error for debugging
     res.status(500).json({ message: 'Server error' });
   }
 });
-
 
 
 
@@ -163,7 +145,7 @@ router.post("/forgot-password", async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    const verificationCode = crypto.randomInt(100000, 999999).toString();
+    const verificationCode = crypto.randomInt(100000,999999).toString();
     verificationCodes[email] = verificationCode;
 
     // Send email with nodemailer
@@ -210,7 +192,5 @@ router.post("/reset-password", async (req, res) => {
     res.status(500).json({ message: "Server error", error });
   }
 });
-
-
 
 module.exports = router;

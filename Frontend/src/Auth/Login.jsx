@@ -31,28 +31,34 @@ const LoginPage = () => {
       setPasswordError(""); // Clear error if valid
     }
   };
-
   const handleLogin = async (event) => {
     event.preventDefault();
+  
     if (!passwordError && email && password) {
       try {
-        const response = await axios.post("/api/login", { email, password });
+        const response = await axios.post('http://localhost:3000/api/auth/login', { email, password });
+        console.log('Login request payload:', { email, password });
+        
         if (response.data.success) {
-          // Store the token or any necessary info
-          localStorage.setItem("token", response.data.token);
-          navigate("/dashboard"); // Redirect to the dashboard or home page
+          localStorage.setItem('token', response.data.token);
+          navigate('/');
         } else {
-          alert("Invalid credentials");
+          alert('Invalid credentials');
         }
       } catch (error) {
-        console.error("Login failed", error);
-        alert("Error during login. Please try again.");
+        console.error("Login failed:", error.response || error.message);
+        if (error.response && error.response.status === 404) {
+          alert("Login endpoint not found. Please check the API route.");
+        } else {
+          alert("Error during login. Please try again.");
+        }
       }
     } else {
       console.log("Please correct the errors before submitting.");
     }
   };
-
+  
+  
   return (
     <Box
       display="flex"

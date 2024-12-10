@@ -30,25 +30,31 @@ const SignUpPage = () => {
     }
   };
 
-  const handleSignUp = async (event) => {
+  const handleSignUp = async (event) => { 
     event.preventDefault();
     if (!passwordError && firstName && lastName && email && password) {
       try {
-        const response = await axios.post("/api/signup", { firstName, lastName, email, password });
-        if (response.data.success) {
+        const response = await axios.post('http://localhost:3000/api/auth/signup', { 
+          firstName, 
+          lastName, 
+          email, 
+          password 
+        });
+        if (response.data.message === 'User registered successfully. Please check your email to confirm. ') {
           console.log("Sign-up successful");
           navigate("/login"); // Redirect to login after successful sign-up
         } else {
-          alert("Error creating account");
+          alert(response.data.message || "Error creating account");
         }
       } catch (error) {
         console.error("Sign-up failed", error);
-        alert("Error during sign-up. Please try again.");
+        alert(error.response?.data?.message || "Error during sign-up. Please try again.");
       }
     } else {
-      console.log("Please fix errors before submitting.");
+      console.log("Please fix errors before submitting.");  
     }
-  };
+};
+
 
   return (
     <Box
@@ -81,7 +87,7 @@ const SignUpPage = () => {
             color: theme.palette.primary.main,
             fontWeight: "bold",
             "&:hover": {
-              backgroundColor: theme.palette.background.alt,
+              backgroundColor: theme.palette.grey[300],
             },
           }}
           onClick={() => navigate("/login")}
@@ -99,11 +105,14 @@ const SignUpPage = () => {
         justifyContent="center"
         sx={{
           backgroundColor: theme.palette.background.alt,
-          backgroundColor: theme.palette.primary.light,
           padding: "2rem",
         }}
       >
-        <Typography variant="h4" mb="1rem" color="textPrimary">
+        <Typography variant="h4"
+            fontWeight="bold"
+            mb="2rem"
+            sx={{ color: theme.palette.primary.main }}>
+          
           Create Your Account
         </Typography>
         <Box
@@ -123,7 +132,10 @@ const SignUpPage = () => {
             required
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            sx={{ "& .MuiOutlinedInput-root": { borderColor: theme.palette.primary.main } }}
+            InputLabelProps={{
+              required: true,
+              sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
+            }}
           />
           <TextField
             fullWidth
@@ -133,7 +145,10 @@ const SignUpPage = () => {
             required
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            sx={{ "& .MuiOutlinedInput-root": { borderColor: theme.palette.primary.main } }}
+            InputLabelProps={{
+              required: true,
+              sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
+            }}
           />
           <TextField
             fullWidth
@@ -142,9 +157,12 @@ const SignUpPage = () => {
             variant="outlined"
             type="email"
             required
+            InputLabelProps={{
+              required: true,
+              sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
+            }}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            sx={{ "& .MuiOutlinedInput-root": { borderColor: theme.palette.primary.main } }}
           />
           <TextField
             fullWidth
@@ -157,17 +175,23 @@ const SignUpPage = () => {
             onChange={handlePasswordChange}
             error={Boolean(passwordError)}
             helperText={passwordError}
-            sx={{ "& .MuiOutlinedInput-root": { borderColor: theme.palette.primary.main } }}
+            InputLabelProps={{
+              required: true,
+              sx: { "& .MuiInputLabel-asterisk": { color: "red" } },
+            }}
           />
           <Button
             type="submit"
             variant="contained"
             color="primary"
             fullWidth
+            
             sx={{
               marginTop: "1rem",
               backgroundColor: theme.palette.primary.main,
-              ":hover": { backgroundColor: theme.palette.primary.dark },
+              ":hover": {
+                backgroundColor: theme.palette.primary.main,
+              },
             }}
           >
             Sign Up
