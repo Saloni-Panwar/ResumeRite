@@ -5,7 +5,7 @@ import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import React from 'react';
- import Home from "./scenes/Home ";
+import Home from "./scenes/Home ";
 import MyResume from "./scenes/MyResume";
 import AboutUs from "./scenes/AboutUs";
 import Navbar from "./components/Navbar";
@@ -13,6 +13,9 @@ import Footer from "./components/Footer";
 import Login from "./Auth/Login";
 import SignUpPage from "./Auth/Signup";
 import EmailVerified from "./components/Emailverification";
+import ForgotPassword from "./components/Forgotpassword";
+import ResetPassword from "./components/ResetPassword";
+import VerifyCode from "./components/Verifycode";
 
 const FooterWrapper = () => {
   const location = useLocation();
@@ -37,6 +40,9 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/email-verified" element={<EmailVerified />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/verify-code" element={<VerifyCode />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
           </Routes>
           <FooterWrapper />
         </ThemeProvider>

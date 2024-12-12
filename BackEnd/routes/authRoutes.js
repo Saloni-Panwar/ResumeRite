@@ -170,27 +170,28 @@ router.post("/forgot-password", async (req, res) => {
 // Verify Code
 router.post("/verify-code", (req, res) => {
   const { email, code } = req.body;
-
   if (verificationCodes[email] === code) {
-    return res.status(200).json({ message: "Code verified" });
+    res.status(200).json({ message: "Code verified successfully" });
   } else {
-    return res.status(400).json({ message: "Invalid code" });
+    res.status(400).json({ message: "Invalid verification code" });
   }
 });
 
 // Reset Password
 router.post("/reset-password", async (req, res) => {
-  const { email, newPassword } = req.body;
-
+  const { email, password } = req.body;
   try {
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
-    await User.updateOne({ email }, { password: hashedPassword });
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ message: "User not found" });
 
-    delete verificationCodes[email]; // Remove the code after reset
-    res.status(200).json({ message: "Password updated successfully" });
+    user.password = await bcrypt.hash(password, 10);
+    await user.save();
+
+    res.status(200).json({ message: "Password reset successfully" });
   } catch (error) {
     res.status(500).json({ message: "Server error", error });
   }
 });
+
 
 module.exports = router;
