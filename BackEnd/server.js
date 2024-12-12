@@ -20,7 +20,8 @@ app.use(cors({
     origin: 'http://localhost:3001', // Frontend URL
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-  }));app.use(bodyParser.json());
+  }));
+  app.use(bodyParser.json());
 
 // Session configuration
 app.use(
@@ -43,7 +44,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 // Routes
 app.use('/api/auth', authRoutes);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
