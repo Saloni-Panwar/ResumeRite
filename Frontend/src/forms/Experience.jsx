@@ -1,39 +1,129 @@
+// import { useForm } from "react-hook-form";
+// import ExperienceBox from "./ExperienceBox";
+// import { useState } from "react";
+// import { useDispatch } from "react-redux";
+// import { setWorkExperiences } from "../store";
+// import { useSelector } from "react-redux";
+// import '../index.css';
+// import { Box, Typography, useTheme, Button } from "@mui/material";
+
+// const Experience = ({ onNext, onPrevious }) => {
+//   const theme = useTheme();
+//   const main = theme.palette.primary.main;
+//   const dispatch = useDispatch();
+//   // getting the work experience from global state
+//   const workExperiences = useSelector((state) => state.workExperiences);
+//   const [formBoxes, setFormBoxes] = useState([0]);
+
+//   const { control, handleSubmit, getValues } = useForm({
+//     defaultValues: {
+//       // these values are form workexperiences in the global state
+//       jobTitle: workExperiences.jobTitle,
+//       orgName: workExperiences.orgName,
+//       StartYear: workExperiences.StartYear,
+//       endYear: workExperiences.endYear,
+//       description: workExperiences.description,
+//     },
+//   });
+
+//   // this function is responsible to add the next set of experience box
+//   const handleAddMore = () => {
+//     setFormBoxes((prevBoxes) => [...prevBoxes, prevBoxes.length]);
+//   };
+
+//   const onSubmit = (data) => {
+//     dispatch(setWorkExperiences(data));
+//     //the onNext function will be called and the function from Tabbar will be executed to move to next form
+//     onNext();
+//   };
+
+//   return (
+//     <Box
+//       width="100%"
+//       maxWidth="fit-content"
+//       p="1rem 4%"
+//       backgroundColor={theme.palette.background.alt}
+//       borderRadius="8px"
+//     >
+//       <Typography variant="h4" mb="1rem" color={main}>
+//         Work Experiences
+//       </Typography>
+//       <Box>
+//         <form onSubmit={handleSubmit(onSubmit)}>
+//           <Box>
+//             {/*mapping through all the form boxes and displaying them*/}
+//             {formBoxes.map((index) => (
+//               <ExperienceBox
+//                 key={index}
+//                 control={control}
+//                 index={index}
+//                 getValues={getValues}
+//               />
+//             ))}
+//           </Box>
+//           <Box
+//             display="flex"
+//             justifyContent="center"
+//             alignItems="center"
+//             mt="0.5rem"
+//           >
+//             <Button onClick={handleAddMore}>Add More</Button>
+//           </Box>
+
+//           <Box display="flex" mt="1rem" gap="1rem" justifyContent="end">
+//             <Button size="large" variant="outlined" onClick={onPrevious}>
+//               Previous
+//             </Button>
+
+//             <Button className="back-button" size="large" variant="contained" type="submit"
+//             >
+//               Next
+//             </Button>
+//           </Box>
+//         </form>
+//       </Box>
+//     </Box>
+//   );
+// };
+
+// export default Experience;
+
 import { useForm } from "react-hook-form";
 import ExperienceBox from "./ExperienceBox";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setWorkExperiences } from "../store";
-import { useSelector } from "react-redux";
-import '../index.css';
+import "../index.css";
 import { Box, Typography, useTheme, Button } from "@mui/material";
 
 const Experience = ({ onNext, onPrevious }) => {
   const theme = useTheme();
   const main = theme.palette.primary.main;
   const dispatch = useDispatch();
-  // getting the work experience from global state
+  
+  // Getting the work experience from global state
   const workExperiences = useSelector((state) => state.workExperiences);
   const [formBoxes, setFormBoxes] = useState([0]);
 
-  const { control, handleSubmit, getValues } = useForm({
+  const { control, handleSubmit, getValues, setValue } = useForm({
     defaultValues: {
-      // these values are form workexperiences in the global state
-      jobTitle: workExperiences.jobTitle,
-      orgName: workExperiences.orgName,
-      StartYear: workExperiences.StartYear,
-      endYear: workExperiences.endYear,
-      description: workExperiences.description,
+      // These values are from workExperiences in the global state
+      jobTitle: workExperiences.jobTitle || [],
+      orgName: workExperiences.orgName || [],
+      StartYear: workExperiences.StartYear || [],
+      endYear: workExperiences.endYear || [],
+      description: workExperiences.description || [],
     },
   });
 
-  // this function is responsible to add the next set of experience box
+  // Function to add the next set of experience boxes
   const handleAddMore = () => {
     setFormBoxes((prevBoxes) => [...prevBoxes, prevBoxes.length]);
   };
 
   const onSubmit = (data) => {
     dispatch(setWorkExperiences(data));
-    //the onNext function will be called and the function from Tabbar will be executed to move to next form
+    // Call onNext to move to the next form
     onNext();
   };
 
@@ -51,13 +141,14 @@ const Experience = ({ onNext, onPrevious }) => {
       <Box>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Box>
-            {/*mapping through all the form boxes and displaying them*/}
+            {/* Mapping through all the form boxes and displaying them */}
             {formBoxes.map((index) => (
               <ExperienceBox
                 key={index}
                 control={control}
+                setValue={setValue} // Pass setValue to ExperienceBox
+                getValues={getValues} // Pass getValues to ExperienceBox
                 index={index}
-                getValues={getValues}
               />
             ))}
           </Box>
@@ -75,7 +166,11 @@ const Experience = ({ onNext, onPrevious }) => {
               Previous
             </Button>
 
-            <Button className="back-button" size="large" variant="contained" type="submit"
+            <Button
+              className="back-button"
+              size="large"
+              variant="contained"
+              type="submit"
             >
               Next
             </Button>

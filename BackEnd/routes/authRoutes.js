@@ -193,9 +193,6 @@ router.post("/reset-password", async (req, res) => {
   }
 });
 
-<<<<<<< Updated upstream
 
 module.exports = router;
-=======
-module.exports = router;
->>>>>>> Stashed changes
+
