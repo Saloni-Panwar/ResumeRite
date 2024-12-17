@@ -87,27 +87,30 @@
 // };
 
 // export default Experience;
-
 import { useForm } from "react-hook-form";
 import ExperienceBox from "./ExperienceBox";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setWorkExperiences } from "../store";
 import "../index.css";
-import { Box, Typography, useTheme, Button } from "@mui/material";
+import { Box, Typography, useTheme, Button, IconButton } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/HighlightOff";
 
 const Experience = ({ onNext, onPrevious }) => {
   const theme = useTheme();
   const main = theme.palette.primary.main;
   const dispatch = useDispatch();
-  
+
   // Getting the work experience from global state
   const workExperiences = useSelector((state) => state.workExperiences);
-  const [formBoxes, setFormBoxes] = useState([0]);
+
+  // Array to hold Experience Boxes with unique IDs
+  const [formBoxes, setFormBoxes] = useState([
+    { id: 0 }, // Experience 1 (default, non-deletable)
+  ]);
 
   const { control, handleSubmit, getValues, setValue } = useForm({
     defaultValues: {
-      // These values are from workExperiences in the global state
       jobTitle: workExperiences.jobTitle || [],
       orgName: workExperiences.orgName || [],
       StartYear: workExperiences.StartYear || [],
@@ -116,14 +119,34 @@ const Experience = ({ onNext, onPrevious }) => {
     },
   });
 
-  // Function to add the next set of experience boxes
+  // Function to add a new Experience Box with a unique ID
   const handleAddMore = () => {
-    setFormBoxes((prevBoxes) => [...prevBoxes, prevBoxes.length]);
+    setFormBoxes((prevBoxes) => [
+      ...prevBoxes,
+      { id: new Date().getTime() }, // Unique ID based on timestamp
+    ]);
+  };
+
+  // Function to delete an Experience Box (except the default)
+  const handleDelete = (idToDelete) => {
+    setFormBoxes((prevBoxes) =>
+      prevBoxes.filter((box) => box.id !== idToDelete) // Filter out the box by ID
+    );
+
+    // Clear the specific form field values for the deleted ID
+    const currentValues = getValues();
+    Object.keys(currentValues).forEach((field) => {
+      if (Array.isArray(currentValues[field])) {
+        setValue(
+          field,
+          currentValues[field].filter((_, idx) => idx !== formBoxes.findIndex((box) => box.id === idToDelete))
+        );
+      }
+    });
   };
 
   const onSubmit = (data) => {
     dispatch(setWorkExperiences(data));
-    // Call onNext to move to the next form
     onNext();
   };
 
@@ -141,15 +164,32 @@ const Experience = ({ onNext, onPrevious }) => {
       <Box>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Box>
-            {/* Mapping through all the form boxes and displaying them */}
-            {formBoxes.map((index) => (
-              <ExperienceBox
-                key={index}
-                control={control}
-                setValue={setValue} // Pass setValue to ExperienceBox
-                getValues={getValues} // Pass getValues to ExperienceBox
-                index={index}
-              />
+            {/* Mapping through all the Experience Boxes */}
+            {formBoxes.map((box, index) => (
+              <Box
+                key={box.id}
+                display="flex"
+                alignItems="center"
+                position="relative"
+              >
+                <ExperienceBox
+                  control={control}
+                  setValue={setValue}
+                  getValues={getValues}
+                  index={index}
+                />
+                {/* Delete Icon: Hidden for the first Experience Box */}
+                {index > 0 && (
+                  <IconButton
+                    aria-label="delete"
+                    onClick={() => handleDelete(box.id)}
+                    color="error"
+                    style={{ position: "absolute", right: -40, top: "50%" }}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                )}
+              </Box>
             ))}
           </Box>
           <Box
