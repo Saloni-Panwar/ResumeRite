@@ -7,7 +7,6 @@ import {
   ListItem,
   useMediaQuery,
 } from "@mui/material";
-// import UserData from "../dummydata";
 import { useSelector } from "react-redux";
 import { useRef } from "react";
 
@@ -130,6 +129,31 @@ const Template3 = () => {
               {education.university}
             </Typography>
             <Typography color="#000">{education.description}</Typography>
+
+            {education.educationType === "Post Graduate" && (
+              <>
+                <Typography color={main}>Graduation Details</Typography>
+                <Typography color={main}>
+                  {education.graduation ? education.graduation : "Not Provided"}
+                </Typography>
+              </>
+            )}
+
+            {education.educationType === "Higher Secondary-12th" && (
+              <>
+                <Typography color={main}>
+                  Stream: {education.stream}
+                </Typography>
+                <Typography color={main}>
+                  Year of Completion: {education.yearOfCompletion}
+                </Typography>
+              </>
+            )}
+            {education.educationType === "Secondary-10th" && (
+              <Typography color={main}>
+                Year of Completion: {education.yearOfCompletion}
+              </Typography>
+            )}
           </Box>
         </Box>
         {/* KEY SKILLS */}

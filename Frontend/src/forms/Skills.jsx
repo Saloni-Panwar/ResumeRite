@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 
-import { Box, Typography, useTheme, Button } from "@mui/material";
+import { Box, Typography, useTheme, Button, IconButton } from "@mui/material";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import SkillsBox from "./SkillsBox";
 import { useDispatch, useSelector } from "react-redux";
 import { setKeySkills } from "../store";
@@ -10,13 +11,18 @@ const Skills = ({ onPrevious, setOnFormSubmit }) => {
   const theme = useTheme();
   const main = theme.palette.primary.main;
 
-  const [skillField, setskillField] = useState([0]);
+  const [skillField, setSkillField] = useState([0]);
   const dispatch = useDispatch();
   const skills = useSelector((state) => state.keySkills);
 
-  // this function is responsible to add the next set of skill box
+  // Function to add a new skill box
   const handleAddMore = () => {
-    setskillField((prevField) => [...prevField, prevField.length]);
+    setSkillField((prevField) => [...prevField, prevField.length]);
+  };
+
+  // Function to remove a skill box
+  const handleRemoveField = (index) => {
+    setSkillField((prevField) => prevField.filter((_, i) => i !== index));
   };
 
   const { control, handleSubmit } = useForm({
@@ -27,7 +33,7 @@ const Skills = ({ onPrevious, setOnFormSubmit }) => {
 
   const onSubmit = (data) => {
     dispatch(setKeySkills(data));
-    //here the function from myResume component is called and will be responsible for rendering the preview component
+    // Call the function from myResume component to render the preview component
     setOnFormSubmit(true);
   };
 
@@ -43,19 +49,29 @@ const Skills = ({ onPrevious, setOnFormSubmit }) => {
         Key Skills
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Box width="100%" display="flex" flexWrap="wrap">
-          <Box>
-            {skillField.map((index) => (
-              <SkillsBox key={index} control={control} index={index} />
-            ))}
-          </Box>
+        <Box width="100%" display="flex" flexDirection="column" gap="1rem">
+          {skillField.map((index) => (
+            <Box key={index} display="flex" alignItems="center" gap="1rem">
+              <SkillsBox control={control} index={index} />
+              {skillField.length > 1 && (
+                <IconButton
+                  onClick={() => handleRemoveField(index)}
+                  color="error"
+                >
+                  <RemoveCircleIcon />
+                </IconButton>
+              )}
+            </Box>
+          ))}
           <Box
             display="flex"
             justifyContent="center"
             alignItems="center"
             mt="0.5rem"
           >
-            <Button onClick={handleAddMore}>Add More</Button>
+            <Button onClick={handleAddMore} variant="outlined">
+              Add More
+            </Button>
           </Box>
         </Box>
         <Box display="flex" mt="1rem" gap="1rem" justifyContent="end">
@@ -71,4 +87,4 @@ const Skills = ({ onPrevious, setOnFormSubmit }) => {
   );
 };
 
-export default Skills; 
+export default Skills;

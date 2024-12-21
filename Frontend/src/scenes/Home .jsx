@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 
 import image1 from "../assets/resume2.png";
-import {template1, template2,template3,template4,template5,template6,template7,template8,} from "../assets";
+import { template1, template2, template3, template4, template5, template6, template7, template8, } from "../assets";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setTemplate1,
@@ -132,7 +132,7 @@ const Home = () => {
           gap="1rem"
           width="100%"
         >
-          {templates.map((template, index) => (
+          {[...templates].reverse().map((template, index) => (
             <Box
               key={index}
               className="template"
@@ -143,19 +143,19 @@ const Home = () => {
                 border: "1px solid #ddd",
                 borderRadius: "8px",
                 overflow: "hidden",
-                boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)", // Add shadow to cards
-                transition: "transform 0.3s ease", // Smooth transition
+                boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+                transition: "transform 0.3s ease",
                 "&:hover": {
-                  transform: "scale(1.05)", // Slightly zoom in on hover
+                  transform: "scale(1.05)",
                 },
                 "& img": {
                   width: "120%",
                   height: "100%",
-                  objectFit: "fill", // To maintain the aspect ratio properly
+                  objectFit: "fill",
                 },
               }}
             >
-              <img src={template} alt={`template ${index + 1}`} />
+              <img src={template} alt={`template ${templates.length - index}`} />
               <Box
                 className="overlayStyles"
                 sx={{
@@ -173,14 +173,14 @@ const Home = () => {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={() => handleTemplateSelect(index)}
+                  onClick={() => handleTemplateSelect(templates.length - 1 - index)} // Adjusted for reverse indexing
                   sx={{
                     fontSize: "0.8rem",
                     padding: "0.8rem 2rem",
                     borderRadius: "5px",
                     transition: "background-color 0.3s",
                     "&:hover": {
-                      backgroundColor: "#2f70a5 ", // Darker shade on hover
+                      backgroundColor: "#2f70a5", // Darker shade on hover
                     },
                   }}
                 >

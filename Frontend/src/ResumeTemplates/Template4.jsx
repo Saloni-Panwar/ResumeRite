@@ -3,10 +3,7 @@ import {
   Divider,
   Typography,
   useTheme,
-  // List,
-  // ListItem,
 } from "@mui/material";
-// import UserData from "../dummydata";
 import { useSelector } from "react-redux";
 import { useRef } from "react";
 
@@ -22,6 +19,7 @@ export const Template4 = () => {
   const workExperiences = useSelector((state) => state.workExperiences);
   const education = useSelector((state) => state.education);
   const skills = useSelector((state) => state.keySkills);
+  
   return (
     <Box
       width="100%"
@@ -61,6 +59,7 @@ export const Template4 = () => {
         </Box>
       </Box>
       <Divider color={main} sx={{ height: "10px", borderRadius: "8px" }} />
+      
       {/* OBJECTIVE */}
       <Box m="1rem 0">
         <Typography
@@ -74,6 +73,7 @@ export const Template4 = () => {
         </Typography>
         <Typography color="#000">{personalDetails.objective}</Typography>
       </Box>
+
       {/* EXPERIENCE */}
       <Box>
         <Typography
@@ -111,6 +111,7 @@ export const Template4 = () => {
           </>
         ))}
       </Box>
+      
       {/* EDUCATION */}
       <Box m="1rem 0">
         <Typography
@@ -123,16 +124,31 @@ export const Template4 = () => {
         </Typography>
         <Box mb="0.5rem" p="0.1rem">
           <Typography color="#000" fontWeight="bold">
-            {education.educationType} - {education.startYear} to{" "}
-            {education.endYear}
+            {education.educationType} - {education.startYear} to {education.endYear}
           </Typography>
           <Typography color={main}>
-            <span style={{ color: "black" }}>{education.college}</span> ,{" "}
+            {education.college ? `${education.college}` : ""} ,
             {education.university}
           </Typography>
-          <Typography color="#000">{education.description}</Typography>
+          <Typography color="#000">{education.degree}</Typography>
+          {/* Show additional details if available */}
+          {education.educationType === "Higher Secondary-12th" && (
+            <>
+              <Typography color="#000">Stream: {education.stream}</Typography>
+              <Typography color="#000">Year of Completion: {education.yearOfCompletion}</Typography>
+            </>
+          )}
+          {education.educationType === "Secondary-10th" && (
+            <Typography color="#000">Year of Completion: {education.yearOfCompletion}</Typography>
+          )}
+          {education.educationType === "Post Graduate" && education.graduation && (
+            <>
+              <Typography color="#000">Graduation Details: {education.graduation}</Typography>
+            </>
+          )}
         </Box>
       </Box>
+
       {/* KEY SKILLS */}
       <Box>
         <Typography

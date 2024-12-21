@@ -390,6 +390,8 @@ const LoginPage = () => {
               sx={{
                 cursor: "pointer",
                 mt: "0.5rem",
+                mb:"0.5rem",
+
                 color: theme.palette.primary.main,
               }}
               onClick={() => navigate("/forgot-password")}
@@ -402,6 +404,7 @@ const LoginPage = () => {
               variant="contained"
               fullWidth
               sx={{
+                mt:"0.8rem",
                 me: "1rem",
                 backgroundColor: theme.palette.primary.main,
                 color: theme.palette.background.default,
