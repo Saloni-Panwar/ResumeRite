@@ -10,6 +10,8 @@ const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 dotenv.config();
 
+
+
 // JWT Secret
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret_key";
 router.post('/signup', async (req, res) => {
@@ -151,7 +153,10 @@ router.post("/forgot-password", async (req, res) => {
     // Send email with nodemailer
     const transporter = nodemailer.createTransport({
       service: "Gmail",
-      auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
+      auth: { 
+         user: process.env.EMAIL_USER,
+         pass: process.env.EMAIL_PASS
+         }
     });
 
     await transporter.sendMail({
@@ -195,3 +200,4 @@ router.post("/reset-password", async (req, res) => {
 
 
 module.exports = router;
+
