@@ -207,7 +207,7 @@ const Footer = () => {
               Follow Us:{" "}
               <Link href="https://www.linkedin.com" target="_blank" sx={{ mx: 1 }}>LinkedIn</Link>
               <Link href="https://www.facebook.com" target="_blank" sx={{ mx: 1 }}>Facebook</Link>
-              <Link href="https://twitter.com" target="_blank" sx={{ mx: 1 }}>Twitter</Link>
+              <Link href="https://www.instagram.com/" target="_blank" sx={{ mx: 1 }}>Instagram</Link>
             </Typography>
           </Box>
 

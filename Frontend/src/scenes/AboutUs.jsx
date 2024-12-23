@@ -1,10 +1,10 @@
 import { Box, Link, Typography, useTheme, useMediaQuery } from "@mui/material";
-import aboutus from "../assets/aboutus.png";
+import aboutus from "../assets/AboutImg.png";
 
 import { LinkedIn } from "@mui/icons-material";
-// import { ContactMail } from "@mui/icons-material";
-// import { X } from "@mui/icons-material";
-// import { Instagram } from "@mui/icons-material";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import { Instagram } from "@mui/icons-material";
+import Typical from "react-typical";
 
 const AboutUs = () => {
   const theme = useTheme();
@@ -26,12 +26,22 @@ const AboutUs = () => {
           <Typography
             fontWeight="bold"
             fontSize="clamp(2rem, 4rem, 1.5rem)"
+            color={theme.palette.primary.main}
             mb="2rem"
           >
             About Us
           </Typography>
           <Typography variant="h5" mb="1rem" color={primaryMain}>
-            Welcome to ResumeRite!
+            {/* Animated text using Typical */}
+            <Typical
+              steps={[
+                "Welcome", 1000,
+                "Welcome to", 1000,
+                "Welcome to ResumeRite", 3000,
+              ]}
+              loop={Infinity}
+              wrapper="span"
+            />
           </Typography>
           <Typography fontSize="1rem" lineHeight="1.75rem" variant="subtitle">
             At ResumeRite, we believe that every career journey deserves a
@@ -47,22 +57,32 @@ const AboutUs = () => {
             Find Us :
           </Typography>
           <Box
-            mt="1rem"
+            mt="2rem"
             display="flex"
             justifyContent="space-between"
             gap="10px"
             alignContent="center"
-            width="100%"
+            width="17%"
             maxWidth="200px"
           >
             <Link
-              // href="https://www.linkedin.com/in//"
+              href="https://www.linkedin.com/in//"
               sx={{ cursor: "pointer" }}
             >
               <LinkedIn />
             </Link>
 
-           </Box>
+            <Link href="https://www.facebook.com/" sx={{ cursor: "pointer" }}>
+              <FacebookIcon />
+            </Link>
+
+            <Link
+              href="https://www.instagram.com//"
+              sx={{ cursor: "pointer" }}
+            >
+              <Instagram />
+            </Link>
+          </Box>
         </Box>
         <Box
           width="100%"
@@ -71,7 +91,7 @@ const AboutUs = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <img src={aboutus} width="100%" height="auto" alt="img" />
+          <img src={aboutus} width="70%" height="auto" alt="img" />
         </Box>
       </Box>
     </Box>
