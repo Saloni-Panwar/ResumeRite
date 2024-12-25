@@ -206,7 +206,7 @@ const authController = require("../controllers/auth.controller");
 const router = express.Router();
 
 router.post("/signup", authController.signup);
-router.post("/jwt-login", authController.jwtLogin);
+router.post('/login', authController.login); 
 router.post("/forgot-password", authController.forgotPassword);
 router.post("/verify-code", authController.verifyCode);
 router.post("/reset-password", authController.resetPassword);
