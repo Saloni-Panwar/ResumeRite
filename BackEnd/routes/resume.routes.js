@@ -2,8 +2,10 @@ const express = require("express");
 const resumeController = require("../controllers/resume.controller");
 const router = express.Router();
 
-router.post("/create", resumeController.createResume);
-router.get("/:resumeId", resumeController.getResumeById);
-router.post("/send-link", resumeController.sendResumeLink);
+// Save resume
+router.post("/save", resumeController.saveResume);
+
+// Get resume by ID
+router.get("/:id", resumeController.getResumeById);
 
 module.exports = router;

@@ -59,12 +59,14 @@ const passport = require("./config/passport");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/auth.routes");
 const resumeRoutes = require("./routes/resume.routes");
+const bodyParser = require("body-parser");
 
 dotenv.config();
 const app = express();
 
 // Middleware
 app.use(express.json());
+app.use(bodyParser.json());
 app.use(cors({ origin: "http://localhost:3001", methods: ["GET", "POST"], allowedHeaders: ["Content-Type", "Authorization"] }));
 app.use(
   session({ secret: "your_secret_key", resave: false, saveUninitialized: false })

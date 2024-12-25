@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 
 const resumeSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  resumeData: { type: Object, required: true },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  resumeName: { type: String, required: true },
+  templateData: { type: Object, required: true },
   createdAt: { type: Date, default: Date.now },
 });
 

@@ -36,10 +36,12 @@ const LoginPage = () => {
 
     if (!passwordError && email && password) {
       try {
-        const response = await axios.post("http://localhost:3000/api/auth/login", { email, password });
+        const response = await axios.post("http://localhost:3000/api/auth/login",{ email, password });
         console.log("Login request payload:", { email, password });
+        console.log(response.data); // Log the response data
 
-        if (response.data.success) {
+
+        if (response.data.message) {
           localStorage.setItem("token", response.data.token);
           navigate("/");
         } else {
@@ -48,7 +50,7 @@ const LoginPage = () => {
       } catch (error) {
         console.error("Login failed:", error.response || error.message);
         if (error.response && error.response.status === 404) {
-          alert("Login endpoint not found. Please check the API route.");
+          alert(error.message);
         } else {
           alert("Error during login. Please try again.");
         }

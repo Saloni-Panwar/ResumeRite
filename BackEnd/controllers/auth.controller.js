@@ -89,12 +89,14 @@
 //   },
 // };
 
-// module.exports = authController;const bcrypt = require("bcrypt");
+// module.exports = authController;
+
+
 const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
-const bcrypt = require("bcrypt");
+const bcrypt = require('bcryptjs');
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret_key";
 
 // Store verification codes temporarily
@@ -108,12 +110,11 @@ const authController = {
       if (existingUser)
         return res.status(400).json({ message: "User already exists" });
 
-      const hashedPassword = await bcrypt.hash(password, 10);
       const newUser = new User({
         firstName,
         lastName,
         email,
-        password: hashedPassword,
+        password
       });
       await newUser.save();
 
