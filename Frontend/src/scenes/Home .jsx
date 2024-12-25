@@ -1,3 +1,5 @@
+
+// import React from "react";
 // import {
 //   Box,
 //   Typography,
@@ -7,10 +9,33 @@
 //   Divider,
 // } from "@mui/material";
 
-// import image1 from "../assets/resume2.png";
-// import {template1, template2,template3,template4,template5,template6,template7,template8,} from "../assets";
+// import Slider from "react-slick";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
+
+// // import image1 from "../assets/resume2.png";
+// import image1 from "../assets/im1.png";
+
+// import image2 from "../assets/corousel1.png";
+// import image3 from "../assets/corousel2.png";
+// import image4 from "../assets/corousel6.png";
+// import image5 from "../assets/corousel4.png";
+// import image6 from "../assets/corousel5.png";
+
+// import {
+//   template1,
+//   template2,
+//   template3,
+//   template4,
+//   template5,
+//   template6,
+//   template7,
+//   template8,
+// } from "../assets";
+
 // import { useDispatch, useSelector } from "react-redux";
 // import {
+
 //   setTemplate1,
 //   setTemplate2,
 //   setTemplate3,
@@ -61,6 +86,19 @@
 //     template8,
 //   ];
 
+//   const carouselImages = [image2, image3, image4, image5, image6];
+
+//   const carouselSettings = {
+//     dots: true,
+//     infinite: true,
+//     speed: 500,
+//     slidesToShow: 1,
+//     slidesToScroll: 1,
+//     autoplay: true,
+//     autoplaySpeed: 3000,
+//     arrows: false,
+//   };
+
 //   return (
 //     <Box
 //       sx={{
@@ -100,7 +138,7 @@
 //               Craft Your Future, One Resume at a Time
 //             </Typography>
 //             <Typography variant={isMobileScreen ? "p" : "h6"}>
-//               Crafting professional resumes effortlessly, empowering your career journey with customizable templates and seamless user experience.
+//               "Transform your job search with ResumeRite. Our intuitive platform lets you build a resume that highlights your skills and experience in the best light. With personalized templates and easy editing, your next career milestone starts with ResumeRite—where your dream job meets professional presentation."
 //             </Typography>
 //           </Box>
 //         </Box>
@@ -112,10 +150,32 @@
 //           justifyContent="center"
 //           alignItems="center"
 //         >
-//           <img src={image1} width="70%" height="auto" alt="resume preview" />
+//           <img src={image1} width="100%" height="60%" alt="resume preview" />
 //         </Box>
 //       </Box>
 //       <Divider />
+
+//       <Box mt="2rem">
+//         <Slider {...carouselSettings}>
+//           {carouselImages.map((image, index) => (
+//             <Box key={index} sx={{ textAlign: "center" }}>
+//               <img
+//                 src={image}
+//                 alt={`carousel ${index + 1}`}
+//                 style={{
+//                   width: "100%",
+//                   height: "300px", // Set a consistent height
+//                   objectFit: "contain", // Ensures the image is fully visible
+//                   borderRadius: "8px",
+//                 }}
+//               />
+//             </Box>
+//           ))}
+//         </Slider>
+//       </Box>
+
+
+
 //       {/* TEMPLATE SECTION */}
 //       <Box mt={isMobileScreen ? "1rem" : "3rem"}>
 //         <Typography
@@ -132,7 +192,7 @@
 //           gap="1rem"
 //           width="100%"
 //         >
-//           {templates.map((template, index) => (
+//           {[...templates].reverse().map((template, index) => (
 //             <Box
 //               key={index}
 //               className="template"
@@ -143,19 +203,19 @@
 //                 border: "1px solid #ddd",
 //                 borderRadius: "8px",
 //                 overflow: "hidden",
-//                 boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)", // Add shadow to cards
-//                 transition: "transform 0.3s ease", // Smooth transition
+//                 boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+//                 transition: "transform 0.3s ease",
 //                 "&:hover": {
-//                   transform: "scale(1.05)", // Slightly zoom in on hover
+//                   transform: "scale(1.05)",
 //                 },
 //                 "& img": {
 //                   width: "120%",
 //                   height: "100%",
-//                   objectFit: "fill", // To maintain the aspect ratio properly
+//                   objectFit: "fill",
 //                 },
 //               }}
 //             >
-//               <img src={template} alt={`template ${index + 1}`} />
+//               <img src={template} alt={`template ${templates.length - index}`} />
 //               <Box
 //                 className="overlayStyles"
 //                 sx={{
@@ -180,7 +240,7 @@
 //                     borderRadius: "5px",
 //                     transition: "background-color 0.3s",
 //                     "&:hover": {
-//                       backgroundColor: "#2f70a5 ", // Darker shade on hover
+//                       backgroundColor: "#2f70a5 ",
 //                     },
 //                   }}
 //                 >
@@ -195,8 +255,10 @@
 //   );
 // };
 
-// export default Home;
+// export default Home;  
 
+
+/** @jsxImportSource @emotion/react */
 import React from "react";
 import {
   Box,
@@ -206,17 +268,20 @@ import {
   useMediaQuery,
   Divider,
 } from "@mui/material";
-
 import Slider from "react-slick";
+import Typical from "react-typical"; // Import Typical for text animation
+import { css,keyframes } from "@emotion/react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import image1 from "../assets/resume2.png";
-import image2 from "../assets/corousel1.png";
-import image3 from "../assets/corousel2.png";
-import image4 from "../assets/corousel6.png";
-import image5 from "../assets/corousel4.png";
-import image6 from "../assets/corousel5.png";
+
+
+import image1 from "../assets/im1.png";
+import image2 from "../assets/c1.png";
+import image3 from "../assets/c2.png";
+import image4 from "../assets/c3.png";
+import image5 from "../assets/c4.png";
+import image6 from "../assets/c5.png";
 
 import {
   template1,
@@ -230,8 +295,7 @@ import {
 } from "../assets";
 
 import { useDispatch, useSelector } from "react-redux";
-import { 
-  
+import {
   setTemplate1,
   setTemplate2,
   setTemplate3,
@@ -242,6 +306,36 @@ import {
   setTemplate8,
 } from "../store";
 import { useNavigate } from "react-router-dom";
+
+// Define the animation
+const zoomIn = keyframes`
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+`;
+
+const colorChange = keyframes`
+  0% {
+    color:rgb(97, 247, 255);
+  }
+  25% {
+    color: #6fafff;
+  }
+  50% {
+    color:rgb(92, 143, 184);
+  }
+  75% {
+    color:rgb(78, 102, 240);
+  }
+  100% {
+    color:rgb(116, 79, 217);
+  }
+`;
 
 const Home = () => {
   const theme = useTheme();
@@ -270,6 +364,7 @@ const Home = () => {
     dispatch(templateActions[index].setAction());
     navigate("/myResume");
   };
+
 
   const templates = [
     template1,
@@ -323,7 +418,11 @@ const Home = () => {
             variant={isMobileScreen ? "h4" : "h3"}
             fontWeight="bold"
           >
-            Stand Out, Get Hired
+            <Typical
+              steps={["Stand", 1000, "Stand Out", 1000, "Stand Out, Get", 1000, "Stand Out, Get Hired", 2000]}
+              loop={Infinity}
+              wrapper="span"
+            />
           </Typography>
           <Box p="0 0.5rem">
             <Typography
@@ -334,8 +433,7 @@ const Home = () => {
               Craft Your Future, One Resume at a Time
             </Typography>
             <Typography variant={isMobileScreen ? "p" : "h6"}>
-              Crafting professional resumes effortlessly, empowering your career
-              journey with customizable templates and seamless user experience.
+              "Transform your job search with ResumeRite. Our intuitive platform lets you build a resume that highlights your skills and experience in the best light. With personalized templates and easy editing, your next career milestone starts with ResumeRite—where your dream job meets professional presentation."
             </Typography>
           </Box>
         </Box>
@@ -347,49 +445,73 @@ const Home = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <img src={image1} width="70%" height="auto" alt="resume preview" />
+          <img src={image1} width="100%" height="60%" alt="resume preview" />
         </Box>
       </Box>
       <Divider />
 
+      {/* CAROUSEL WITH ANIMATION */}
       <Box mt="2rem">
-  <Slider {...carouselSettings}>
-    {carouselImages.map((image, index) => (
-      <Box key={index} sx={{ textAlign: "center" }}>
-        <img
-          src={image}
-          alt={`carousel ${index + 1}`}
-          style={{
-            width: "100%",
-            height: "300px", // Set a consistent height
-            objectFit: "contain", // Ensures the image is fully visible
-            borderRadius: "8px",
-          }}
-        />
+        <Slider {...carouselSettings}>
+          {carouselImages.map((image, index) => (
+            <Box
+              key={index}
+              sx={{
+                textAlign: "center",
+                animation: `${zoomIn} 0.6s ease-in-out both`,
+              }}
+            >
+              <img
+                src={image}
+                alt={`carousel ${index + 1}`}
+                style={{
+                  width: "100%",
+                  height: "300px",
+                  objectFit: "contain",
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.15)",
+                  transition: "transform 0.3s ease",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+                onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+              />
+            </Box>
+          ))}
+        </Slider>
       </Box>
-    ))}
-  </Slider>
-</Box>
-
-
 
       {/* TEMPLATE SECTION */}
       <Box mt={isMobileScreen ? "1rem" : "3rem"}>
-        <Typography
-          fontSize={isMobileScreen ? "18px" : "30px"}
-          color={primaryMain}
-          mb="2rem"
-          textAlign="center"
-        >
-          Select one of the Templates and Build your Resume!
-        </Typography>
+  <Typography
+    fontSize={isMobileScreen ? "18px" : "30px"}
+    fontWeight="bold"
+    css={css`
+      animation: ${colorChange} 5s infinite;
+      transition: transform 0.3s ease;
+      &:hover {
+        transform: scale(1.1);
+      }
+    `}
+    mb="2rem"
+    textAlign="center"
+  >
+    Select one of the Templates and Build your Resume!
+  </Typography>
+  <Box
+    display="grid"
+    gridTemplateColumns="repeat(auto-fit, minmax(280px, 1fr))"
+    gap="1rem"
+    width="100%"
+  >
+    {/* Template grid code */}
+</Box>;
         <Box
           display="grid"
           gridTemplateColumns="repeat(auto-fit, minmax(280px, 1fr))"
           gap="1rem"
           width="100%"
         >
-          {templates.map((template, index) => (
+           {templates.map((template, index) => (
             <Box
               key={index}
               className="template"
@@ -400,15 +522,15 @@ const Home = () => {
                 border: "1px solid #ddd",
                 borderRadius: "8px",
                 overflow: "hidden",
-                boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
-                transition: "transform 0.3s ease",
+                boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)", // Add shadow to cards
+                transition: "transform 0.3s ease", // Smooth transition
                 "&:hover": {
-                  transform: "scale(1.05)",
+                  transform: "scale(1.05)", // Slightly zoom in on hover
                 },
                 "& img": {
                   width: "120%",
                   height: "100%",
-                  objectFit: "fill",
+                  objectFit: "fill", // To maintain the aspect ratio properly
                 },
               }}
             >

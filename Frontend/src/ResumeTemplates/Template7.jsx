@@ -72,7 +72,6 @@ export const Template7 = () => {
       </Box>
       <Divider sx={{ backgroundColor: primaryColor, marginBottom: "2rem" }} /> {/* Divider in black */}
 
-
       {/* PROFESSIONAL EXPERIENCE */}
       <Box marginBottom="2rem">
         <Typography variant="h5" color={primaryColor} gutterBottom>
@@ -100,26 +99,38 @@ export const Template7 = () => {
       </Box>
       <Divider sx={{ backgroundColor: primaryColor, marginBottom: "2rem" }} /> {/* Divider in black */}
 
-
       {/* EDUCATION */}
       <Box marginBottom="2rem">
         <Typography variant="h5" color={primaryColor} gutterBottom>
           Education
         </Typography>
-        <Box marginBottom="1rem">
-          <Typography color={primaryColor} fontWeight="bold">
-            {education.educationType} ({education.startYear} - {education.endYear})
-          </Typography>
-          <Typography color={primaryColor}>
-            {education.college}, {education.university}
-          </Typography>
-          <Typography color={primaryColor}>
-            {education.description}
-          </Typography>
-        </Box>
+
+        {education.educationType === "Post Graduate" || education.educationType === "Graduate" || education.educationType === "Under Graduate" ? (
+          <Box marginBottom="1rem">
+            <Typography color={primaryColor} fontWeight="bold">
+              {education.degree} ({education.startYear} - {education.endYear})
+            </Typography>
+            <Typography color={primaryColor}>
+              {education.college}, {education.university}
+            </Typography>
+          </Box>
+        ) : education.educationType === "Higher Secondary-12th" ? (
+          <Box marginBottom="1rem">
+            <Typography color={primaryColor} fontWeight="bold">
+              Higher Secondary - {education.stream || "N/A"} ({education.yearOfCompletion})
+            </Typography>
+            <Typography color={primaryColor}>{education.school}</Typography>
+          </Box>
+        ) : education.educationType === "Secondary-10th" ? (
+          <Box marginBottom="1rem">
+            <Typography color={primaryColor} fontWeight="bold">
+              Secondary School ({education.yearOfCompletion})
+            </Typography>
+            <Typography color={primaryColor}>{education.school}</Typography>
+          </Box>
+        ) : null}
       </Box>
       <Divider sx={{ backgroundColor: primaryColor, marginBottom: "2rem" }} /> {/* Divider in black */}
-
 
       {/* SKILLS */}
       <Box marginBottom="2rem">

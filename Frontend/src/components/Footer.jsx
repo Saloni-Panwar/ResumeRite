@@ -128,7 +128,7 @@
 import { Box, Typography, useTheme, Link, Grid } from "@mui/material";
 import React from "react";
 import HandIcon from "@mui/icons-material/ArrowUpwardRounded";
-import Img from "../assets/footerImg3.png";  // Dark mode image
+import Img from "../assets/footerim.png";  // Dark mode image
 
 const Footer = () => {
   const theme = useTheme();
@@ -154,6 +154,8 @@ const Footer = () => {
             src={Img} 
             alt="Footer Illustration"
             style={{ maxWidth: "100%", borderRadius: "8px" }}
+            width="80%"
+           
           />
         </Grid>
 
@@ -205,7 +207,7 @@ const Footer = () => {
               Follow Us:{" "}
               <Link href="https://www.linkedin.com" target="_blank" sx={{ mx: 1 }}>LinkedIn</Link>
               <Link href="https://www.facebook.com" target="_blank" sx={{ mx: 1 }}>Facebook</Link>
-              <Link href="https://twitter.com" target="_blank" sx={{ mx: 1 }}>Twitter</Link>
+              <Link href="https://www.instagram.com/" target="_blank" sx={{ mx: 1 }}>Instagram</Link>
             </Typography>
           </Box>
 
@@ -213,13 +215,13 @@ const Footer = () => {
       </Grid>
 
 {/* Footer Bottom Section */}
-<Box sx={{ marginTop: "0.7rem", textAlign: "center" }}>
+<Box sx={{ marginTop: "-3.5rem", textAlign: "center" }}>
   <Typography variant="body2" sx={{ marginRight: "-27rem" }}>
     {/* Copyright message with the current year and "All Rights Reserved" text */}
 
     © {new Date().getFullYear()} @ResumeRite. All Rights Reserved.<br/> ---
   </Typography>
-  <Box sx={{ marginTop: "1.5rem", display: "flex", alignItems: "center", justifyContent: "right", marginRight: "2rem" }}>
+  <Box sx={{ marginTop: "1.5rem", display: "flex", alignItems: "center", justifyContent: "right", marginRight: "2rem"   }}>
     <HandIcon sx={{ marginRight: "0.5rem" }} />
     <Link
       href="#"

@@ -1,5 +1,4 @@
 import { Box, Typography, useTheme, List, ListItem } from "@mui/material";
-// import UserData from "../dummydata";
 import { useSelector } from "react-redux";
 import { useRef } from "react";
 
@@ -8,6 +7,7 @@ const Template2 = () => {
   const main = theme.palette.template2.main;
   const dark = theme.palette.template2.dark;
   const ref = useRef(null);
+  
   const personalDetails = useSelector((state) => state.personalInfo);
   const workExperiences = useSelector((state) => state.workExperiences);
   const education = useSelector((state) => state.education);
@@ -51,7 +51,7 @@ const Template2 = () => {
           </Typography>
         </Box>
       </Box>
-      <br />
+
       {/* OBJECTIVE */}
       <Box m="1rem 0">
         <Typography
@@ -66,6 +66,7 @@ const Template2 = () => {
         </Typography>
         <Typography color="#000">{personalDetails.objective}</Typography>
       </Box>
+
       {/* EXPERIENCE */}
       <Box>
         <Typography
@@ -99,6 +100,7 @@ const Template2 = () => {
           </List>
         </Box>
       </Box>
+
       {/* EDUCATION */}
       <Box m="1rem 0">
         <Typography
@@ -111,28 +113,39 @@ const Template2 = () => {
           Education
         </Typography>
         <Box mb="0.5rem" p="0.5rem">
+          {/* Display Education based on the type */}
           <Typography color="#000" fontWeight="bold">
             {education.educationType} - {education.startYear} to{" "}
             {education.endYear}
           </Typography>
           <Typography color="#000">
-            <span style={{ color: "black" }}>{education.college}</span> ,{" "}
+            <span style={{ color: "black" }}>{education.college}</span>,{" "}
             {education.university}
           </Typography>
-          <Typography color="#000">{education.description}</Typography>
-          {/* <List sx={{ listStyle: "decimal", paddingLeft: "1.5rem" }}>
-            {UserData.educationDetails.map((edu, index) => (
-              <ListItem key={index} sx={{ display: "list-item", padding: "0" }}>
-                <Typography fontWeight="bold">{edu.degreeName}</Typography>
-                <Typography color={main}>
-                  {edu.collegeName} {edu.startYear} to {edu.endYear}
-                </Typography>
-                <Typography>{edu.description}</Typography>
-              </ListItem>
-            ))}
-          </List> */}
+          <Typography color="#000">{education.degree}</Typography>
+          
+          {/* Display optional fields based on education type */}
+          {education.educationType === "Higher Secondary-12th" && (
+            <>
+              <Typography color="#000">
+                School: {education.school}
+              </Typography>
+              <Typography color="#000">
+                Year of Completion: {education.yearOfCompletion}
+              </Typography>
+              <Typography color="#000">Stream: {education.stream}</Typography>
+            </>
+          )}
+
+          {education.educationType === "Post Graduate" && (
+            <>
+              <Typography color="#000">Graduation: {education.graduation}</Typography>
+            </>
+          )}
+          
         </Box>
       </Box>
+
       {/* KEY SKILLS */}
       <Box>
         <Typography
