@@ -1,42 +1,31 @@
 const Resume = require("../models/resume.model");
 
-const resumeController = {
-  saveResume: async (req, res) => {
-    const { resumeName, templateData } = req.body;
+const saveResume = async (req, res) => {
+  const { resumeName, templateData } = req.body;
 
-    try {
-      const newResume = new Resume({
-        user: req.user ? req.user.id : null, // Only link user if logged in
-        resumeName,
-        templateData,
-      });
 
-      await newResume.save();
+  try {
+    // Create a new Resume object
+    const newResume = new Resume({
+      user: req.user ? req.user.id : null, // Optional: Link to user if logged in
+      resumeName,
+      templateData, // Store template data here
+    });
+    console.log("Template Data Size:", Buffer.byteLength(templateData, 'utf8')); 
 
-      const resumeLink = `http://localhost:3001/api/resume/${newResume._id}`;
-      res.status(201).json({
-        message: "Resume saved successfully",
-        resumeLink,
-      });
-    } catch (error) {
-      res.status(500).json({ message: "Error saving resume", error });
-    }
-  },
+    // Save the resume to the database
+    await newResume.save();
 
-  getResumeById: async (req, res) => {
-    const { id } = req.params;
-
-    try {
-      const resume = await Resume.findById(id);
-      if (!resume) {
-        return res.status(404).json({ message: "Resume not found" });
-      }
-
-      res.status(200).json(resume);
-    } catch (error) {
-      res.status(500).json({ message: "Error retrieving resume", error });
-    }
-  },
+    const resumeLink = `http://localhost:3001/api/resume/${newResume._id}`;
+    res.status(201).json({
+      message: "Resume saved successfully",
+      resumeLink,
+    });
+  } catch (error) {
+    // Log the error for debugging
+    console.error("Error saving resume:", error);
+    res.status(500).json({ message: "Error saving resume", error: error.message });
+  }
 };
-
-module.exports = resumeController;
+z
+module.exports = { saveResume };
