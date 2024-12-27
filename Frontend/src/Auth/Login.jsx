@@ -11,6 +11,8 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [emailError, setEmailError] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -33,32 +35,30 @@ const LoginPage = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-
+  
     if (!passwordError && email && password) {
       try {
-        const response = await axios.post("http://localhost:3000/api/auth/login",{ email, password });
-        console.log("Login request payload:", { email, password });
-        console.log(response.data); // Log the response data
-
-
+        const response = await axios.post("http://localhost:3000/api/auth/login", {
+          email,
+          password,
+        });
+        const { token } = response.data;
+  
         if (response.data.message) {
-          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("token", token); // Store the token
+          setIsLoggedIn(true); // Update state
           navigate("/");
         } else {
           alert("Invalid credentials");
         }
       } catch (error) {
         console.error("Login failed:", error.response || error.message);
-        if (error.response && error.response.status === 404) {
-          alert(error.message);
-        } else {
-          alert("Error during login. Please try again.");
-        }
+        alert("Error during login. Please try again.");
       }
-    } else {
-      console.log("Please correct the errors before submitting.");
     }
   };
+  
+  
 
   return (
     <Box
