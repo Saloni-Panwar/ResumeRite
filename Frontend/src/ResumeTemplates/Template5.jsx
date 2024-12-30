@@ -107,14 +107,32 @@ const Template5 = () => {
         >
           Education
         </Typography>
-        <Typography fontWeight="bold" color="#000">
-          {education.educationType} ({education.startYear} -{" "}
-          {education.endYear})
-        </Typography>
-        <Typography color="#000">
-          {education.college}, {education.university}
-        </Typography>
-        <Typography color="#000">{education.description}</Typography>
+        {/* Displaying educational details based on selected education type */}
+        {education.educationType && (
+          <Box mb="1rem">
+            <Typography color="#000" fontWeight="bold">
+              {education.educationType} ({education.startYear} - {education.endYear})
+            </Typography>
+            {education.university && (
+              <Typography color="#000">University: {education.university}</Typography>
+            )}
+            {education.college && (
+              <Typography color="#000">College/Institute: {education.college}</Typography>
+            )}
+            {education.degree && (
+              <Typography color="#000">Degree: {education.degree}</Typography>
+            )}
+            {education.school && (
+              <Typography color="#000">School: {education.school}</Typography>
+            )}
+            {education.stream && (
+              <Typography color="#000">Stream: {education.stream}</Typography>
+            )}
+            {education.graduation && (
+              <Typography color="#000">Graduation: {education.graduation}</Typography>
+            )}
+          </Box>
+        )}
       </Box>
 
       {/* SKILLS */}

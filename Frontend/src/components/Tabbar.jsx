@@ -1,3 +1,4 @@
+
 // import React, { useState } from "react";
 // import { Tabs, Tab, Box, useTheme, useMediaQuery } from "@mui/material";
 // import PersonalDetails from "../forms/PersonalDetails";
@@ -9,18 +10,15 @@
 //   const [activeTab, setActiveTab] = useState(0);
 //   const theme = useTheme();
 //   const lightGray = theme.palette.neutral.light;
-
 //   const isMobileScreen = useMediaQuery("(max-width:600px)");
 
-//   // const handleTabChange = (newValue) => {
-//   //   setActiveTab(newValue);
-//   // };
-
+//   // Navigation functions
 //   const handleNext = () => {
-//     setActiveTab((Tab) => Tab + 1);
+//     setActiveTab((prevTab) => Math.min(prevTab + 1, 3));
 //   };
+
 //   const handlePrevious = () => {
-//     setActiveTab((Tab) => Tab - 1);
+//     setActiveTab((prevTab) => Math.max(prevTab - 1, 0));
 //   };
 
 //   return (
@@ -33,59 +31,46 @@
 //       <Box
 //         width={isMobileScreen ? "100%" : "20%"}
 //         minWidth="250px"
-//         maxHeight="200px"
 //         backgroundColor={theme.palette.background.alt}
 //       >
 //         <Tabs
-//           width="100%"
 //           orientation={isMobileScreen ? "horizontal" : "vertical"}
 //           variant="scrollable"
 //           value={activeTab}
-//           // onChange={handleTabChange}
 //           sx={{
 //             borderRadius: "5px",
 //           }}
 //         >
 //           <Tab
-//             sx={{
-//               borderBottom: `1px solid ${lightGray}`,
-//             }}
+//             sx={{ borderBottom: `1px solid ${lightGray}` }}
 //             label="Personal Info"
 //           />
-         
 //           <Tab
-//             sx={{
-//               borderBottom: `1px solid ${lightGray}`,
-//             }}
+//             sx={{ borderBottom: `1px solid ${lightGray}` }}
 //             label="Education"
 //           />
-//            <Tab
-//             sx={{
-//               borderBottom: `1px solid ${lightGray}`,
-//             }}
+//           <Tab
+//             sx={{ borderBottom: `1px solid ${lightGray}` }}
 //             label="Work Experience"
 //           />
 //           <Tab
-//             sx={{
-//               borderBottom: `1px solid ${lightGray}`,
-//             }}
+//             sx={{ borderBottom: `1px solid ${lightGray}` }}
 //             label="Skills"
 //           />
 //         </Tabs>
 //       </Box>
 
+//       {/* Form rendering section */}
 //       <Box width="100%">
-//         {/* Rendering Forms based on the active tab */}
 //         {activeTab === 0 && <PersonalDetails onNext={handleNext} />}
 //         {activeTab === 1 && (
-//           <Experience onNext={handleNext} onPrevious={handlePrevious} />
+//           <Education onNext={handleNext} onPrevious={handlePrevious} />
 //         )}
 //         {activeTab === 2 && (
-//           <Education onNext={handleNext} onPrevious={handlePrevious} />
+//           <Experience onNext={handleNext} onPrevious={handlePrevious} />
 //         )}
 //         {activeTab === 3 && (
 //           <Skills
-//             onNext={handleNext}
 //             onPrevious={handlePrevious}
 //             setOnFormSubmit={setOnFormSubmit}
 //           />
@@ -96,12 +81,14 @@
 // };
 
 // export default VerticalTabs;
+
 import React, { useState } from "react";
 import { Tabs, Tab, Box, useTheme, useMediaQuery } from "@mui/material";
 import PersonalDetails from "../forms/PersonalDetails";
 import Experience from "../forms/Experience";
 import Education from "../forms/Education";
 import Skills from "../forms/Skills";
+import { motion, AnimatePresence } from "framer-motion";
 
 const VerticalTabs = ({ setOnFormSubmit }) => {
   const [activeTab, setActiveTab] = useState(0);
@@ -109,13 +96,18 @@ const VerticalTabs = ({ setOnFormSubmit }) => {
   const lightGray = theme.palette.neutral.light;
   const isMobileScreen = useMediaQuery("(max-width:600px)");
 
-  // Navigation functions
   const handleNext = () => {
     setActiveTab((prevTab) => Math.min(prevTab + 1, 3));
   };
 
   const handlePrevious = () => {
     setActiveTab((prevTab) => Math.max(prevTab - 1, 0));
+  };
+
+  const contentVariants = {
+    hidden: { opacity: 0, x: 50 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+    exit: { opacity: 0, x: -50, transition: { duration: 0.5 } },
   };
 
   return (
@@ -125,58 +117,76 @@ const VerticalTabs = ({ setOnFormSubmit }) => {
       justifyContent="space-between"
       gap={isMobileScreen ? "1rem" : "4rem"}
     >
-      {/* Tabs section */}
+      {/* Tabs */}
       <Box
         width={isMobileScreen ? "100%" : "20%"}
         minWidth="250px"
         backgroundColor={theme.palette.background.alt}
+        borderRadius="5px"
       >
         <Tabs
           orientation={isMobileScreen ? "horizontal" : "vertical"}
           variant="scrollable"
           value={activeTab}
-          sx={{
-            borderRadius: "5px",
-          }}
         >
-          <Tab
-            sx={{ borderBottom: `1px solid ${lightGray}` }}
-            label="Personal Info"
-          />
-          <Tab
-            sx={{ borderBottom: `1px solid ${lightGray}` }}
-            label="Education"
-          />
-          <Tab
-            sx={{ borderBottom: `1px solid ${lightGray}` }}
-            label="Work Experience"
-          />
-          <Tab
-            sx={{ borderBottom: `1px solid ${lightGray}` }}
-            label="Skills"
-          />
+          <Tab label="Personal Info" sx={{ borderBottom: `1px solid ${lightGray}` }} />
+          <Tab label="Education" sx={{ borderBottom: `1px solid ${lightGray}` }} />
+          <Tab label="Work Experience" sx={{ borderBottom: `1px solid ${lightGray}` }} />
+          <Tab label="Skills" sx={{ borderBottom: `1px solid ${lightGray}` }} />
         </Tabs>
       </Box>
 
-      {/* Form rendering section */}
-      <Box width="100%">
-        {activeTab === 0 && <PersonalDetails onNext={handleNext} />}
-        {activeTab === 1 && (
-          <Education onNext={handleNext} onPrevious={handlePrevious} />
-        )}
-        {activeTab === 2 && (
-          <Experience onNext={handleNext} onPrevious={handlePrevious} />
-        )}
-        {activeTab === 3 && (
-          <Skills
-            onPrevious={handlePrevious}
-            setOnFormSubmit={setOnFormSubmit}
-          />
-        )}
+      {/* Animated Content */}
+      <Box flex="1">
+        <AnimatePresence mode="wait">
+          {activeTab === 0 && (
+            <motion.div
+              key="personal-details"
+              variants={contentVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              <PersonalDetails onNext={handleNext} />
+            </motion.div>
+          )}
+          {activeTab === 1 && (
+            <motion.div
+              key="education"
+              variants={contentVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              <Education onNext={handleNext} onPrevious={handlePrevious} />
+            </motion.div>
+          )}
+          {activeTab === 2 && (
+            <motion.div
+              key="experience"
+              variants={contentVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              <Experience onNext={handleNext} onPrevious={handlePrevious} />
+            </motion.div>
+          )}
+          {activeTab === 3 && (
+            <motion.div
+              key="skills"
+              variants={contentVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              <Skills onPrevious={handlePrevious} setOnFormSubmit={setOnFormSubmit} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </Box>
     </Box>
   );
 };
 
 export default VerticalTabs;
-

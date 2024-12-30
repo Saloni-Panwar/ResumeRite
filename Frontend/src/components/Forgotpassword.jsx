@@ -4,7 +4,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 
-
 const ForgotPassword = () => {
     const [email, setEmail] = useState("");
     const [error, setError] = useState("");
@@ -57,7 +56,6 @@ const ForgotPassword = () => {
                 <Button type="submit" variant="contained" fullWidth>
                     Submit
                 </Button>
-
 
             </form>
 

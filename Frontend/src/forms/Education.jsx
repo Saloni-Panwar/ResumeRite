@@ -1,3 +1,428 @@
+// import {
+//   Box,
+//   Typography,
+//   useTheme,
+//   Button,
+//   Select,
+//   MenuItem,
+//   TextField,
+//   useMediaQuery,
+//   FormControl,
+//   InputLabel,
+// } from "@mui/material";
+// import { useForm, Controller } from "react-hook-form";
+// import { useDispatch } from "react-redux";
+// import { setEducation } from "../store";
+// import { useSelector } from "react-redux";
+// import { useState } from "react";
+
+// const Education = ({ onNext, onPrevious }) => {
+//   const theme = useTheme();
+//   const main = theme.palette.primary.main;
+//   const isMobileScreen = useMediaQuery("(max-width:800px)");
+//   const dispatch = useDispatch();
+
+//   const education = useSelector((state) => state.education);
+//   const { control, handleSubmit, watch, setValue, getValues } = useForm({
+//     defaultValues: {
+//       educationType: education.educationType || "",
+//       university: education.university || "",
+//       college: education.college || "",
+//       degree: education.degree || "",
+//       startYear: education.startYear || "",
+//       duration: education.duration || "",
+//       endYear: education.endYear || "",
+//       school: education.school || "",
+//       yearOfCompletion: education.yearOfCompletion || "",
+//       stream: education.stream || "",
+//       graduation: education.graduation || "", // Optional graduation field
+//     },
+//   });
+
+//   const [selectedEducationType, setSelectedEducationType] = useState(education.educationType || "");
+
+//   const handleEducationTypeChange = (value) => {
+//     setSelectedEducationType(value);
+//     // Reset dependent fields when education type changes
+//     setValue("university", "");
+//     setValue("college", "");
+//     setValue("degree", "");
+//     setValue("startYear", "");
+//     setValue("duration", "");
+//     setValue("endYear", "");
+//     setValue("school", "");
+//     setValue("yearOfCompletion", "");
+//     setValue("stream", "");
+//     setValue("graduation", "");
+//   };
+
+//   const calculateEndYear = () => {
+//     const startYear = parseInt(getValues("startYear"));
+//     const duration = parseInt(getValues("duration"));
+//     if (startYear && duration) {
+//       setValue("endYear", startYear + duration);
+//     }
+//   };
+
+//   const onSubmit = (data) => {
+//     dispatch(setEducation(data));
+//     onNext();
+//   };
+
+//   return (
+//     <Box
+//       width="100%"
+//       maxWidth="fit-content"
+//       p="1rem 4%"
+//       backgroundColor={theme.palette.background.alt}
+//       borderRadius="8px"
+//     >
+//       <Typography variant="h4" mb="1rem" color={main}>
+//         Education
+//       </Typography>
+//       <form onSubmit={handleSubmit(onSubmit)}>
+//         <FormControl fullWidth margin="normal">
+//           <InputLabel id="educationType">Education Type</InputLabel>
+//           <Controller
+//             name="educationType"
+//             control={control}
+//             rules={{ required: "Required" }}
+//             render={({ field }) => (
+//               <Select
+//                 {...field}
+//                 label="Education Type"
+//                 onChange={(e) => {
+//                   field.onChange(e);
+//                   handleEducationTypeChange(e.target.value);
+//                 }}
+//               >
+//                 <MenuItem value="Post Graduate">Post Graduate</MenuItem>
+//                 <MenuItem value="Graduate">Graduate</MenuItem>
+//                 <MenuItem value="Under Graduate">Under Graduate</MenuItem>
+//                 <MenuItem value="Higher Secondary-12th">Higher Secondary-12th</MenuItem>
+//                 <MenuItem value="Secondary-10th">Secondary-10th</MenuItem>
+//               </Select>
+//             )}
+//           />
+//         </FormControl>
+
+//         {(selectedEducationType === "Post Graduate" ||
+//           selectedEducationType === "Graduate" ||
+//           selectedEducationType === "Under Graduate") && (
+//           <>
+//             <Controller
+//               name="university"
+//               control={control}
+//               rules={{ required: "Required" }}
+//               render={({ field, fieldState }) => (
+//                 <TextField
+//                   {...field}
+//                   label="University"
+//                   margin="normal"
+//                   fullWidth
+//                   error={!!fieldState.error}
+//                   helperText={fieldState.error?.message || ""}
+//                 />
+//               )}
+//             />
+//             <Controller
+//               name="college"
+//               control={control}
+//               rules={{ required: "Required" }}
+//               render={({ field, fieldState }) => (
+//                 <TextField
+//                   {...field}
+//                   label="Institute/College"
+//                   margin="normal"
+//                   fullWidth
+//                   error={!!fieldState.error}
+//                   helperText={fieldState.error?.message || ""}
+//                 />
+//               )}
+//             />
+//             <Controller
+//               name="degree"
+//               control={control}
+//               rules={{ required: "Required" }}
+//               render={({ field, fieldState }) => (
+//                 <TextField
+//                   {...field}
+//                   label="Degree"
+//                   margin="normal"
+//                   fullWidth
+//                   error={!!fieldState.error}
+//                   helperText={fieldState.error?.message || ""}
+//                 />
+//               )}
+//             />
+//             <Controller
+//               name="startYear"
+//               control={control}
+//               rules={{ required: "Required" }}
+//               render={({ field, fieldState }) => (
+//                 <TextField
+//                   {...field}
+//                   label="Start Year"
+//                   type="number"
+//                   margin="normal"
+//                   fullWidth
+//                   onChange={(e) => {
+//                     field.onChange(e);
+//                     calculateEndYear();
+//                   }}
+//                   error={!!fieldState.error}
+//                   helperText={fieldState.error?.message || ""}
+//                 />
+//               )}
+//             />
+//             <Controller
+//               name="duration"
+//               control={control}
+//               rules={{ required: "Required" }}
+//               render={({ field, fieldState }) => (
+//                 <TextField
+//                   {...field}
+//                   label="Course Duration (years)"
+//                   type="number"
+//                   margin="normal"
+//                   fullWidth
+//                   onChange={(e) => {
+//                     field.onChange(e);
+//                     calculateEndYear();
+//                   }}
+//                   error={!!fieldState.error}
+//                   helperText={fieldState.error?.message || ""}
+//                 />
+//               )}
+//             />
+//             <Controller
+//               name="endYear"
+//               control={control}
+//               render={({ field }) => (
+//                 <TextField
+//                   {...field}
+//                   label="End Year"
+//                   margin="normal"
+//                   fullWidth
+//                   disabled
+//                 />
+//               )}
+//             />
+//             {selectedEducationType === "Post Graduate" && (
+//               <>
+//                 <Box mt="1rem">
+//                   <Typography variant="h6" color="textSecondary">
+//                     Graduation Details (Optional)
+//                   </Typography>
+                  
+
+//                   <Controller
+//               name="university"
+//               control={control}
+//               rules={{ required: "Required" }}
+//               render={({ field, fieldState }) => (
+//                 <TextField
+//                   {...field}
+//                   label="University"
+//                   margin="normal"
+//                   fullWidth
+//                   error={!!fieldState.error}
+//                   helperText={fieldState.error?.message || ""}
+//                 />
+//               )}
+//             />
+//             <Controller
+//               name="college"
+//               control={control}
+//               rules={{ required: "Required" }}
+//               render={({ field, fieldState }) => (
+//                 <TextField
+//                   {...field}
+//                   label="Institute/College"
+//                   margin="normal"
+//                   fullWidth
+//                   error={!!fieldState.error}
+//                   helperText={fieldState.error?.message || ""}
+//                 />
+//               )}
+//             />
+//             <Controller
+//               name="degree"
+//               control={control}
+//               rules={{ required: "Required" }}
+//               render={({ field, fieldState }) => (
+//                 <TextField
+//                   {...field}
+//                   label="Degree"
+//                   margin="normal"
+//                   fullWidth
+//                   error={!!fieldState.error}
+//                   helperText={fieldState.error?.message || ""}
+//                 />
+//               )}
+//             />
+//             <Controller
+//               name="startYear"
+//               control={control}
+//               rules={{ required: "Required" }}
+//               render={({ field, fieldState }) => (
+//                 <TextField
+//                   {...field}
+//                   label="Start Year"
+//                   type="number"
+//                   margin="normal"
+//                   fullWidth
+//                   onChange={(e) => {
+//                     field.onChange(e);
+//                     calculateEndYear();
+//                   }}
+//                   error={!!fieldState.error}
+//                   helperText={fieldState.error?.message || ""}
+//                 />
+//               )}
+//             />
+//             <Controller
+//               name="duration"
+//               control={control}
+//               rules={{ required: "Required" }}
+//               render={({ field, fieldState }) => (
+//                 <TextField
+//                   {...field}
+//                   label="Course Duration (years)"
+//                   type="number"
+//                   margin="normal"
+//                   fullWidth
+//                   onChange={(e) => {
+//                     field.onChange(e);
+//                     calculateEndYear();
+//                   }}
+//                   error={!!fieldState.error}
+//                   helperText={fieldState.error?.message || ""}
+//                 />
+//               )}
+//             />
+//             <Controller
+//               name="endYear"
+//               control={control}
+//               render={({ field }) => (
+//                 <TextField
+//                   {...field}
+//                   label="End Year"
+//                   margin="normal"
+//                   fullWidth
+//                   disabled
+//                 />
+//               )}
+//             />
+
+
+
+//                 </Box>
+                
+//               </>
+//             )}
+//           </>
+//         )}
+
+//         {selectedEducationType === "Higher Secondary-12th" && (
+//           <>
+//             <Controller
+//               name="school"
+//               control={control}
+//               rules={{ required: "Required" }}
+//               render={({ field, fieldState }) => (
+//                 <TextField
+//                   {...field}
+//                   label="School"
+//                   margin="normal"
+//                   fullWidth
+//                   error={!!fieldState.error}
+//                   helperText={fieldState.error?.message || ""}
+//                 />
+//               )}
+//             />
+//             <Controller
+//               name="yearOfCompletion"
+//               control={control}
+//               rules={{ required: "Required" }}
+//               render={({ field, fieldState }) => (
+//                 <TextField
+//                   {...field}
+//                   label="Year of Completion"
+//                   type="number"
+//                   margin="normal"
+//                   fullWidth
+//                   error={!!fieldState.error}
+//                   helperText={fieldState.error?.message || ""}
+//                 />
+//               )}
+//             />
+//             <Controller
+//               name="stream"
+//               control={control}
+//               render={({ field }) => (
+//                 <TextField
+//                   {...field}
+//                   label="Stream"
+//                   margin="normal"
+//                   fullWidth
+//                 />
+//               )}
+//             />
+//           </>
+//         )}
+
+//         {selectedEducationType === "Secondary-10th" && (
+//           <>
+//             <Controller
+//               name="school"
+//               control={control}
+//               rules={{ required: "Required" }}
+//               render={({ field, fieldState }) => (
+//                 <TextField
+//                   {...field}
+//                   label="School"
+//                   margin="normal"
+//                   fullWidth
+//                   error={!!fieldState.error}
+//                   helperText={fieldState.error?.message || ""}
+//                 />
+//               )}
+//             />
+//             <Controller
+//               name="yearOfCompletion"
+//               control={control}
+//               rules={{ required: "Required" }}
+//               render={({ field, fieldState }) => (
+//                 <TextField
+//                   {...field}
+//                   label="Year of Completion"
+//                   type="number"
+//                   margin="normal"
+//                   fullWidth
+//                   error={!!fieldState.error}
+//                   helperText={fieldState.error?.message || ""}
+//                 />
+//               )}
+//             />
+//           </>
+//         )}
+
+//         <Box display="flex" mt="1rem" gap="1rem" justifyContent="end">
+//           <Button size="large" variant="outlined" onClick={onPrevious}>
+//             Previous
+//           </Button>
+//           <Button size="large" variant="contained" type="submit">
+//             Next
+//           </Button>
+//         </Box>
+//       </form>
+//     </Box>
+//   );
+// };
+
+// export default Education;
+
 import {
   Box,
   Typography,
@@ -11,273 +436,304 @@ import {
   InputLabel,
 } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setEducation } from "../store";
-import { useSelector } from "react-redux";
+import { useState } from "react";
+import { motion } from "framer-motion";
 
 const Education = ({ onNext, onPrevious }) => {
   const theme = useTheme();
   const main = theme.palette.primary.main;
   const isMobileScreen = useMediaQuery("(max-width:800px)");
   const dispatch = useDispatch();
-  // getting the data if there are data for education in the global state
-  const education = useSelector((state) => state.education);
 
-  
-  const { control, handleSubmit, getValues } = useForm({
+  const education = useSelector((state) => state.education);
+  const { control, handleSubmit, setValue, getValues } = useForm({
     defaultValues: {
-      // this data is from the global state
-      educationType: education.educationType,
-      university: education.university,
-      college: education.college,
-      startYear: education.startYear,
-      endYear: education.endYear,
-      description: education.description,
+      educationType: education.educationType || "",
+      university: education.university || "",
+      college: education.college || "",
+      degree: education.degree || "",
+      startYear: education.startYear || "",
+      duration: education.duration || "",
+      endYear: education.endYear || "",
+      school: education.school || "",
+      yearOfCompletion: education.yearOfCompletion || "",
+      stream: education.stream || "",
     },
   });
 
+  const [selectedEducationType, setSelectedEducationType] = useState(education.educationType || "");
+
+  const handleEducationTypeChange = (value) => {
+    setSelectedEducationType(value);
+    setValue("university", "");
+    setValue("college", "");
+    setValue("degree", "");
+    setValue("startYear", "");
+    setValue("duration", "");
+    setValue("endYear", "");
+    setValue("school", "");
+    setValue("yearOfCompletion", "");
+    setValue("stream", "");
+  };
+
+  const calculateEndYear = () => {
+    const startYear = parseInt(getValues("startYear"));
+    const duration = parseInt(getValues("duration"));
+    if (startYear && duration) {
+      setValue("endYear", startYear + duration);
+    }
+  };
+
   const onSubmit = (data) => {
-    // the form data will be dispatched to global state
     dispatch(setEducation(data));
-    //the onNext function will be called and the function from Tabbar will be executed to move to next form
     onNext();
   };
 
   return (
-    <Box
-      width="100%"
-      maxWidth="fit-content"
-      p="1rem 4%"
-      backgroundColor={theme.palette.background.alt}
-      borderRadius="8px"
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -50 }}
+      transition={{ duration: 0.5 }}
     >
-      <Typography variant="h4" mb="1rem" color={main}>
-        Education
-      </Typography>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <FormControl fullWidth>
-          <InputLabel
-            id="educationType"
-            sx={{
-              "&.MuiInputLabel-root.Mui-required": {
-                color: "red", // Red color for required asterisk
-              },
-            }}
-          >
-            Education Type
-          </InputLabel>
-          <Controller
-            name="educationType"
-            control={control}
-            rules={{
-              required: "Required",
-            }}
-            render={({ field, fieldState }) => (
-              <Select
-                id="educationType"
-                label="Education Type"
-                {...field}
-                error={!!fieldState.error}
-              >
-                <MenuItem value="Post Graduate">Post Graduate</MenuItem>
-                <MenuItem value="Graduate">Graduate</MenuItem>
-                <MenuItem value="Under Graduate">Under Graduate</MenuItem>
-                <MenuItem value="Higher Secondary-12th">Higher Secondary-12th</MenuItem>
-                <MenuItem value="Secondary School Certificate -10th">
-                  Secondary School Certificate -10th
-                </MenuItem>
-              </Select>
-            )}
-          />
-        </FormControl>
-        
-        <Box
-          display="flex"
-          flexWrap="wrap"
-          justifyContent="space-between"
-          gap={isMobileScreen ? "0rem" : "1rem"}
-        >
-          <Controller
-            name="university"
-            control={control}
-            rules={{
-              required: "Required",
-              minLength: {
-                value: 4,
-                message: "Should be at least 4 characters",
-              },
-              maxLength: {
-                value: 50,
-                message: "Should not be more than 50 characters",
-              },
-            }}
-            render={({ field, fieldState }) => (
-              <TextField
-              label={<span>University <span style={{ color: 'red' }}>*</span></span>}
-              {...field}
-                margin="normal"
-                fullWidth={isMobileScreen ? true : false}
-                error={!!fieldState.error}
-                helperText={fieldState.error?.message || ""}
-                
-              />
-            )}
-          />
-          <Controller
-            name="college"
-            control={control}
-            rules={{
-              required: "Required",
-              minLength: {
-                value: 4,
-                message: "Should be at least 4 characters",
-              },
-              maxLength: {
-                value: 50,
-                message: "Should not be more than 50 characters",
-              },
-            }}
-            render={({ field, fieldState }) => (
-              <TextField
-              label={<span>College <span style={{ color: 'red' }}>*</span></span>}
-              {...field}
-                margin="normal"
-                fullWidth={isMobileScreen ? true : false}
-                error={!!fieldState.error}
-                helperText={fieldState.error?.message || ""}
-                
-              />
-            )}
-          />
-        </Box>
-        
-        <Box
-          display="flex"
-          flexWrap={isMobileScreen ? "wrap" : "nowrap"}
-          justifyContent="space-between"
-          gap="1rem"
-          m="1rem 0"
-        >
-          <FormControl fullWidth>
-            <InputLabel
-              id="startYear"
-              sx={{
-                "&.MuiInputLabel-root.Mui-required": {
-                  color: "red", // Red color for required asterisk
-                },
-              }}
-            >
-              Start Year
-            </InputLabel>
+      <Box
+        width="100%"
+        maxWidth="fit-content"
+        p="1rem 4%"
+        backgroundColor={theme.palette.background.alt}
+        borderRadius="8px"
+      >
+        <Typography variant="h4" mb="1rem" color={main}>
+          Education
+        </Typography>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <FormControl fullWidth margin="normal">
+            <InputLabel id="educationType">Education Type</InputLabel>
             <Controller
-              name="startYear"
+              name="educationType"
               control={control}
-              rules={{
-                required: "Required",
-              }}
-              render={({ field, fieldState }) => (
+              rules={{ required: "Required" }}
+              render={({ field }) => (
                 <Select
-                  id="startYear"
-                  label="Start Year"
                   {...field}
-                  error={!!fieldState.error}
+                  label="Education Type"
+                  onChange={(e) => {
+                    field.onChange(e);
+                    handleEducationTypeChange(e.target.value);
+                  }}
                 >
-                  <MenuItem value="2015">2015</MenuItem>
-                  <MenuItem value="2016">2016</MenuItem>
-                  <MenuItem value="2017">2017</MenuItem>
-                  <MenuItem value="2018">2018</MenuItem>
-                  <MenuItem value="2019">2019</MenuItem>
-                  <MenuItem value="2020">2020</MenuItem>
-                  <MenuItem value="2021">2021</MenuItem>
-                  <MenuItem value="2022">2022</MenuItem>
-                  <MenuItem value="2023">2023</MenuItem>
-                  <MenuItem value="2024">2024</MenuItem>
+                  <MenuItem value="Post Graduate">Post Graduate</MenuItem>
+                  <MenuItem value="Graduate">Graduate</MenuItem>
+                  <MenuItem value="Under Graduate">Under Graduate</MenuItem>
+                  <MenuItem value="Higher Secondary-12th">Higher Secondary-12th</MenuItem>
+                  <MenuItem value="Secondary-10th">Secondary-10th</MenuItem>
                 </Select>
               )}
             />
           </FormControl>
-          
-          <FormControl fullWidth>
-            <InputLabel
-              id="endYear"
-              sx={{
-                "&.MuiInputLabel-root.Mui-required": {
-                  color: "red", // Red color for required asterisk
-                },
-              }}
-            >
-              End Year
-            </InputLabel>
-            <Controller
-              name="endYear"
-              control={control}
-              rules={{
-                required: "Required",
-                validate: {
-                  notLessThanStartYear: (value) =>
-                    parseInt(value) >= parseInt(getValues("startYear"))
-                      ? true
-                      : "End year must be greater than or equal to start year",
-                },
-              }}
-              render={({ field, fieldState }) => (
-                <Select
-                  id="endYear"
-                  label="End Year"
-                  {...field}
-                  error={!!fieldState.error}
-                >
-                  <MenuItem value="2015">2015</MenuItem>
-                  <MenuItem value="2016">2016</MenuItem>
-                  <MenuItem value="2017">2017</MenuItem>
-                  <MenuItem value="2018">2018</MenuItem>
-                  <MenuItem value="2019">2019</MenuItem>
-                  <MenuItem value="2020">2020</MenuItem>
-                  <MenuItem value="2021">2021</MenuItem>
-                  <MenuItem value="2022">2022</MenuItem>
-                  <MenuItem value="2023">2023</MenuItem>
-                  <MenuItem value="2024">2024</MenuItem>
-                </Select>
-              )}
-            />
-          </FormControl>
-        </Box>
 
-        <Controller
-          name="description"
-          control={control}
-          rules={{
-            required: "Required",
-            minLength: {
-              value: 50,
-              message: "Should be at least 50 characters",
-            },
-          }}
-          render={({ field, fieldState }) => (
-            <TextField
-            label={<span>Description <span style={{ color: 'red' }}>*</span></span>}
-            {...field}
-              margin="normal"
-              fullWidth
-              multiline
-              rows={2}
-              placeholder="Write something about your learning journey..."
-              error={!!fieldState.error}
-              helperText={fieldState.error?.message || ""}
-            />
+          {(selectedEducationType === "Post Graduate" ||
+            selectedEducationType === "Graduate" ||
+            selectedEducationType === "Under Graduate") && (
+            <>
+              <Controller
+                name="university"
+                control={control}
+                rules={{ required: "Required" }}
+                render={({ field, fieldState }) => (
+                  <TextField
+                    {...field}
+                    label="University"
+                    margin="normal"
+                    fullWidth
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message || ""}
+                  />
+                )}
+              />
+              <Controller
+                name="college"
+                control={control}
+                rules={{ required: "Required" }}
+                render={({ field, fieldState }) => (
+                  <TextField
+                    {...field}
+                    label="Institute/College"
+                    margin="normal"
+                    fullWidth
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message || ""}
+                  />
+                )}
+              />
+              <Controller
+                name="degree"
+                control={control}
+                rules={{ required: "Required" }}
+                render={({ field, fieldState }) => (
+                  <TextField
+                    {...field}
+                    label="Degree"
+                    margin="normal"
+                    fullWidth
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message || ""}
+                  />
+                )}
+              />
+              <Controller
+                name="startYear"
+                control={control}
+                rules={{ required: "Required" }}
+                render={({ field, fieldState }) => (
+                  <TextField
+                    {...field}
+                    label="Start Year"
+                    type="number"
+                    margin="normal"
+                    fullWidth
+                    onChange={(e) => {
+                      field.onChange(e);
+                      calculateEndYear();
+                    }}
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message || ""}
+                  />
+                )}
+              />
+              <Controller
+                name="duration"
+                control={control}
+                rules={{ required: "Required" }}
+                render={({ field, fieldState }) => (
+                  <TextField
+                    {...field}
+                    label="Course Duration (years)"
+                    type="number"
+                    margin="normal"
+                    fullWidth
+                    onChange={(e) => {
+                      field.onChange(e);
+                      calculateEndYear();
+                    }}
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message || ""}
+                  />
+                )}
+              />
+              <Controller
+                name="endYear"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="End Year"
+                    margin="normal"
+                    fullWidth
+                    disabled
+                  />
+                )}
+              />
+            </>
           )}
-        />
 
-        <Box display="flex" mt="1rem" gap="1rem" justifyContent="end">
-          <Button size="large" variant="outlined" onClick={onPrevious}>
-            Previous
-          </Button>
-          <Button size="large" variant="contained" type="submit">
-            Next
-          </Button>
-        </Box>
-      </form>
-    </Box>
+          {selectedEducationType === "Higher Secondary-12th" && (
+            <>
+              <Controller
+                name="school"
+                control={control}
+                rules={{ required: "Required" }}
+                render={({ field, fieldState }) => (
+                  <TextField
+                    {...field}
+                    label="School"
+                    margin="normal"
+                    fullWidth
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message || ""}
+                  />
+                )}
+              />
+              <Controller
+                name="yearOfCompletion"
+                control={control}
+                rules={{ required: "Required" }}
+                render={({ field, fieldState }) => (
+                  <TextField
+                    {...field}
+                    label="Year of Completion"
+                    type="number"
+                    margin="normal"
+                    fullWidth
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message || ""}
+                  />
+                )}
+              />
+              <Controller
+                name="stream"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="Stream"
+                    margin="normal"
+                    fullWidth
+                  />
+                )}
+              />
+            </>
+          )}
+
+          {selectedEducationType === "Secondary-10th" && (
+            <>
+              <Controller
+                name="school"
+                control={control}
+                rules={{ required: "Required" }}
+                render={({ field, fieldState }) => (
+                  <TextField
+                    {...field}
+                    label="School"
+                    margin="normal"
+                    fullWidth
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message || ""}
+                  />
+                )}
+              />
+              <Controller
+                name="yearOfCompletion"
+                control={control}
+                rules={{ required: "Required" }}
+                render={({ field, fieldState }) => (
+                  <TextField
+                    {...field}
+                    label="Year of Completion"
+                    type="number"
+                    margin="normal"
+                    fullWidth
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message || ""}
+                  />
+                )}
+              />
+            </>
+          )}
+
+          <Box display="flex" mt="1rem" gap="1rem" justifyContent="end">
+            <Button size="large" variant="outlined" onClick={onPrevious}>
+              Previous
+            </Button>
+            <Button size="large" variant="contained" type="submit">
+              Next
+            </Button>
+          </Box>
+        </form>
+      </Box>
+    </motion.div>
   );
 };
 

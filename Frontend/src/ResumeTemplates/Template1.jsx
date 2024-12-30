@@ -1,5 +1,4 @@
 import { useRef } from "react";
-
 import {
   Box,
   Divider,
@@ -7,11 +6,8 @@ import {
   useTheme,
   List,
   ListItem,
-  // useMediaQuery,
 } from "@mui/material";
-// import UserData from "../dummydata";
 import { useSelector } from "react-redux";
-
 
 const Template1 = (props) => {
   const theme = useTheme();
@@ -19,7 +15,6 @@ const Template1 = (props) => {
   const main = theme.palette.template1.main;
   const dark = theme.palette.template1.dark;
   const light = theme.palette.template1.light;
-  // const isMobileScreen = useMediaQuery("(max-width:600px)");
   const personalDetails = useSelector((state) => state.personalInfo);
   const workExperiences = useSelector((state) => state.workExperiences);
   const education = useSelector((state) => state.education);
@@ -61,15 +56,16 @@ const Template1 = (props) => {
           </Typography>
           <Typography color={main}>
             <span style={{ color: "black" }}>Address:</span>{" "}
-            {personalDetails.address},{personalDetails.city}
+            {personalDetails.address}, {personalDetails.city}
           </Typography>
         </Box>
       </Box>
       <Divider color="" />
+
       {/* OBJECTIVE */}
       <Box m="1rem 0">
         <Typography
-          backgroundColor ={light}
+          backgroundColor={light}
           color={dark}
           fontSize="1.5rem"
           lineHeight="1.75rem"
@@ -80,6 +76,7 @@ const Template1 = (props) => {
         </Typography>
         <Typography color="#000">{personalDetails.objective}</Typography>
       </Box>
+
       {/* EXPERIENCE */}
       <Box>
         <Typography
@@ -113,6 +110,7 @@ const Template1 = (props) => {
           </List>
         </Box>
       </Box>
+
       {/* EDUCATION */}
       <Box m="1rem 0">
         <Typography
@@ -125,6 +123,7 @@ const Template1 = (props) => {
           Education
         </Typography>
         <Box mb="0.5rem" p="0.5rem">
+          {/* Education Type: Post Graduate, Graduate, etc. */}
           <Typography color="#000" fontWeight="bold">
             {education.educationType} - {education.startYear} to{" "}
             {education.endYear}
@@ -134,8 +133,41 @@ const Template1 = (props) => {
             {education.university}
           </Typography>
           <Typography color="#000">{education.description}</Typography>
+
+          {/* Graduation Optional Info */}
+          {education.educationType === "Post Graduate" && (
+            <Box>
+              <Typography variant="h6" color="#000">
+                Graduation Details:
+              </Typography>
+              <Typography color="#000">
+                Degree: {education.degree}
+              </Typography>
+              <Typography color="#000">
+                Graduation Year: {education.yearOfCompletion}
+              </Typography>
+              <Typography color="#000">Stream: {education.stream}</Typography>
+            </Box>
+          )}
+
+          {/* Higher Secondary and Secondary Fields */}
+          {(education.educationType === "Higher Secondary-12th" ||
+            education.educationType === "Secondary-10th") && (
+            <Box>
+              <Typography color="#000">
+                School: {education.school}
+              </Typography>
+              <Typography color="#000">
+                Year of Completion: {education.yearOfCompletion}
+              </Typography>
+              {education.stream && (
+                <Typography color="#000">Stream: {education.stream}</Typography>
+              )}
+            </Box>
+          )}
         </Box>
       </Box>
+
       {/* KEY SKILLS */}
       <Box>
         <Typography

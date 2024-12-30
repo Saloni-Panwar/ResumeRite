@@ -12,14 +12,13 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Login from "./Auth/Login";
 import SignUpPage from "./Auth/Signup";
-import EmailVerified from "./components/Emailverification";
 import ForgotPassword from "./components/Forgotpassword";
 import ResetPassword from "./components/ResetPassword";
 import VerifyCode from "./components/Verifycode";
 
 const FooterWrapper = () => {
   const location = useLocation();
-  const hideFooterPaths = ['/Login', '/signup'];
+  const hideFooterPaths = ['/login', '/signup'];
   return !hideFooterPaths.includes(location.pathname) ? <Footer /> : null;
 };
 
@@ -39,7 +38,6 @@ function App() {
             <Route path="/aboutUs" element={<AboutUs />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUpPage />} />
-            <Route path="/email-verified" element={<EmailVerified />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/verify-code" element={<VerifyCode />} />
             <Route path="/reset-password" element={<ResetPassword />} />
