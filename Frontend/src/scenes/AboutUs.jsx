@@ -4,7 +4,7 @@ import aboutus from "../assets/AboutImg.png";
 import { LinkedIn } from "@mui/icons-material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import { Instagram } from "@mui/icons-material";
-import typed from "react-typed";
+import { ReactTyped as Typed } from "react-typed";
 
 const AboutUs = () => {
   const theme = useTheme();
@@ -32,17 +32,18 @@ const AboutUs = () => {
             About Us
           </Typography>
           <Typography variant="h5" mb="1rem" color={primaryMain}>
-            {/* Animated text using Typical */}
-            <typed
-              steps={[
-                "Welcome", 1000,
-                "Welcome to", 1000,
-                "Welcome to ResumeRite", 3000,
-              ]}
-              loop={Infinity}
-              wrapper="span"
-            />
-          </Typography>
+  <Typed
+    strings={[
+      "Welcome",
+      "Welcome to",
+      "Welcome to ResumeRite",
+    ]}
+    typeSpeed={50} // Speed of typing
+    backSpeed={50} // Speed of backspace
+    loop // Infinite loop
+  />
+</Typography>
+
           <Typography fontSize="1rem" lineHeight="1.75rem" variant="subtitle">
             At ResumeRite, we believe that every career journey deserves a
             stellar resume. Our mission? To empower job seekers like you with
