@@ -16,7 +16,7 @@ const VerifyCode = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/api/auth/verify-code", { email, code });
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/verify-code`, { email, code });
       alert("Code verified successfully");
       navigate("/reset-password", { state: { email } });
     } catch (err) {
