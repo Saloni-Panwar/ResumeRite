@@ -26,23 +26,35 @@ const SignUpPage = () => {
         "Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character."
       );
     } else {
-      setPasswordError(""); // Clear error if valid
+      setPasswordError(""); 
     }
   };
 
-  const handleSignUp = async (event) => { 
+  const handleSignUp = async (event) => {
     event.preventDefault();
     if (!passwordError && firstName && lastName && email && password) {
       try {
-        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/signup`, { 
-          firstName, 
-          lastName, 
-          email, 
-          password 
+        // Sign-up request
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/signup`, {
+          firstName,
+          lastName,
+          email,
+          password
         });
-        if (response.data.message === 'User registered successfully. Please check your email to confirm. ') {
+  
+        if (response.data.message === 'User registered successfully. Please check your email to confirm.') {
           console.log("Sign-up successful");
-          navigate("/login"); // Redirect to login after successful sign-up
+  
+          // Proceed to log in the user after successful sign-up
+          const loginResponse = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/login`, {
+            email,
+            password
+          });
+  
+          // Store the token after login
+          const { token } = loginResponse.data;
+          localStorage.setItem("token", token); // Store the token
+          navigate("/"); // Redirect to the home page
         } else {
           alert(response.data.message || "Error creating account");
         }
@@ -51,9 +63,10 @@ const SignUpPage = () => {
         alert(error.response?.data?.message || "Error during sign-up. Please try again.");
       }
     } else {
-      console.log("Please fix errors before submitting.");  
+      console.log("Please fix errors before submitting.");
     }
-};
+  };
+  
 
 
   return (

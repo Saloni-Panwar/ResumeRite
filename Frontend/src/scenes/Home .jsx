@@ -273,6 +273,7 @@ import typed from "react-typed"; // Import Typical for text animation
 import { css,keyframes } from "@emotion/react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { ReactTyped as Typed } from "react-typed";
 
 
 
@@ -412,18 +413,24 @@ const Home = () => {
         mb="1rem"
       >
         <Box width="100%" p={isMobileScreen ? "1rem 1%" : "6rem 2%"}>
-          <Typography
-            color={primaryMain}
-            mb="0.5rem"
-            variant={isMobileScreen ? "h4" : "h3"}
-            fontWeight="bold"
-          >
-            <typed
-              steps={["Stand", 1000, "Stand Out", 1000, "Stand Out, Get", 1000, "Stand Out, Get Hired", 2000]}
-              loop={Infinity}
-              wrapper="span"
-            />
-          </Typography>
+        <Typography
+  color={primaryMain}
+  mb="0.5rem"
+  variant={isMobileScreen ? "h4" : "h3"}
+  fontWeight="bold"
+>
+  <Typed
+    strings={[
+      "Stand",
+      "Stand Out",
+      "Stand Out, Get",
+      "Stand Out, Get Hired",
+    ]}
+    typeSpeed={40}
+    backSpeed={30}
+    loop
+  />
+</Typography>
           <Box p="0 0.5rem">
             <Typography
               variant={isMobileScreen ? "h6" : "h5"}

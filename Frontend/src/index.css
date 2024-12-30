@@ -21,7 +21,9 @@
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
 } */
-
+body {
+  overflow-x: hidden;
+}
 .template:hover .overlayStyles {
   display: flex;
 }
