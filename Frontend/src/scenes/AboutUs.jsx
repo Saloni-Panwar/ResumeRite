@@ -4,7 +4,7 @@ import aboutus from "../assets/AboutImg.png";
 import { LinkedIn } from "@mui/icons-material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import { Instagram } from "@mui/icons-material";
-import Typical from "react-typical";
+import typed from "react-typed";
 
 const AboutUs = () => {
   const theme = useTheme();
@@ -33,7 +33,7 @@ const AboutUs = () => {
           </Typography>
           <Typography variant="h5" mb="1rem" color={primaryMain}>
             {/* Animated text using Typical */}
-            <Typical
+            <typed
               steps={[
                 "Welcome", 1000,
                 "Welcome to", 1000,

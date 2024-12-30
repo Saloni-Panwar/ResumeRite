@@ -269,7 +269,7 @@ import {
   Divider,
 } from "@mui/material";
 import Slider from "react-slick";
-import Typical from "react-typical"; // Import Typical for text animation
+import typed from "react-typed"; // Import Typical for text animation
 import { css,keyframes } from "@emotion/react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -418,7 +418,7 @@ const Home = () => {
             variant={isMobileScreen ? "h4" : "h3"}
             fontWeight="bold"
           >
-            <Typical
+            <typed
               steps={["Stand", 1000, "Stand Out", 1000, "Stand Out, Get", 1000, "Stand Out, Get Hired", 2000]}
               loop={Infinity}
               wrapper="span"
