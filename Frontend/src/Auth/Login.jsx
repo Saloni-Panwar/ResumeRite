@@ -38,7 +38,7 @@ const LoginPage = () => {
   
     if (!passwordError && email && password) {
       try {
-        const response = await axios.post("http://localhost:3000/api/auth/login", {
+        const response = await axios.post("http://localhost:3001/api/auth/login", {
           email,
           password,
         });

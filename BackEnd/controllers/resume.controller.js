@@ -27,5 +27,5 @@ const saveResume = async (req, res) => {
     res.status(500).json({ message: "Error saving resume", error: error.message });
   }
 };
-z
+
 module.exports = { saveResume };

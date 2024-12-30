@@ -34,7 +34,7 @@ const SignUpPage = () => {
     event.preventDefault();
     if (!passwordError && firstName && lastName && email && password) {
       try {
-        const response = await axios.post('http://localhost:3000/api/auth/signup', { 
+        const response = await axios.post('http://localhost:3001/api/auth/signup', { 
           firstName, 
           lastName, 
           email, 
