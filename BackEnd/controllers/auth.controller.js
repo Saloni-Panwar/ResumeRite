@@ -121,7 +121,7 @@ const authController = {
       const token = jwt.sign({ id: newUser._id }, JWT_SECRET, {
         expiresIn: "1h",
       });
-      const url = `http://localhost:3000/api/auth/confirm/${token}`;
+      const url = "https://resumerite-1.onrender.com";
       await sendEmail(
         newUser.email,
         "Confirm your registration",

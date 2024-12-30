@@ -13,7 +13,7 @@ const ForgotPassword = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post("http://localhost:3000/api/auth/forgot-password", { email });
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/forgot-password`, { email });
             alert("Verification code sent to your email");
             navigate("/verify-code", { state: { email } });
         } catch (err) {
