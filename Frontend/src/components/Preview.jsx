@@ -289,7 +289,7 @@ const Preview = ({ setOnFormSubmit }) => {
     formData.append("templateData", htmlContent.outerHTML); // Send template data as HTML
 
     try {
-      const response = await axios.post('http://localhost:3001/api/resume/save', formData, {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/resume/save`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
