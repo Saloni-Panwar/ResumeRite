@@ -15,6 +15,7 @@ import SignUpPage from "./Auth/Signup";
 import ForgotPassword from "./components/Forgotpassword";
 import ResetPassword from "./components/ResetPassword";
 import VerifyCode from "./components/Verifycode";
+import SavedResumes from "./scenes/SavedResumes";
 
 const FooterWrapper = () => {
   const location = useLocation();
@@ -41,6 +42,8 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/verify-code" element={<VerifyCode />} />
             <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/savedResumes" element={<SavedResumes />} />
+
           </Routes>
           <FooterWrapper />
         </ThemeProvider>

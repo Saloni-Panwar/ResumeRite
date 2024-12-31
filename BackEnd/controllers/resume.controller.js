@@ -16,7 +16,7 @@ const saveResume = async (req, res) => {
     // Save the resume to the database
     await newResume.save();
 
-    const resumeLink = `http://localhost:3001/api/resume/${newResume._id}`;
+    const resumeLink = `${process.env.REACT_APP_BACKEND_URL}api/resume/${newResume._id}`;
     res.status(201).json({
       message: "Resume saved successfully",
       resumeLink,
@@ -28,4 +28,15 @@ const saveResume = async (req, res) => {
   }
 };
 
-module.exports = { saveResume };
+const getResumes = async (req, res) => {
+  try {
+    const resumes = await Resume.find({ user: req.user ? req.user.id : null });
+    res.status(200).json(resumes);
+  } catch (error) {
+    console.error("Error fetching resumes:", error);
+    res.status(500).json({ message: "Error fetching resumes", error: error.message });
+  }
+};
+
+
+module.exports = { saveResume, getResumes };

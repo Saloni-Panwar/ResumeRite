@@ -1,12 +1,11 @@
 // import { useState } from "react";
 // import {
 //   Box,
-//   // Typography,
-//   useMediaQuery,
 //   MenuItem,
 //   IconButton,
 //   Button,
 //   useTheme,
+//   useMediaQuery,
 // } from "@mui/material";
 // import { Close, Menu, DarkMode, LightMode } from "@mui/icons-material";
 // import { useNavigate } from "react-router-dom";
@@ -20,9 +19,15 @@
 //   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 //   const dispatch = useDispatch();
 //   const theme = useTheme();
-//   // const dark = theme.palette.neutral.dark;
-//   const background = theme.palette.background.default;
 //   const primaryMain = theme.palette.primary.main;
+//   const background = theme.palette.background.default;
+
+//   const token = localStorage.getItem("token");
+
+//   const handleLogout = () => {
+//     localStorage.removeItem("token"); // Clear token from localStorage
+//     navigate("/login"); // Navigate back to login page
+//   };
 
 //   return (
 //     <Box
@@ -52,26 +57,40 @@
 //           <MenuItem onClick={() => navigate("/aboutUs")} sx={{ color: primaryMain }}>
 //             About Us
 //           </MenuItem>
-//           <Button
-//             variant="outlined"
-//             color="primary"
-//             onClick={() => navigate("/Login")}
-//             sx={{
-//               borderColor: 'white',
-//               // color: 'white',        
-//               '&:hover': {
-//                 // borderColor: 'white',  
-//                 // backgroundColor: 'rgba(255, 255, 255, 0.1)', 
-//               }
-//             }}
-//           >
-//             Login
-//           </Button>
+//           {token ? (
+//             <Button
+//               variant="outlined"
+//               onClick={handleLogout}
+//               sx={{
+//                 borderColor: "white",
+//                 color: "white",
+//                 "&:hover": {
+//                   backgroundColor: "rgba(255, 255, 255, 0.1)",
+//                 },
+//               }}
+//             >
+//               Logout
+//             </Button>
+//           ) : (
+//             <Button
+//               variant="outlined"
+//               onClick={() => navigate("/login")}
+//               sx={{
+//                 borderColor: "white",
+//                 color: "white",
+//                 "&:hover": {
+//                   backgroundColor: "rgba(255, 255, 255, 0.1)",
+//                 },
+//               }}
+//             >
+//               Login
+//             </Button>
+//           )}
 //           <IconButton onClick={() => dispatch(setMode())}>
 //             {theme.palette.mode === "dark" ? (
 //               <DarkMode sx={{ fontSize: "25px", color: "#fff" }} />
 //             ) : (
-//               <LightMode sx={{ fontSize: "25px", color: "white" }} /> // Set color to white for light mode
+//               <LightMode sx={{ fontSize: "25px", color: "white" }} />
 //             )}
 //           </IconButton>
 //         </Box>
@@ -112,9 +131,15 @@
 //           <MenuItem onClick={() => navigate("/aboutUs")} sx={{ color: primaryMain }}>
 //             About Us
 //           </MenuItem>
-//           <Button variant="outlined" color="primary" onClick={() => navigate("/Login")}>
-//             Login
-//           </Button>
+//           {token ? (
+//             <Button variant="outlined" color="primarymain" onClick={handleLogout} >
+//               Logout
+//             </Button>
+//           ) : (
+//             <Button variant="outlined" color="primary" onClick={() => navigate("/login")}>
+//               Login
+//             </Button>
+//           )}
 //           <IconButton onClick={() => dispatch(setMode())}>
 //             {theme.palette.mode === "dark" ? (
 //               <DarkMode sx={{ fontSize: "25px" }} />
@@ -129,6 +154,9 @@
 // };
 
 // export default Navbar;
+
+
+
 
 import { useState } from "react";
 import {
@@ -185,6 +213,9 @@ const Navbar = () => {
           </MenuItem>
           <MenuItem onClick={() => navigate("/myResume")} sx={{ color: primaryMain }}>
             My Resume
+          </MenuItem>
+          <MenuItem onClick={() => navigate("/savedResumes")} sx={{ color: primaryMain }}>
+            Saved Resumes
           </MenuItem>
           <MenuItem onClick={() => navigate("/aboutUs")} sx={{ color: primaryMain }}>
             About Us
@@ -259,6 +290,9 @@ const Navbar = () => {
           </MenuItem>
           <MenuItem onClick={() => navigate("/myResume")} sx={{ color: primaryMain }}>
             My Resume
+          </MenuItem>
+          <MenuItem onClick={() => navigate("/savedResumes")} sx={{ color: primaryMain }}>
+            Saved Resumes
           </MenuItem>
           <MenuItem onClick={() => navigate("/aboutUs")} sx={{ color: primaryMain }}>
             About Us

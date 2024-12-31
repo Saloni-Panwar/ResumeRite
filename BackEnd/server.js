@@ -58,7 +58,7 @@ const session = require("express-session");
 const passport = require("./config/passport");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/auth.routes");
-const resumeRoutes = require("./routes/resume.routes");
+const resumeRoutes = require('./routes/resume.routes');
 const bodyParser = require("body-parser");
 
 dotenv.config();
@@ -79,7 +79,7 @@ connectDB();
 
 // Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/resume", resumeRoutes);
+app.use('/api/resume', resumeRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
