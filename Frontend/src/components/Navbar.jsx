@@ -208,11 +208,9 @@ const Navbar = () => {
       {/* Desktop Menu */}
       {isNonMobileScreens ? (
         <Box display="flex" alignItems="center" gap="2rem">
+          
           <MenuItem onClick={() => navigate("/")} sx={{ color: primaryMain }}>
-            Resume Templates
-          </MenuItem>
-          <MenuItem onClick={() => navigate("/myResume")} sx={{ color: primaryMain }}>
-            My Resume
+          Resume Templates
           </MenuItem>
           <MenuItem onClick={() => navigate("/savedResumes")} sx={{ color: primaryMain }}>
             Saved Resumes
@@ -285,12 +283,10 @@ const Navbar = () => {
           </Box>
 
           {/* Mobile Menu Items */}
+          
           <MenuItem onClick={() => navigate("/")} sx={{ color: primaryMain }}>
-            Resume Templates
-          </MenuItem>
-          <MenuItem onClick={() => navigate("/myResume")} sx={{ color: primaryMain }}>
-            My Resume
-          </MenuItem>
+          Resume Templates
+                    </MenuItem>
           <MenuItem onClick={() => navigate("/savedResumes")} sx={{ color: primaryMain }}>
             Saved Resumes
           </MenuItem>

@@ -7,7 +7,8 @@ const saveResume = async (req, res) => {
   try {
     // Create a new Resume object
     const newResume = new Resume({
-      user: req.user ? req.user.id : null, // Optional: Link to user if logged in
+      // user: req.user ? req.user.id : null, // Optional: Link to user if logged in
+      user: req.user._id, // Assuming user authentication is implemented
       resumeName,
       templateData, // Store template data here
     });
