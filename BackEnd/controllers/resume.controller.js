@@ -11,7 +11,7 @@ const saveResume = async (req, res) => {
       resumeName,
       templateData, // Store template data here
     });
-    console.log("Template Data Size:", Buffer.byteLength(templateData, "utf8"));
+    // console.log("Template Data Size:", Buffer.byteLength(templateData, "utf8"));
 
     // Save the resume to the database
     await newResume.save();
@@ -42,17 +42,19 @@ const getResumes = async (req, res) => {
   }
 };
 
-// Get a single resume for editing
-const getResumeById = async (req, res) => {
+
+
+exports.getSavedResumes = async (req, res) => {
   try {
-    const { id } = req.params;
-    const resume = await Resume.findById(id);
-    if (!resume) return res.status(404).json({ message: "Resume not found." });
-    res.status(200).json(resume);
+    const resumes = await Resume.find({ user: req.user.id }); // Assuming authentication
+    res.status(200).json(resumes);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching resume.", error });
+    console.error("Error fetching saved resumes:", error);
+    res.status(500).json({ message: "Error fetching saved resumes." });
   }
 };
+
+
 
 // Delete a resume
 const deleteResume = async (req, res) => {
@@ -67,28 +69,12 @@ const deleteResume = async (req, res) => {
   }
 };
 
-// Update a resume (edit functionality)
-const updateResume = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { resumeName, templateData } = req.body;
-    const updatedResume = await Resume.findByIdAndUpdate(
-      id,
-      { resumeName, templateData },
-      { new: true }
-    );
-    if (!updatedResume)
-      return res.status(404).json({ message: "Resume not found." });
-    res.status(200).json(updatedResume);
-  } catch (error) {
-    res.status(500).json({ message: "Error updating resume.", error });
-  }
-};
+
+
 
 module.exports = {
   saveResume,
   getResumes,
-  getResumeById,
   deleteResume,
-  updateResume,
+  
 };
