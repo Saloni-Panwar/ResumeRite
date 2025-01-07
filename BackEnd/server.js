@@ -58,7 +58,7 @@ const session = require("express-session");
 const passport = require("./config/passport");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/auth.routes");
-const resumeRoutes = require('./routes/resume.routes');
+const resumeRoutes = require("./routes/resume.routes");
 const bodyParser = require("body-parser");
 
 dotenv.config();
@@ -67,11 +67,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(bodyParser.json());
-// app.use(cors());
-app.use(cors({
-  origin: process.env.REACT_APP_BACKEND_URL, // front-end URL
-  credentials: true,
-}));
+app.use(cors());
 app.use(
   session({ secret: "your_secret_key", resave: false, saveUninitialized: false })
 );
@@ -83,7 +79,7 @@ connectDB();
 
 // Routes
 app.use("/api/auth", authRoutes);
-app.use('/api/resume', resumeRoutes);
+app.use("/api/resume", resumeRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
