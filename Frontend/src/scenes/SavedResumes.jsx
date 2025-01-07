@@ -1,6 +1,3 @@
-
-
-
 import { Box, Typography, Button, useTheme } from "@mui/material";
 import { useState, useEffect } from "react";
 import axios from "axios";
