@@ -124,8 +124,8 @@ gi
       const url = "https://resume-rite-1.vercel.app/";
       await sendEmail(
         newUser.email,
-        "Confirm your registration",
-        `Click on the link to confirm: ${url}`
+        "Registration successfully on - RESUMERITE  ",
+        `Click on the link to visit our Website : ${url}`
       );
 
       res
