@@ -117,11 +117,11 @@ const authController = {
         password
       });
       await newUser.save();
-
+gi
       const token = jwt.sign({ id: newUser._id }, JWT_SECRET, {
         expiresIn: "1h",
       });
-      const url = "https://resumerite-1.onrender.com";
+      const url = "https://resume-rite-1.vercel.app/";
       await sendEmail(
         newUser.email,
         "Confirm your registration",
