@@ -1,34 +1,37 @@
 const Resume = require("../models/resume.model");
 
 const saveResume = async (req, res) => {
+  
   const { resumeName, templateData } = req.body;
 
-  try {
-    // Create a new Resume object
-    const newResume = new Resume({
-      // user: req.user ? req.user.id : null, // Optional: Link to user if logged in
-      user: req.user._id, // Assuming user authentication is implemented
-      resumeName,
-      templateData, // Store template data here
-    });
-    // console.log("Template Data Size:", Buffer.byteLength(templateData, "utf8"));
+  console.log("Incoming Request:", req.body); // Log request body
+  console.log("User Info:", req.user); // Log user info
 
-    // Save the resume to the database
+  if (!resumeName || !templateData) {
+    return res.status(400).json({ message: "resumeName and templateData are required." });
+  }
+
+  try {
+    const newResume = new Resume({
+      user: req.user._id, // Assuming authentication middleware adds req.user
+      resumeName,
+      templateData,
+    });
+
+    console.log("Saving Resume:", newResume); // Log before saving
     await newResume.save();
 
-    const resumeLink = `${process.env.REACT_APP_BACKEND_URL}api/resume/${newResume._id}`;
+    const resumeLink = `${process.env.REACT_APP_BACKEND_URL}/api/resume/${newResume._id}`;
     res.status(201).json({
       message: "Resume saved successfully",
       resumeLink,
     });
   } catch (error) {
-    // Log the error for debugging
-    console.error("Error saving resume:", error);
-    res
-      .status(500)
-      .json({ message: "Error saving resume", error: error.message });
+    console.error("Error saving resume:", error.message); // Log error
+    res.status(500).json({ message: "Error saving resume", error: error.message });
   }
 };
+
 
 const getResumes = async (req, res) => {
   try {

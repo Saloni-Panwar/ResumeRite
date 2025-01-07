@@ -67,7 +67,11 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(bodyParser.json());
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+  origin: process.env.REACT_APP_BACKEND_URL, // front-end URL
+  credentials: true,
+}));
 app.use(
   session({ secret: "your_secret_key", resave: false, saveUninitialized: false })
 );
