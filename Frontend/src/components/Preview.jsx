@@ -1,12 +1,4 @@
 // import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
-// import Template1 from "../ResumeTemplates/Template1";
-// import Template2 from "../ResumeTemplates/Template2";
-// import Template3 from "../ResumeTemplates/Template3";
-// import Template4 from "../ResumeTemplates/Template4";
-// import Template5 from "../ResumeTemplates/Template5";
-// import Template6 from "../ResumeTemplates/Template6";
-// import Template7 from "../ResumeTemplates/Template7";
-// import Template8 from "../ResumeTemplates/Template8"; 
 // import { TextField, Button } from "@mui/material";
 // import { useForm, Controller } from "react-hook-form";
 // import { useSelector } from "react-redux";
@@ -14,6 +6,16 @@
 // import html2canvas from "html2canvas";
 // import done from "../assets/done.gif";
 // import { useState } from "react";
+// import { useNavigate } from "react-router-dom";
+// import Template1 from "../ResumeTemplates/Template1";
+// import Template2 from "../ResumeTemplates/Template2";
+// import Template3 from "../ResumeTemplates/Template3";
+// import Template4 from "../ResumeTemplates/Template4";
+// import Template5 from "../ResumeTemplates/Template5";
+// import Template6 from "../ResumeTemplates/Template6";
+// import Template7 from "../ResumeTemplates/Template7";
+// import Template8 from "../ResumeTemplates/Template8";
+// import axios from 'axios';
 
 // const Preview = ({ setOnFormSubmit }) => {
 //   const theme = useTheme();
@@ -29,10 +31,8 @@
 //   const template8 = useSelector((state) => state.template8);
 
 //   const [isDownloading, setDownloading] = useState(false);
-
 //   const { handleSubmit, control } = useForm();
-
-//   //this function is responsible for converting the template to pdf
+//   const navigate = useNavigate(); // Add navigate hook
 
 //   const convertToPDF = (htmlContent, resumeName) => {
 //     html2canvas(htmlContent).then((canvas) => {
@@ -61,14 +61,37 @@
 //     });
 //   };
 
-//   const onSubmit = (data) => {
+//   const onSubmit = async (data) => {
 //     const resumeName = data.resumeName;
 //     const htmlContent = document.getElementById("pdf-content");
+
+//     // Convert to PDF
 //     setDownloading(true);
-//     convertToPDF(htmlContent, resumeName);
+//     await convertToPDF(htmlContent, resumeName);
+
+//     // Send the resume name and template data (HTML content) to the backend
+//     const formData = new FormData();
+//     formData.append("resumeName", resumeName);
+//     formData.append("templateData", htmlContent.outerHTML); // Send template data as HTML
+
+//     try {
+//       const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/resume/save`, formData, {
+//         headers: {
+//           'Content-Type': 'multipart/form-data',
+//         },
+//       });
+
+//       if (response.status === 201) {
+//         setDownloading(false);
+//         alert("Resume saved successfully!");
+//         navigate("/savedResumes"); // Navigate to SavedResumes page
+//       }
+//     } catch (error) {
+//       console.error("Error saving resume:", error);
+//       setDownloading(false);
+//     }
 //   };
 
-//   //this function will return the right template that user has selected
 //   const getTemplate = () => {
 //     switch (true) {
 //       case template1:
@@ -79,57 +102,21 @@
 //         return <Template3 />;
 //       case template4:
 //         return <Template4 />;
-//         case template5:
-//           return <Template5 />;
-//           case template6:
-//             return <Template6 />;
-//             case template7:
-//             return <Template7 />;
-//             case template8:
-//             return <Template8 />;
+//       case template5:
+//         return <Template5 />;
+//       case template6:
+//         return <Template6 />;
+//       case template7:
+//         return <Template7 />;
+//       case template8:
+//         return <Template8 />;
 //       default:
-//         return "You have not selected any template !";
+//         return "You have not selected any template!";
 //     }
 //   };
 
 //   const handleBack = () => {
 //     setOnFormSubmit(false);
-//   };
-
-//   const Model = () => {
-//     return (
-//       <Box
-//         position="fixed"
-//         top="0"
-//         left="0"
-//         width="100%"
-//         height="100%"
-//         zIndex="10"
-//         backgroundColor="rgba(0, 0, 0, 0.5)"
-//         display="flex"
-//         justifyContent="center"
-//         alignItems="center"
-//       >
-//         <Box
-//           p="1rem"
-//           borderRadius="8px"
-//           backgroundColor={theme.palette.background.alt}
-//         >
-//           <Box
-//             width="100%"
-//             maxWidth="200px"
-//             display="flex"
-//             justifyContent="center"
-//             alignItems="center"
-//           >
-//             <img src={done} width="100%" height="auto" alt="img" />
-//           </Box>
-//           <Typography textAlign="center" variant="h5" color="greenyellow">
-//             Saved Successfully!!
-//           </Typography>
-//         </Box>
-//       </Box>
-//     );
 //   };
 
 //   return (
@@ -144,7 +131,39 @@
 //         borderRadius: "8px",
 //       }}
 //     >
-//       {isDownloading ? <Model /> : ""}
+//       {isDownloading && (
+//         <Box
+//           position="fixed"
+//           top="0"
+//           left="0"
+//           width="100%"
+//           height="100%"
+//           zIndex="10"
+//           backgroundColor="rgba(0, 0, 0, 0.5)"
+//           display="flex"
+//           justifyContent="center"
+//           alignItems="center"
+//         >
+//           <Box
+//             p="1rem"
+//             borderRadius="8px"
+//             backgroundColor={theme.palette.background.alt}
+//           >
+//             <Box
+//               width="100%"
+//               maxWidth="200px"
+//               display="flex"
+//               justifyContent="center"
+//               alignItems="center"
+//             >
+//               <img src={done} width="100%" height="auto" alt="img" />
+//             </Box>
+//             <Typography textAlign="center" variant="h5" color="greenyellow">
+//               Saving Resume...
+//             </Typography>
+//           </Box>
+//         </Box>
+//       )}
 //       <Box
 //         display="flex"
 //         flexDirection={isMobileScreen ? "column-reverse" : "row"}
@@ -209,10 +228,12 @@
 //         </Box>
 //       </Box>
 //     </Box>
-//   );
+//   )
 // };
 
 // export default Preview;
+
+
 
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import { TextField, Button } from "@mui/material";
@@ -447,6 +468,7 @@ const Preview = ({ setOnFormSubmit }) => {
     </Box>
   );
 };
+
 
 export default Preview;
 

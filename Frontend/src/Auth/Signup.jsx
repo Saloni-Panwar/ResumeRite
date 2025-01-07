@@ -67,8 +67,6 @@ const SignUpPage = () => {
     }
   };
   
-
-
   return (
     <Box
       display="flex"
