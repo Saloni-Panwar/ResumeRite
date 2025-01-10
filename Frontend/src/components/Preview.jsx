@@ -228,7 +228,7 @@
 //         </Box>
 //       </Box>
 //     </Box>
-//   )
+//   );
 // };
 
 // export default Preview;
@@ -243,6 +243,7 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import done from "../assets/done.gif";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Template1 from "../ResumeTemplates/Template1";
 import Template2 from "../ResumeTemplates/Template2";
 import Template3 from "../ResumeTemplates/Template3";
@@ -268,6 +269,7 @@ const Preview = ({ setOnFormSubmit }) => {
 
   const [isDownloading, setDownloading] = useState(false);
   const { handleSubmit, control } = useForm();
+  const navigate = useNavigate(); // Add navigate hook
 
   const convertToPDF = (htmlContent, resumeName) => {
     html2canvas(htmlContent).then((canvas) => {
@@ -319,6 +321,7 @@ const Preview = ({ setOnFormSubmit }) => {
       if (response.status === 201) {
         setDownloading(false);
         alert("Resume saved successfully!");
+        navigate("/savedResumes"); // Navigate to SavedResumes page
       }
     } catch (error) {
       console.error("Error saving resume:", error);
@@ -353,42 +356,6 @@ const Preview = ({ setOnFormSubmit }) => {
     setOnFormSubmit(false);
   };
 
-  const Model = () => {
-    return (
-      <Box
-        position="fixed"
-        top="0"
-        left="0"
-        width="100%"
-        height="100%"
-        zIndex="10"
-        backgroundColor="rgba(0, 0, 0, 0.5)"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Box
-          p="1rem"
-          borderRadius="8px"
-          backgroundColor={theme.palette.background.alt}
-        >
-          <Box
-            width="100%"
-            maxWidth="200px"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <img src={done} width="100%" height="auto" alt="img" />
-          </Box>
-          <Typography textAlign="center" variant="h5" color="greenyellow">
-            Saved Successfully!!
-          </Typography>
-        </Box>
-      </Box>
-    );
-  };
-
   return (
     <Box
       position="relative"
@@ -401,7 +368,39 @@ const Preview = ({ setOnFormSubmit }) => {
         borderRadius: "8px",
       }}
     >
-      {isDownloading ? <Model /> : ""}
+      {isDownloading && (
+        <Box
+          position="fixed"
+          top="0"
+          left="0"
+          width="100%"
+          height="100%"
+          zIndex="10"
+          backgroundColor="rgba(0, 0, 0, 0.5)"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Box
+            p="1rem"
+            borderRadius="8px"
+            backgroundColor={theme.palette.background.alt}
+          >
+            <Box
+              width="100%"
+              maxWidth="200px"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <img src={done} width="100%" height="auto" alt="img" />
+            </Box>
+            <Typography textAlign="center" variant="h5" color="greenyellow">
+              Saving Resume...
+            </Typography>
+          </Box>
+        </Box>
+      )}
       <Box
         display="flex"
         flexDirection={isMobileScreen ? "column-reverse" : "row"}
@@ -471,4 +470,3 @@ const Preview = ({ setOnFormSubmit }) => {
 
 
 export default Preview;
-
